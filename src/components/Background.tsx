@@ -1,22 +1,18 @@
 import { Box, styled } from '@mui/material';
 
-const pattern = `url("data:image/svg+xml;utf8,<svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'><rect width='40' height='40' fill='none'/><path d='M0 40L40 0' stroke='rgba(255,255,255,0.04)' stroke-width='2'/><path d='M-10 30L30 -10' stroke='rgba(255,255,255,0.04)' stroke-width='2'/><path d='M10 50L50 10' stroke='rgba(255,255,255,0.04)' stroke-width='2'/></svg>")`;
+const diagonalLines = `url("data:image/svg+xml;utf8,<svg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'><line x1='0' y1='32' x2='32' y2='0' stroke='rgba(255,255,255,0.025)' stroke-width='2'/></svg>")`;
 
 const Background = styled(Box)({
-  '@keyframes pulse': {
-    '0%': {
-      backgroundSize: '100% 100%, 40px 40px',
-    },
-    '100%': {
-      backgroundSize: '130% 130%, 40px 40px',
-    },
-  },
-  animation: 'pulse 7s ease-in-out infinite alternate',
   background: `
-    radial-gradient(ellipse at 60% 40%, #232b36 25%, #1a222b 60%, #10151a 100%) center,
-    ${pattern}
+    linear-gradient(120deg, #232b36 0%, #181e24 100%),
+    linear-gradient(100deg, rgba(106,130,251,0.18) 10%, rgba(0,255,208,0.10) 80%),
+    linear-gradient(210deg, rgba(255,99,233,0.13) 20%, rgba(0,0,0,0) 80%),
+    ${diagonalLines}
   `,
-  backgroundBlendMode: 'overlay',
+  backgroundBlendMode: 'screen, lighten, lighten, overlay',
+  backgroundPosition: 'center, center, center, 0 0',
+  backgroundRepeat: 'no-repeat, no-repeat, no-repeat, repeat',
+  backgroundSize: 'cover, cover, cover, 32px 32px',
   height: '100%',
   left: 0,
   overflowX: 'hidden',
