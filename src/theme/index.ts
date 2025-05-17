@@ -1,25 +1,59 @@
 import { createTheme } from '@mui/material';
 
 const theme = createTheme({
+  components: {
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundColor: 'transparent',
+            color: '#ff63e9',
+            filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.25))',
+          },
+          color: '#6a82fb',
+          transition: 'color 0.2s, filter 0.2s',
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            color: '#ff63e9',
+            textDecorationColor: '#ff63e9',
+          },
+          color: '#6a82fb',
+          textDecoration: 'underline',
+          textDecorationColor: '#6a82fb',
+          textDecorationThickness: 2,
+          textUnderlineOffset: 3,
+          transition: 'color 0.2s, text-decoration-color 0.2s',
+        },
+      },
+    },
+  },
   palette: {
     background: {
       default: '#10151a',
-      paper: '#1a222b',
+      paper: '#181e24',
     },
     mode: 'dark',
     primary: {
-      main: '#e0e0e0',
+      main: '#6a82fb',
+    },
+    secondary: {
+      main: '#ff63e9',
     },
     text: {
-      primary: '#fff',
-      secondary: '#b0b8c1',
+      primary: '#f1f6fa',
+      secondary: '#aeefff',
     },
   },
   typography: {
     allVariants: {
-      color: '#fff',
+      color: '#f1f6fa',
       letterSpacing: 1,
-      textShadow: '0 1px 2px rgba(0,0,0,0.35)',
+      textShadow: '0 1px 2px rgba(0,0,0,0.18)',
     },
     fontFamily: 'Kode Mono, monospace',
   },

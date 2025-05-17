@@ -47,9 +47,15 @@ const SocialMedia = () => {
       >
         <Box>
           <Typography
-            padding={0.5}
             sx={{
-              backgroundColor: '#80ffd3',
+              backgroundColor: 'rgba(106,130,251,0.12)', // subtle blue accent
+              borderRadius: 1,
+              color: 'inherit',
+              fontSize: 14,
+              fontWeight: 600,
+              letterSpacing: 1,
+              px: 2,
+              py: 0.5,
             }}
           >
             Copied!

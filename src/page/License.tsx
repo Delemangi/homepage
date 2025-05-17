@@ -1,6 +1,4 @@
-import { Typography } from '@mui/material';
-
-import UnderlinedLink from '../components/UnderlinedLink';
+import { Link, Typography } from '@mui/material';
 
 const License = () => (
   <Typography
@@ -9,12 +7,12 @@ const License = () => (
     fontSize={12}
     variant="body2"
   >
-    <UnderlinedLink
+    <Link
       href="https://github.com/Delemangi/homepage"
       target="_blank"
     >
       Source code
-    </UnderlinedLink>{' '}
+    </Link>{' '}
     (MIT).
   </Typography>
 );
