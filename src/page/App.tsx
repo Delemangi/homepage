@@ -6,8 +6,8 @@ import ColumnBox from '../components/ColumnBox';
 import ColumnContainer from '../components/ColumnContainer';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-const LazyIntroduction = lazy(async () => await import('./Introduction'));
-const LazySocialMedia = lazy(async () => await import('./SocialMedia'));
+const LazyIntroduction = lazy(() => import('./Introduction'));
+const LazySocialMedia = lazy(() => import('./SocialMedia'));
 
 const App = () => (
   <Background>
