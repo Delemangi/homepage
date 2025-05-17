@@ -1,4 +1,4 @@
-import { Typography, type TypographyProps } from '@mui/material';
+import { Box, Typography, type TypographyProps } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { BIRTHDAY } from '../constants';
@@ -15,26 +15,25 @@ const getAge = (decimals = 9) => {
 type Props = TypographyProps;
 
 const Age = (props: Props) => {
-  const [age, setAge] = useState(getAge());
+  const [age, setAge] = useState(() => getAge());
   const [hovering, setHovering] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setAge(getAge());
     }, 1_000);
+
     return () => {
       clearInterval(interval);
     };
   }, []);
 
+  const [integer, decimal] = age.split('.');
+  const decimalDisplayPart = decimal ? `.${decimal}` : '';
+
   return (
     <Typography
       fontSize={16}
-      sx={{
-        textDecoration: 'underline',
-        textDecorationStyle: 'dotted',
-        textUnderlineOffset: '0.2em',
-      }}
       {...props}
       onMouseEnter={() => {
         setHovering(true);
@@ -42,8 +41,50 @@ const Age = (props: Props) => {
       onMouseLeave={() => {
         setHovering(false);
       }}
+      sx={{
+        cursor: 'default',
+      }}
     >
-      {hovering ? age : Math.floor(Number(age))} years old
+      <Box
+        component="span"
+        sx={{
+          '&::after': {
+            backgroundImage:
+              'linear-gradient(to right, currentColor 2px, transparent 2px)',
+            backgroundRepeat: 'repeat-x',
+            backgroundSize: `4px 1px`,
+            bottom: 0,
+            content: '""',
+            height: '1px',
+            left: 0,
+            pointerEvents: 'none',
+            position: 'absolute',
+            right: 0,
+            transform: 'translateY(0.2em)',
+          },
+          position: 'relative',
+        }}
+      >
+        {integer}
+        <Box
+          component="span"
+          sx={{
+            display: 'inline-block',
+            maxWidth: hovering ? '10em' : '0px',
+            overflow: 'hidden',
+            transition: (theme) =>
+              theme.transitions.create('max-width', {
+                duration: theme.transitions.duration.short,
+                easing: theme.transitions.easing.easeInOut,
+              }),
+            verticalAlign: 'middle',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {decimalDisplayPart}
+        </Box>
+        {' years old'}
+      </Box>
     </Typography>
   );
 };
