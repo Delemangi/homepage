@@ -16,3 +16,7 @@ This is my personal homepage, which can currently be found [here](https://delema
 ## Running
 
 You can either run `npm run dev` to start a development server, or `npm run build` and `npm run preview` to build and deploy a server running the application, or check the quick setup from above to run it inside Docker painlessly.
+
+## License
+
+This project is licensed under the terms of the MIT license.
