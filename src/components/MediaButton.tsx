@@ -11,10 +11,10 @@ const MediaButton = ({ children, href, ...props }: Props) =>
       href={href}
       sx={{
         '&:hover': {
-          color: '#80ffd3',
-          transition: 'color 0.5s',
+          color: '#fff',
+          filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.25))',
         },
-        color: 'primary',
+        transition: 'color 0.2s, filter 0.2s',
       }}
       target="_blank"
       {...props}
@@ -25,10 +25,10 @@ const MediaButton = ({ children, href, ...props }: Props) =>
     <IconButton
       sx={{
         '&:hover': {
-          color: '#80ffd3',
-          transition: 'color 0.5s',
+          color: '#fff',
+          filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.25))',
         },
-        color: 'primary',
+        transition: 'color 0.2s, filter 0.2s',
       }}
       {...props}
     >

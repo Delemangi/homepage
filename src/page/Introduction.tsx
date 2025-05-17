@@ -35,8 +35,6 @@ const Introduction = () => (
         FCSE
       </UnderlinedLink>
     </Typography>
-
-    <Typography fontSize={16}>Professional Code Monkey</Typography>
   </Column>
 );
 
