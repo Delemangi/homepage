@@ -19,15 +19,21 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '&:hover': {
+            backgroundImage: 'linear-gradient(90deg, #ff63e9, #ff63e9)',
+            backgroundSize: '100% 2px',
             color: '#ff63e9',
-            textDecorationColor: '#ff63e9',
           },
+          backgroundImage: 'linear-gradient(90deg, #6a82fb, #6a82fb)',
+          backgroundPosition: '0 100%',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '0% 2px',
           color: '#6a82fb',
-          textDecoration: 'underline',
-          textDecorationColor: '#6a82fb',
+          position: 'relative',
+          textDecoration: 'none',
           textDecorationThickness: 2,
           textUnderlineOffset: 3,
-          transition: 'color 0.2s, text-decoration-color 0.2s',
+          transition:
+            'color 0.2s, background-size 0.3s cubic-bezier(.4,1,.4,1), background-image 0.2s',
         },
       },
     },
