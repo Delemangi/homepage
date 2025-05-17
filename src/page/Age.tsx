@@ -1,7 +1,7 @@
 import { Typography, type TypographyProps } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import { BIRTHDAY } from '../constants/birthday';
+import { BIRTHDAY } from '../constants';
 
 const getAge = (decimals = 9) => {
   const birthDate = new Date(BIRTHDAY);

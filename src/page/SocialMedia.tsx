@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Popover, Tooltip, Typography } from '@mui/material';
 import { type MouseEvent, useCallback, useState } from 'react';
 
