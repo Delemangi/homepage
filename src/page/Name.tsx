@@ -5,8 +5,14 @@ const Name = () => (
     <Link
       href="https://github.com/Delemangi/homepage"
       sx={{
-        color: 'inherit',
-        textDecoration: 'underline',
+        animation: 'auroraSweep 2.5s linear infinite alternate',
+        background: 'linear-gradient(90deg, #6a82fb 0%, #ff63e9 100%)',
+        backgroundPosition: '0% 50%',
+        backgroundSize: '200% 100%',
+        display: 'inline-block',
+        textDecoration: 'none',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
       }}
       target="_blank"
     >

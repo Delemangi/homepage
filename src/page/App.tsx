@@ -20,7 +20,9 @@ const App = () => (
           maxWidth: '50%',
         }}
       >
-        <ColumnBox>
+        <ColumnBox
+          sx={{ animation: 'fadeInScale 1.2s cubic-bezier(.4, 1, .4, 1) both' }}
+        >
           <LazyIntroduction />
           <LazySocialMedia />
         </ColumnBox>

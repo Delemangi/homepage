@@ -9,6 +9,34 @@ import LinkedInIcon from '../icons/LinkedInIcon';
 import MailIcon from '../icons/MailIcon';
 import SteamIcon from '../icons/SteamIcon';
 
+const socialIcons = [
+  {
+    href: 'mailto:milev.stefan@gmail.com',
+    icon: <MailIcon />,
+    title: 'Mail',
+  },
+  {
+    icon: <DiscordIcon />,
+    onClick: 'discord',
+    title: 'Discord',
+  },
+  {
+    href: 'https://github.com/Delemangi/',
+    icon: <GitHubIcon />,
+    title: 'GitHub',
+  },
+  {
+    href: 'https://steamcommunity.com/id/delemangi/',
+    icon: <SteamIcon />,
+    title: 'Steam',
+  },
+  {
+    href: 'https://www.linkedin.com/in/stefan-milev/',
+    icon: <LinkedInIcon />,
+    title: 'LinkedIn',
+  },
+];
+
 const SocialMedia = () => {
   const [anchorElement, setAnchorElement] = useState<HTMLElement>();
 
@@ -24,62 +52,62 @@ const SocialMedia = () => {
   );
 
   return (
-    <RowContainer sx={{ animation: 'fadeInMoveUp 1.5s ease-in-out both' }}>
-      <Tooltip title="Mail">
-        <MediaButton href="mailto:milev.stefan@gmail.com">
-          <MailIcon />
-        </MediaButton>
-      </Tooltip>
+    <RowContainer>
+      {socialIcons.map((item, i) => {
+        const isDiscord = item.onClick === 'discord';
+        return (
+          <Tooltip
+            key={item.title}
+            title={item.title}
+          >
+            <span>
+              <MediaButton
+                href={item.href}
+                onClick={isDiscord ? handleDiscordOnClick : undefined}
+                sx={{
+                  animation: `fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both`,
+                  animationDelay: `${i * 0.09 + 0.2}s`,
+                }}
+              >
+                {item.icon}
+              </MediaButton>
+            </span>
+          </Tooltip>
+        );
+      })}
 
-      <Tooltip title="Discord">
-        <MediaButton onClick={handleDiscordOnClick}>
-          <DiscordIcon />
-        </MediaButton>
-      </Tooltip>
       <Popover
         anchorEl={anchorElement}
         anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+        disableRestoreFocus
         onClose={() => {
           setAnchorElement(undefined);
         }}
         open={Boolean(anchorElement)}
+        slotProps={{
+          paper: () => ({
+            backgroundColor: 'rgba(106, 130, 251, 0.12)',
+            borderRadius: 1,
+            boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
+            color: 'inherit',
+            px: 2,
+            py: 0.5,
+          }),
+        }}
         transformOrigin={{ horizontal: 'center', vertical: 'top' }}
       >
         <Box>
           <Typography
             sx={{
-              backgroundColor: 'rgba(106,130,251,0.12)', // subtle blue accent
-              borderRadius: 1,
-              color: 'inherit',
               fontSize: 14,
               fontWeight: 600,
               letterSpacing: 1,
-              px: 2,
-              py: 0.5,
             }}
           >
             Copied!
           </Typography>
         </Box>
       </Popover>
-
-      <Tooltip title="GitHub">
-        <MediaButton href="https://github.com/Delemangi/">
-          <GitHubIcon />
-        </MediaButton>
-      </Tooltip>
-
-      <Tooltip title="Steam">
-        <MediaButton href="https://steamcommunity.com/id/delemangi/">
-          <SteamIcon />
-        </MediaButton>
-      </Tooltip>
-
-      <Tooltip title="LinkedIn">
-        <MediaButton href="https://www.linkedin.com/in/stefan-milev/">
-          <LinkedInIcon />
-        </MediaButton>
-      </Tooltip>
     </RowContainer>
   );
 };
