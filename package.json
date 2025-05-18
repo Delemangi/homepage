@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/Delemangi/homepage",
   "license": "MIT",
-  "main": "src/main.tsx",
+  "main": "src/index.tsx",
   "name": "homepage",
   "repository": {
     "type": "git",
