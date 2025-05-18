@@ -66,21 +66,14 @@ const SocialMedia = () => {
               onClick={isDiscord ? handleDiscordOnClick : undefined}
               sx={{
                 '&:hover': {
-                  transform: 'scale(1.1)',
-                  transition: 'all ease-in-out 300ms',
+                  scale: 1.2,
+                  transition: 'all ease-in-out 200ms',
                 },
                 animation: `fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both`,
                 animationDelay: `${i * 0.09 + 0.2}s`,
               }}
             >
-              <Icon
-                sx={{
-                  '&:hover': {
-                    transform: 'scale(1.1)',
-                    transition: 'all ease-in-out 300ms',
-                  },
-                }}
-              />
+              <Icon />
             </MediaButton>
           </Tooltip>
         );

@@ -1,6 +1,7 @@
-import { Link, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import Column from '../components/Column';
+import UnderlinedLink from '../components/UnderlinedLink';
 import Age from './Age';
 import Name from './Name';
 
@@ -15,24 +16,24 @@ const Introduction = () => (
     />
     <Typography fontSize={16}>
       Software Engineer @{' '}
-      <Link
+      <UnderlinedLink
         href="https://codechem.com"
         target="_blank"
       >
         CodeChem
-      </Link>
+      </UnderlinedLink>
     </Typography>
     <Typography
       fontSize={16}
       marginBottom={2}
     >
       CS Master&apos;s Student @{' '}
-      <Link
+      <UnderlinedLink
         href="https://finki.ukim.mk"
         target="_blank"
       >
         FCSE
-      </Link>
+      </UnderlinedLink>
     </Typography>
   </Column>
 );
