@@ -59,6 +59,19 @@ const SocialMedia = () => {
         return (
           <Tooltip
             key={item.title}
+            slotProps={{
+              tooltip: () => ({
+                sx: {
+                  backgroundColor: 'rgba(106, 130, 251, 0.12)',
+                  borderRadius: 1,
+                  boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
+                  color: 'white',
+                  fontSize: 14,
+                  fontWeight: 600,
+                  letterSpacing: 1,
+                },
+              }),
+            }}
             title={item.title}
           >
             <MediaButton
@@ -99,7 +112,19 @@ const SocialMedia = () => {
         }}
         transformOrigin={{ horizontal: 'center', vertical: 'top' }}
       >
-        <Box>
+        <Box
+          sx={{
+            backgroundColor: 'rgba(0, 255, 208, 0.12)',
+            borderRadius: 1,
+            boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
+            color: 'white',
+            fontSize: 14,
+            fontWeight: 600,
+            letterSpacing: 1,
+            px: 2,
+            py: 0.5,
+          }}
+        >
           <Typography
             sx={{
               fontSize: 14,
