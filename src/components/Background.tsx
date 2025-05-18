@@ -32,9 +32,9 @@ const Ripple = styled(Typography)({
       width: 0,
     },
     to: {
-      height: '400px',
+      height: '150px',
       opacity: 0,
-      width: '400px',
+      width: '150px',
     },
   },
   animation: 'ripple 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards',
