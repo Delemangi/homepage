@@ -60,18 +60,16 @@ const SocialMedia = () => {
             key={item.title}
             title={item.title}
           >
-            <span>
-              <MediaButton
-                href={item.href}
-                onClick={isDiscord ? handleDiscordOnClick : undefined}
-                sx={{
-                  animation: `fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both`,
-                  animationDelay: `${i * 0.09 + 0.2}s`,
-                }}
-              >
-                {item.icon}
-              </MediaButton>
-            </span>
+            <MediaButton
+              href={item.href}
+              onClick={isDiscord ? handleDiscordOnClick : undefined}
+              sx={{
+                animation: `fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both`,
+                animationDelay: `${i * 0.09 + 0.2}s`,
+              }}
+            >
+              {item.icon}
+            </MediaButton>
           </Tooltip>
         );
       })}
