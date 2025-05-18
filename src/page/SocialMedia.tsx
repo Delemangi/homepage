@@ -83,7 +83,7 @@ const SocialMedia = () => {
                 },
                 animation: `fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both`,
                 animationDelay: `${i * 0.09 + 0.2}s`,
-                transition: 'all ease-in-out 200ms',
+                transition: 'all 0.2s, color 0.3s ease-in-out',
               }}
             >
               <Icon />
