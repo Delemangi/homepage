@@ -12,27 +12,27 @@ import SteamIcon from '../icons/SteamIcon';
 const socialIcons = [
   {
     href: 'mailto:milev.stefan@gmail.com',
-    icon: <MailIcon />,
+    icon: MailIcon,
     title: 'Mail',
   },
   {
-    icon: <DiscordIcon />,
+    icon: DiscordIcon,
     onClick: 'discord',
     title: 'Discord',
   },
   {
     href: 'https://github.com/Delemangi/',
-    icon: <GitHubIcon />,
+    icon: GitHubIcon,
     title: 'GitHub',
   },
   {
     href: 'https://steamcommunity.com/id/delemangi/',
-    icon: <SteamIcon />,
+    icon: SteamIcon,
     title: 'Steam',
   },
   {
     href: 'https://www.linkedin.com/in/stefan-milev/',
-    icon: <LinkedInIcon />,
+    icon: LinkedInIcon,
     title: 'LinkedIn',
   },
 ];
@@ -55,6 +55,7 @@ const SocialMedia = () => {
     <RowContainer>
       {socialIcons.map((item, i) => {
         const isDiscord = item.onClick === 'discord';
+        const Icon = item.icon;
         return (
           <Tooltip
             key={item.title}
@@ -64,11 +65,22 @@ const SocialMedia = () => {
               href={item.href}
               onClick={isDiscord ? handleDiscordOnClick : undefined}
               sx={{
+                '&:hover': {
+                  transform: 'scale(1.1)',
+                  transition: 'all ease-in-out 300ms',
+                },
                 animation: `fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both`,
                 animationDelay: `${i * 0.09 + 0.2}s`,
               }}
             >
-              {item.icon}
+              <Icon
+                sx={{
+                  '&:hover': {
+                    transform: 'scale(1.1)',
+                    transition: 'all ease-in-out 300ms',
+                  },
+                }}
+              />
             </MediaButton>
           </Tooltip>
         );
