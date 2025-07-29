@@ -17,7 +17,6 @@
     "@vitejs/plugin-react-swc": "^3.11.0",
     "eslint": "^9.32.0",
     "eslint-config-imperium": "^2.5.0",
-    "husky": "^9.1.7",
     "typescript": "~5.8.3",
     "vite": "^7.0.6"
   },
@@ -37,7 +36,6 @@
     "dev": "vite",
     "format": "eslint . --cache --fix",
     "lint": "tsc --noEmit && eslint . --cache",
-    "prepare": "husky",
     "preview": "vite preview --host"
   },
   "type": "module",
