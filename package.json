@@ -16,7 +16,7 @@
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react-swc": "^3.11.0",
     "eslint": "^9.32.0",
-    "eslint-config-imperium": "^2.5.1",
+    "eslint-config-imperium": "^2.6.0",
     "typescript": "~5.9.2",
     "vite": "^7.0.6"
   },
