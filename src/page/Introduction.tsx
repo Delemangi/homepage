@@ -44,6 +44,23 @@ const Introduction = () => (
       >
         FCSE
       </UnderlinedLink>
+      <Typography fontSize={16}>
+        Founder @{' '}
+        <UnderlinedLink
+          href="https://github.com/finki-hub"
+          target="_blank"
+        >
+          finki-hub
+        </UnderlinedLink>{' '}
+        (
+        <UnderlinedLink
+          href="https://discord.gg/finki-studenti-810997107376914444"
+          target="_blank"
+        >
+          Discord
+        </UnderlinedLink>
+        )
+      </Typography>
     </Typography>
   </Column>
 );
