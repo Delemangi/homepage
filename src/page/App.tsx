@@ -29,9 +29,10 @@ const App = () => (
           },
           margin: 'auto',
           maxWidth: {
-            lg: '50%',
+            lg: '44%',
             md: '70%',
             sm: '85%',
+            xl: '38%',
             xs: '92%',
           },
           minHeight: {
