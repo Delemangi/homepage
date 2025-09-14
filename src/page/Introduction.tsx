@@ -46,7 +46,7 @@ const Introduction = () => (
       fontSize={16}
       marginBottom={2}
     >
-      Founder & Community Lead @{' '}
+      Founder @{' '}
       <UnderlinedLink
         href="https://github.com/finki-hub"
         target="_blank"
