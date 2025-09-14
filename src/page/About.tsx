@@ -26,15 +26,17 @@ const skills = [
 const About = () => (
   <Column sx={{ animation: 'fadeInMoveUp 900ms ease-out both' }}>
     <Typography
-      sx={{
+      sx={(t) => ({
         background:
-          'linear-gradient(90deg, rgba(255, 125, 125, 0.9), rgba(106, 130, 251, 0.9))',
+          t.palette.mode === 'dark'
+            ? 'linear-gradient(90deg, rgba(255, 125, 125, 0.9), rgba(106, 130, 251, 0.9))'
+            : 'linear-gradient(90deg, rgba(238, 63, 113, 0.95), rgba(244, 184, 96, 0.95))',
         backgroundClip: 'text',
         color: 'transparent',
         fontWeight: 700,
         letterSpacing: 0.2,
         marginBottom: 1.5,
-      }}
+      })}
       variant="h5"
     >
       About
