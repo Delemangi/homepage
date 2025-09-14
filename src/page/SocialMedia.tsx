@@ -6,6 +6,7 @@ import MediaButton from '../components/MediaButton';
 import RowContainer from '../components/RowContainer';
 import DiscordIcon from '../icons/DiscordIcon';
 import GitHubIcon from '../icons/GitHubIcon';
+import InstagramIcon from '../icons/InstagramIcon';
 import LinkedInIcon from '../icons/LinkedInIcon';
 import MailIcon from '../icons/MailIcon';
 import SteamIcon from '../icons/SteamIcon';
@@ -35,6 +36,11 @@ const socialIcons = [
     href: 'https://www.linkedin.com/in/stefan-milev/',
     icon: LinkedInIcon,
     title: 'LinkedIn',
+  },
+  {
+    href: 'https://www.instagram.com/stefan_milev_/',
+    icon: InstagramIcon,
+    title: 'Instagram',
   },
 ];
 
