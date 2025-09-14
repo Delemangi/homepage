@@ -3,9 +3,9 @@ import { Chip, Stack, Typography } from '@mui/material';
 import Column from '../components/Column';
 
 const skills = [
-  'Full Stack',
   'Microservices',
   'Node.js',
+  'Serverless',
   'React',
   'FastAPI',
   'Spring Boot',
@@ -14,6 +14,13 @@ const skills = [
   'Prompt Engineering',
   'AI/ML',
   'AWS',
+  'discord.js',
+  'PostgreSQL',
+  'MongoDB',
+  'ElasticSearch',
+  'LangChain',
+  'Docker',
+  'Kubernetes',
 ];
 
 const About = () => (
@@ -39,9 +46,19 @@ const About = () => (
       marginBottom={1.5}
     >
       Software Engineer focused on end‑to‑end product development — from design
-      and front‑end experience to resilient back‑end services. I build scalable
-      microservices and modern web apps with technologies like Node.js, React,
-      FastAPI, and Spring Boot, always balancing DX, clarity, and performance.
+      and front‑end experience to resilient back‑end services to DevOps. I build
+      scalable microservices and modern web apps with modern technologies,
+      always balancing DX, clarity, and performance.
+    </Typography>
+
+    <Typography
+      color="textSecondary"
+      fontSize={15}
+      marginBottom={1.5}
+    >
+      More recently, I&apos;ve been building AI/ML-driven systems with RAG
+      pipelines, MCP integrations, prompt engineering and advanced retrieval. I
+      enjoy turning research-y ideas into practical features that ship.
     </Typography>
 
     <Typography
@@ -49,11 +66,9 @@ const About = () => (
       fontSize={15}
       marginBottom={2}
     >
-      Recently, I&apos;ve been building AI/ML‑driven systems with RAG pipelines,
-      MCP integrations, and prompt engineering — deploying reliably to AWS. I
-      enjoy turning research‑y ideas into practical features that ship. Outside
-      work, I enjoy playing video games both casually and competitively —
-      especially survival, roguelike, and factory games.
+      Outside work, I spend a lot of time with hobby coding projects and enjoy
+      playing video games both casually and competitively — especially survival,
+      roguelike, and factory games.
     </Typography>
 
     <Stack
