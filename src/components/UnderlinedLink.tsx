@@ -17,22 +17,11 @@ const UnderlinedLink = styled(Link)(({ theme }) => ({
         ? theme.palette.info.main
         : theme.palette.secondary.main,
   },
-  backgroundImage: `linear-gradient(90deg, ${
-    theme.palette.mode === 'light'
-      ? theme.palette.primary.main
-      : theme.palette.primary.main
-  }, ${
-    theme.palette.mode === 'light'
-      ? theme.palette.primary.main
-      : theme.palette.primary.main
-  })`,
+  backgroundImage: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.main})`,
   backgroundPosition: '0 100%',
   backgroundRepeat: 'no-repeat',
   backgroundSize: '0% 2px',
-  color:
-    theme.palette.mode === 'light'
-      ? theme.palette.primary.main
-      : theme.palette.primary.main,
+  color: theme.palette.primary.main,
   position: 'relative',
   textDecoration: 'none',
   textDecorationThickness: 2,
