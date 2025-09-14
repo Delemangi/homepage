@@ -48,20 +48,9 @@ const About = () => (
       fontSize={15}
       marginBottom={1.5}
     >
-      Software Engineer focused on end-to-end product development - from
-      front-end experience to resilient back-end services to DevOps. I build
-      scalable microservices and web apps with modern technologies, always
-      balancing DX, clarity, and performance.
-    </Typography>
-
-    <Typography
-      color="textSecondary"
-      fontSize={15}
-      marginBottom={1.5}
-    >
-      More recently, I&apos;ve been building AI/ML-driven systems with RAG
-      pipelines, MCP integrations, prompt engineering and advanced retrieval. I
-      enjoy turning research-y ideas into practical features that ship.
+      Software Engineer building end-to-end products, from front-end to
+      back-end, DevOps and AI. I ship scalable microservices & web apps, as well
+      as AI RAG systems that turns ideas into practical features.
     </Typography>
 
     <Typography
@@ -69,9 +58,9 @@ const About = () => (
       fontSize={15}
       marginBottom={2}
     >
-      Outside work, I spend a lot of time with hobby coding projects and enjoy
-      playing video games both casually and competitively — especially survival,
-      roguelike, and factory games. I also enjoy collecting various keyboards.
+      Outside work, I spend time on coding projects and play games, especially
+      survival, roguelike, and factory titles. I also collect mechanical
+      keyboards.
     </Typography>
 
     <Typography
