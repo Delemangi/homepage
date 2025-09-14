@@ -53,7 +53,7 @@ const SocialMedia = () => {
   );
 
   return (
-    <RowContainer>
+    <RowContainer sx={{ marginBottom: 2 }}>
       <FloatingBar
         sx={{
           flexWrap: 'wrap',
@@ -71,8 +71,21 @@ const SocialMedia = () => {
           const Icon = item.icon;
           return (
             <Tooltip
+              arrow
               key={item.title}
+              placement="bottom"
               slotProps={{
+                arrow: {
+                  sx: {
+                    '&:before': { transform: 'rotate(45deg) scale(0.66)' },
+                    color: 'rgba(106, 130, 251, 0.12)',
+                    height: 8,
+                    width: 8,
+                  },
+                },
+                popper: {
+                  modifiers: [{ name: 'offset', options: { offset: [0, -9] } }],
+                },
                 tooltip: () => ({
                   sx: {
                     backgroundColor: 'rgba(106, 130, 251, 0.12)',
@@ -82,6 +95,9 @@ const SocialMedia = () => {
                     fontSize: 14,
                     fontWeight: 600,
                     letterSpacing: 1,
+                    m: 0,
+                    px: 1,
+                    py: 0.5,
                   },
                 }),
               }}
@@ -139,15 +155,7 @@ const SocialMedia = () => {
             py: 0.5,
           }}
         >
-          <Typography
-            sx={{
-              fontSize: 14,
-              fontWeight: 600,
-              letterSpacing: 1,
-            }}
-          >
-            Copied!
-          </Typography>
+          <Typography component="span">Copied!</Typography>
         </Box>
       </Popover>
     </RowContainer>
