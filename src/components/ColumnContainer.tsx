@@ -5,7 +5,6 @@ const ColumnContainer = styled(Container)({
   display: 'flex',
   flexDirection: 'column',
   gap: '3rem',
-  height: '100%',
   justifyContent: 'center',
   width: '100%',
 });

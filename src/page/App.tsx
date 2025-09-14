@@ -23,6 +23,10 @@ const App = () => (
     <Suspense fallback={<LoadingSpinner />}>
       <ColumnContainer
         sx={{
+          justifyContent: {
+            sm: 'center',
+            xs: 'flex-start',
+          },
           margin: 'auto',
           maxWidth: {
             lg: '50%',
@@ -33,6 +37,14 @@ const App = () => (
           minHeight: {
             sm: '95svh',
             xs: '100svh',
+          },
+          paddingBottom: {
+            sm: 8,
+            xs: 6,
+          },
+          paddingTop: {
+            sm: 6,
+            xs: 4,
           },
           paddingX: {
             sm: 0,
