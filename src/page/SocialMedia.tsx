@@ -1,6 +1,7 @@
 import { Box, Popover, Tooltip, Typography } from '@mui/material';
 import { type MouseEvent, useCallback, useState } from 'react';
 
+import FloatingBar from '../components/FloatingBar';
 import MediaButton from '../components/MediaButton';
 import RowContainer from '../components/RowContainer';
 import DiscordIcon from '../icons/DiscordIcon';
@@ -53,44 +54,57 @@ const SocialMedia = () => {
 
   return (
     <RowContainer>
-      {socialIcons.map((item, i) => {
-        const isDiscord = item.onClick === 'discord';
-        const Icon = item.icon;
-        return (
-          <Tooltip
-            key={item.title}
-            slotProps={{
-              tooltip: () => ({
-                sx: {
-                  backgroundColor: 'rgba(106, 130, 251, 0.12)',
-                  borderRadius: 1,
-                  boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
-                  color: 'white',
-                  fontSize: 14,
-                  fontWeight: 600,
-                  letterSpacing: 1,
-                },
-              }),
-            }}
-            title={item.title}
-          >
-            <MediaButton
-              href={item.href}
-              onClick={isDiscord ? handleDiscordOnClick : undefined}
-              sx={{
-                '&:hover': {
-                  scale: 1.2,
-                },
-                animation: `fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both`,
-                animationDelay: `${i * 0.09 + 0.2}s`,
-                transition: 'all 0.2s, color 0.3s ease-in-out',
+      <FloatingBar
+        sx={{
+          flexWrap: 'wrap',
+          gap: 1,
+          justifyContent: 'center',
+          padding: '4px 6px',
+          position: 'static',
+          right: 'auto',
+          top: 'auto',
+          zIndex: 'auto',
+        }}
+      >
+        {socialIcons.map((item, i) => {
+          const isDiscord = item.onClick === 'discord';
+          const Icon = item.icon;
+          return (
+            <Tooltip
+              key={item.title}
+              slotProps={{
+                tooltip: () => ({
+                  sx: {
+                    backgroundColor: 'rgba(106, 130, 251, 0.12)',
+                    borderRadius: 1,
+                    boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
+                    color: 'white',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    letterSpacing: 1,
+                  },
+                }),
               }}
+              title={item.title}
             >
-              <Icon />
-            </MediaButton>
-          </Tooltip>
-        );
-      })}
+              <MediaButton
+                href={item.href}
+                onClick={isDiscord ? handleDiscordOnClick : undefined}
+                sx={{
+                  '&:hover': {
+                    scale: 1.2,
+                  },
+                  animation: `fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both`,
+                  animationDelay: `${i * 0.09 + 0.2}s`,
+                  transition: 'all 0.2s, color 0.3s ease-in-out',
+                }}
+              >
+                <Icon />
+              </MediaButton>
+            </Tooltip>
+          );
+        })}
+      </FloatingBar>
 
       <Popover
         anchorEl={anchorElement}
