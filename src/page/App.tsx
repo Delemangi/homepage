@@ -22,9 +22,10 @@ const App = () => (
     <Suspense fallback={<LoadingSpinner />}>
       <ColumnContainer
         sx={{
-          height: '95%',
           margin: 'auto',
-          maxWidth: '50%',
+          maxWidth: { lg: '50%', md: '70%', sm: '85%', xs: '92%' },
+          minHeight: { sm: '95svh', xs: '100svh' },
+          paddingX: { sm: 0, xs: 2 },
         }}
       >
         <ColumnBox
