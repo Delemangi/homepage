@@ -91,6 +91,15 @@ const About = () => (
         <Chip
           key={label}
           label={label}
+          onClickCapture={(e) => {
+            e.stopPropagation();
+          }}
+          onMouseDownCapture={(e) => {
+            e.stopPropagation();
+          }}
+          onTouchStartCapture={(e) => {
+            e.stopPropagation();
+          }}
           size="small"
           sx={(t) => ({
             '& .MuiChip-label': { px: 1.25 },
