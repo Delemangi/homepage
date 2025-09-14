@@ -33,10 +33,7 @@ const Introduction = () => (
         CodeChem
       </UnderlinedLink>
     </Typography>
-    <Typography
-      fontSize={16}
-      marginBottom={2}
-    >
+    <Typography fontSize={16}>
       CS Master&apos;s Student @{' '}
       <UnderlinedLink
         href="https://finki.ukim.mk"
@@ -44,23 +41,26 @@ const Introduction = () => (
       >
         FCSE
       </UnderlinedLink>
-      <Typography fontSize={16}>
-        Founder @{' '}
-        <UnderlinedLink
-          href="https://github.com/finki-hub"
-          target="_blank"
-        >
-          finki-hub
-        </UnderlinedLink>{' '}
-        (
-        <UnderlinedLink
-          href="https://discord.gg/finki-studenti-810997107376914444"
-          target="_blank"
-        >
-          Discord
-        </UnderlinedLink>
-        )
-      </Typography>
+    </Typography>
+    <Typography
+      fontSize={16}
+      marginBottom={2}
+    >
+      Founder & Community Lead @{' '}
+      <UnderlinedLink
+        href="https://github.com/finki-hub"
+        target="_blank"
+      >
+        finki-hub
+      </UnderlinedLink>{' '}
+      (
+      <UnderlinedLink
+        href="https://discord.gg/finki-studenti-810997107376914444"
+        target="_blank"
+      >
+        Discord
+      </UnderlinedLink>
+      )
     </Typography>
   </Column>
 );
