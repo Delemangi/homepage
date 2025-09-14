@@ -4,13 +4,20 @@ import Animations from '../components/Animations';
 import Background from '../components/Background';
 import ColumnBox from '../components/ColumnBox';
 import ColumnContainer from '../components/ColumnContainer';
+import FloatingBar from '../components/FloatingBar';
 import LoadingSpinner from '../components/LoadingSpinner';
+import SourceLinkButton from '../components/SourceLinkButton';
+import ThemeToggle from '../components/ThemeToggle';
 
 const LazyIntroduction = lazy(() => import('./Introduction'));
 const LazySocialMedia = lazy(() => import('./SocialMedia'));
 
 const App = () => (
   <Background>
+    <FloatingBar>
+      <ThemeToggle />
+      <SourceLinkButton />
+    </FloatingBar>
     <Animations />
     <Suspense fallback={<LoadingSpinner />}>
       <ColumnContainer

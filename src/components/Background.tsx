@@ -1,51 +1,66 @@
-import { Box, styled, Typography } from '@mui/material';
+import { Box, styled, useTheme } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 
-const squares = `url("data:image/svg+xml;utf8,<svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='0.35' y='0.35' width='39.3' height='39.3' stroke='rgba(255,255,255,0.018)' stroke-width='0.7' fill='none'/></svg>")`;
+import Ripple from './Ripple';
 
-const StyledBackground = styled(Box)({
-  background: `
+const createSquares = (stroke: string) =>
+  `url("data:image/svg+xml;utf8,<svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='0.35' y='0.35' width='39.3' height='39.3' stroke='${stroke}' stroke-width='0.7' fill='none'/></svg>")`;
+
+const StyledBackground = styled(Box)(({ theme }) => {
+  const isDark = theme.palette.mode === 'dark';
+  const grid = createSquares(
+    isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.06)',
+  );
+  const blurredAurora = isDark
+    ? `
+      radial-gradient(1000px 600px at 10% 10%, rgba(106, 130, 251, 0.25), rgba(0, 0, 0, 0) 60%),
+      radial-gradient(900px 500px at 85% 25%, rgba(255, 99, 233, 0.18), rgba(0, 0, 0, 0) 65%),
+      radial-gradient(800px 500px at 30% 80%, rgba(0, 255, 208, 0.15), rgba(0, 0, 0, 0) 70%)
+    `
+    : `
+      radial-gradient(1000px 600px at 12% 12%, rgba(238, 63, 113, 0.18), rgba(0, 0, 0, 0) 60%),
+      radial-gradient(900px 500px at 80% 20%, rgba(255, 192, 205, 0.14), rgba(0, 0, 0, 0) 65%),
+      radial-gradient(850px 520px at 35% 85%, rgba(244, 184, 96, 0.12), rgba(0, 0, 0, 0) 70%)
+    `;
+  return {
+    '&::before': {
+      background: blurredAurora,
+      content: "''",
+      filter: 'blur(44px)',
+      inset: 0,
+      opacity: isDark ? 0.45 : 0.5,
+      pointerEvents: 'none',
+      position: 'absolute',
+      zIndex: 0,
+    },
+    background: isDark
+      ? `
     linear-gradient(120deg, #232b36 0%, #181e24 100%),
-    linear-gradient(100deg, rgba(106,130,251,0.18) 10%, rgba(0,255,208,0.10) 80%),
-    linear-gradient(210deg, rgba(255,99,233,0.13) 20%, rgba(0,0,0,0) 80%),
-    ${squares}
+  linear-gradient(100deg, rgba(106, 130, 251, 0.18) 10%, rgba(0, 255, 208, 0.10) 80%),
+  linear-gradient(210deg, rgba(255, 99, 233, 0.13) 20%, rgba(0, 0, 0, 0) 80%),
+    ${grid}
+  `
+      : `
+    linear-gradient(120deg, #fdfcfd 0%, #ffffff 100%),
+  linear-gradient(100deg, rgba(238, 63, 113, 0.10) 12%, rgba(255, 192, 205, 0.08) 88%),
+  linear-gradient(210deg, rgba(255, 128, 171, 0.08) 25%, rgba(0, 0, 0, 0) 85%),
+    ${grid}
   `,
-  backgroundBlendMode: 'screen, lighten, lighten, overlay',
-  backgroundPosition: 'center, center, center, 0 0',
-  backgroundRepeat: 'no-repeat, no-repeat, no-repeat, repeat',
-  backgroundSize: 'cover, cover, cover, 40px 40px',
-  height: '100%',
-  left: 0,
-  overflowX: 'hidden',
-  overflowY: 'auto',
-  position: 'fixed',
-  top: 0,
-  width: '100%',
-  zIndex: -1,
-});
-
-const Ripple = styled(Typography)({
-  '@keyframes ripple': {
-    from: {
-      height: 0,
-      opacity: 0.7,
-      width: 0,
-    },
-    to: {
-      height: '150px',
-      opacity: 0,
-      width: '150px',
-    },
-  },
-  animation: 'ripple 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards',
-  background:
-    'radial-gradient(circle, rgba(0, 255, 208, 0.25) 0%, rgba(0, 255, 208, 0) 80%)',
-  borderRadius: '50%',
-  pointerEvents: 'none',
-  position: 'fixed',
-  transform: 'translate(-50%, -50%)',
-  willChange: 'width, height, opacity',
-  zIndex: 2,
+    backgroundBlendMode: isDark
+      ? 'screen, lighten, lighten, overlay'
+      : 'soft-light, screen, screen, multiply',
+    backgroundPosition: 'center, center, center, 0 0',
+    backgroundRepeat: 'no-repeat, no-repeat, no-repeat, repeat',
+    backgroundSize: 'cover, cover, cover, 40px 40px',
+    height: '100%',
+    left: 0,
+    overflowX: 'hidden',
+    overflowY: 'auto',
+    position: 'fixed',
+    top: 0,
+    width: '100%',
+    zIndex: -1,
+  };
 });
 
 type Props = {
@@ -59,6 +74,7 @@ type RippleType = {
 };
 
 const Background = ({ children }: Props) => {
+  const theme = useTheme();
   const [ripples, setRipples] = useState<RippleType[]>([]);
   const rippleId = useRef(0);
 
@@ -83,6 +99,11 @@ const Background = ({ children }: Props) => {
       clearTimeout(timeout);
     };
   }, [ripples]);
+
+  useEffect(() => {
+    setRipples([]);
+    rippleId.current = 0;
+  }, [theme.palette.mode]);
 
   return (
     <StyledBackground onClick={handleClick}>
