@@ -71,6 +71,14 @@ const About = () => (
       roguelike, and factory games.
     </Typography>
 
+    <Typography
+      color="textSecondary"
+      fontSize={14}
+      marginBottom={1}
+    >
+      Here are some technologies I&apos;ve used extensively in production:
+    </Typography>
+
     <Stack
       direction="row"
       flexWrap="wrap"
