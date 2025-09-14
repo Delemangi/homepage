@@ -70,7 +70,7 @@ const About = () => (
     >
       Outside work, I spend a lot of time with hobby coding projects and enjoy
       playing video games both casually and competitively — especially survival,
-      roguelike, and factory games.
+      roguelike, and factory games. I also enjoy collecting various keyboards.
     </Typography>
 
     <Typography
