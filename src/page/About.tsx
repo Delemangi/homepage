@@ -47,10 +47,10 @@ const About = () => (
       fontSize={15}
       marginBottom={1.5}
     >
-      Software Engineer focused on end‑to‑end product development — from design
-      and front‑end experience to resilient back‑end services to DevOps. I build
-      scalable microservices and modern web apps with modern technologies,
-      always balancing DX, clarity, and performance.
+      Software Engineer focused on end-to-end product development - from
+      front-end experience to resilient back-end services to DevOps. I build
+      scalable microservices and web apps with modern technologies, always
+      balancing DX, clarity, and performance.
     </Typography>
 
     <Typography
