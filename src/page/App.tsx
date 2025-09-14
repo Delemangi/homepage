@@ -11,6 +11,7 @@ import ThemeToggle from '../components/ThemeToggle';
 
 const LazyIntroduction = lazy(() => import('./Introduction'));
 const LazySocialMedia = lazy(() => import('./SocialMedia'));
+const LazyAbout = lazy(() => import('./About'));
 
 const App = () => (
   <Background>
@@ -23,9 +24,20 @@ const App = () => (
       <ColumnContainer
         sx={{
           margin: 'auto',
-          maxWidth: { lg: '50%', md: '70%', sm: '85%', xs: '92%' },
-          minHeight: { sm: '95svh', xs: '100svh' },
-          paddingX: { sm: 0, xs: 2 },
+          maxWidth: {
+            lg: '50%',
+            md: '70%',
+            sm: '85%',
+            xs: '92%',
+          },
+          minHeight: {
+            sm: '95svh',
+            xs: '100svh',
+          },
+          paddingX: {
+            sm: 0,
+            xs: 2,
+          },
         }}
       >
         <ColumnBox
@@ -33,6 +45,7 @@ const App = () => (
         >
           <LazyIntroduction />
           <LazySocialMedia />
+          <LazyAbout />
         </ColumnBox>
       </ColumnContainer>
     </Suspense>
