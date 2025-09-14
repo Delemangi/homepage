@@ -93,18 +93,21 @@ const SocialMedia = () => {
                   modifiers: [{ name: 'offset', options: { offset: [0, -9] } }],
                 },
                 tooltip: () => ({
-                  sx: {
+                  sx: (t) => ({
                     backgroundColor: 'rgba(106, 130, 251, 0.12)',
                     borderRadius: 1,
                     boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
-                    color: 'white',
+                    color:
+                      t.palette.mode === 'dark'
+                        ? 'white'
+                        : t.palette.text.primary,
                     fontSize: 14,
                     fontWeight: 600,
                     letterSpacing: 1,
                     m: 0,
                     px: 1,
                     py: 0.5,
-                  },
+                  }),
                 }),
               }}
               title={item.title}
