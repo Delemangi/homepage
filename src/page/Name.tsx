@@ -4,6 +4,16 @@ const Name = () => (
   <Typography fontSize={48}>
     <Link
       href="#"
+      onClickCapture={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
+      onMouseDownCapture={(e) => {
+        e.stopPropagation();
+      }}
+      onTouchStartCapture={(e) => {
+        e.stopPropagation();
+      }}
       sx={(theme) => ({
         '&:hover': {
           color:
