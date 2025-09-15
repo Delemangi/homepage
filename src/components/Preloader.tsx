@@ -11,13 +11,15 @@ type PreloaderProps = Readonly<{
 const Preloader = ({ fading = false }: PreloaderProps) => {
   const theme = useTheme();
   const bg = theme.palette.mode === 'dark' ? '#0b0b12' : '#ffffff';
+
   const ghostRef = useRef<HTMLDivElement | null>(null);
   const { start, text } = useTextScramble(SITE_TITLE, 700);
 
   useEffect(() => {
-    let timeoutId: null | number = window.setTimeout(() => {
+    let timeoutId: null | number = setTimeout(() => {
       const ghost = ghostRef.current;
       const target = document.querySelector('#site-title-target');
+
       if (ghost && target) {
         const ghostRect = ghost.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
@@ -28,6 +30,7 @@ const Preloader = ({ fading = false }: PreloaderProps) => {
 
         ghost.style.transition = 'transform 700ms cubic-bezier(.4, 1, .4, 1)';
         ghost.style.transform = 'none';
+
         requestAnimationFrame(() => {
           ghost.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
         });
@@ -38,7 +41,7 @@ const Preloader = ({ fading = false }: PreloaderProps) => {
 
     return () => {
       if (timeoutId !== null) {
-        window.clearTimeout(timeoutId);
+        clearTimeout(timeoutId);
         timeoutId = null;
       }
     };

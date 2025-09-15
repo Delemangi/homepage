@@ -20,11 +20,14 @@ const PreloaderGate = ({ children }: PropsWithChildren) => {
 
     const maybeProceed = () => {
       if (cancelled) return;
+
       const elapsed = Date.now() - startRef.current;
+
       if (minElapsed && (prefetched || elapsed >= MAX_WAIT_MS)) {
         setStage('fading');
+
         timers.current.push(
-          window.setTimeout(() => {
+          setTimeout(() => {
             if (!cancelled) setStage('done');
           }, FADE_DURATION_MS),
         );
@@ -32,7 +35,7 @@ const PreloaderGate = ({ children }: PropsWithChildren) => {
     };
 
     timers.current.push(
-      window.setTimeout(() => {
+      setTimeout(() => {
         minElapsed = true;
         maybeProceed();
       }, HEX_DURATION_MS),
@@ -54,9 +57,11 @@ const PreloaderGate = ({ children }: PropsWithChildren) => {
 
     return () => {
       cancelled = true;
+
       for (const t of timers.current) {
-        window.clearTimeout(t);
+        clearTimeout(t);
       }
+
       timers.current = [];
     };
   }, []);

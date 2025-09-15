@@ -12,17 +12,16 @@ type Props = {
 
 export const ThemeModeProvider = ({ children }: Props) => {
   const getSystemMode = (): PaletteMode =>
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
+    matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
   const getInitialPreference = (): 'system' | PaletteMode => {
     const raw =
-      typeof window === 'undefined'
-        ? null
-        : window.localStorage.getItem(PREF_KEY);
-    if (raw === 'system' || raw === 'light' || raw === 'dark') return raw;
+      typeof window === 'undefined' ? null : localStorage.getItem(PREF_KEY);
+
+    if (raw === 'system' || raw === 'light' || raw === 'dark') {
+      return raw;
+    }
+
     return 'system';
   };
 
@@ -34,33 +33,39 @@ export const ThemeModeProvider = ({ children }: Props) => {
 
   useEffect(() => {
     try {
-      window.localStorage.setItem(PREF_KEY, preference);
+      localStorage.setItem(PREF_KEY, preference);
     } catch {
       // do nothing
     }
-    if (typeof document !== 'undefined') {
-      document.documentElement.dataset.theme = mode;
-      document.documentElement.dataset.themePreference = preference;
-    }
+
+    document.documentElement.dataset.theme = mode;
+    document.documentElement.dataset.themePreference = preference;
   }, [mode, preference]);
 
   const toggleMode = useCallback(() => {
     if (preference === 'system') {
       setPreference(mode === 'dark' ? 'light' : 'dark');
+
       return;
     }
+
     setPreference((prev) => (prev === 'dark' ? 'light' : 'dark'));
   }, [mode, preference]);
 
   useEffect(() => {
     let cleanup = () => {};
+
     if (typeof window !== 'undefined') {
-      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      const mq = matchMedia('(prefers-color-scheme: dark)');
+
       const handler = (): void => {
         setSystemMode(mq.matches ? 'dark' : 'light');
       };
+
       mq.addEventListener('change', handler);
+
       handler();
+
       cleanup = () => {
         mq.removeEventListener('change', handler);
       };
