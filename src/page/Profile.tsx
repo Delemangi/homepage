@@ -51,6 +51,7 @@ const Profile = () => {
         Profile
       </Typography>
       <Typography
+        align="justify"
         color="textSecondary"
         fontSize={15}
         marginBottom={1.5}
@@ -61,6 +62,7 @@ const Profile = () => {
       </Typography>
 
       <Typography
+        align="justify"
         color="textSecondary"
         fontSize={15}
         marginBottom={2}
@@ -71,6 +73,7 @@ const Profile = () => {
       </Typography>
 
       <Typography
+        align="justify"
         color="textSecondary"
         fontSize={14}
         marginBottom={1}
