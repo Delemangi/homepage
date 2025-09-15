@@ -9,6 +9,7 @@ import GitHubIcon from '../icons/GitHubIcon';
 import InstagramIcon from '../icons/InstagramIcon';
 import LinkedInIcon from '../icons/LinkedInIcon';
 import MailIcon from '../icons/MailIcon';
+import MonkeyTypeIcon from '../icons/MonkeyTypeIcon';
 import SteamIcon from '../icons/SteamIcon';
 
 const socialIcons = [
@@ -41,6 +42,11 @@ const socialIcons = [
     href: 'https://www.instagram.com/stefan_milev_/',
     icon: InstagramIcon,
     title: 'Instagram',
+  },
+  {
+    href: 'https://monkeytype.com/profile/Delemangi',
+    icon: MonkeyTypeIcon,
+    title: 'Monkeytype',
   },
 ];
 
