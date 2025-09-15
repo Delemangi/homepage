@@ -8,7 +8,6 @@ const projects: Project[] = [
     description:
       'Collection of FCSE data tools: scrapers, bots, web apps and a RAG chatbot.',
     hrefCode: 'https://github.com/finki-hub',
-    hrefLive: 'https://finki-hub.com',
     tech: [
       'React',
       'Node.js',
