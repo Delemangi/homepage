@@ -85,7 +85,6 @@ const Preloader = ({ fading = false }: PreloaderProps) => {
           color: 'transparent',
           display: 'inline-block',
           fontSize: 48,
-          fontWeight: 700,
           lineHeight: 1,
           transition: 'transform 700ms cubic-bezier(.4, 1, .4, 1)',
           userSelect: 'none',
