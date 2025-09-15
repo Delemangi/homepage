@@ -42,7 +42,7 @@ const PreloaderGate = ({ children }: PropsWithChildren) => {
     void Promise.allSettled([
       import('../page/Introduction'),
       import('../page/SocialMedia'),
-      import('../page/About'),
+      import('../page/Profile'),
     ])
       .catch(() => {
         // ignore prefetch errors
