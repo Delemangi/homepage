@@ -1,10 +1,10 @@
 import { lazy, Suspense } from 'react';
 
-import Animations from '../components/Animations';
 import Background from '../components/Background';
 import ColumnBox from '../components/ColumnBox';
 import ColumnContainer from '../components/ColumnContainer';
 import FloatingBar from '../components/FloatingBar';
+import GlobalStyle from '../components/GlobalStyle';
 import LoadingSpinner from '../components/LoadingSpinner';
 import SourceLinkButton from '../components/SourceLinkButton';
 import ThemeToggle from '../components/ThemeToggle';
@@ -23,7 +23,7 @@ const App = () => {
         <ThemeToggle />
         <SourceLinkButton />
       </FloatingBar>
-      <Animations />
+      <GlobalStyle />
       <Suspense fallback={<LoadingSpinner />}>
         <ColumnContainer
           sx={{
