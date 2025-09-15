@@ -13,7 +13,7 @@ const FloatingBar = styled(Box)(({ theme }) => ({
   gap: 4,
   padding: '2px 4px',
   position: 'fixed',
-  right: 12,
+  right: 'max(16px, env(safe-area-inset-right, 0px) + 8px)',
   top: 12,
   WebkitBackdropFilter: 'blur(6px)',
   zIndex: 10,
