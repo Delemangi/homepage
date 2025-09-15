@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import Column from '../components/Column';
 import UnderlinedLink from '../components/UnderlinedLink';
 import Age from './Age';
+import LocalTime from './LocalTime';
 import Name from './Name';
 
 const Introduction = () => (
@@ -20,6 +21,7 @@ const Introduction = () => (
     >
       Skopje, North Macedonia
     </Typography>
+    <LocalTime fontSize={14} />
     <Age
       fontSize={14}
       marginBottom={2}
