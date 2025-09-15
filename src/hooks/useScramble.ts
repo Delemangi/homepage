@@ -16,14 +16,15 @@ export const useTextScramble = (target: string, duration = 700) => {
   const start = useCallback(() => {
     if (isRunning) return;
     setIsRunning(true);
-
-    const begin = performance.now();
+    // Begin on first animation frame to avoid mid-progress starts
+    let begin: null | number = null;
     const n = target.length;
     const thresholds = Array.from({ length: n }, (_, i) =>
       Math.min(0.95, Math.max(0.15, i / n + (Math.random() - 0.5) * (0.6 / n))),
     ).sort((a, b) => a - b);
 
     const tick = (now: number) => {
+      begin ??= now;
       const t = Math.min(1, (now - begin) / duration);
       const eased = easeOutCubic(t);
       let out = '';

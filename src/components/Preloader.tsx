@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from '@mui/material';
 import { useEffect, useRef } from 'react';
 
 import { AURORA_ANIMATION, SITE_TITLE } from '../constants';
-import { useTextScramble } from './useScramble';
+import { useTextScramble } from '../hooks/useScramble';
 
 type PreloaderProps = Readonly<{
   fading?: boolean;
