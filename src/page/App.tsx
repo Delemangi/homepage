@@ -12,6 +12,7 @@ import ThemeToggle from '../components/ThemeToggle';
 const LazyIntroduction = lazy(() => import('./Introduction'));
 const LazySocialMedia = lazy(() => import('./SocialMedia'));
 const LazyProfile = lazy(() => import('./Profile'));
+const LazyProjects = lazy(() => import('./Projects'));
 
 const App = () => (
   <Background>
@@ -40,8 +41,8 @@ const App = () => (
             xs: '100svh',
           },
           paddingBottom: {
-            sm: 8,
-            xs: 6,
+            sm: 4,
+            xs: 3,
           },
           paddingTop: {
             sm: 6,
@@ -59,6 +60,7 @@ const App = () => (
           <LazyIntroduction />
           <LazySocialMedia />
           <LazyProfile />
+          <LazyProjects />
         </ColumnBox>
       </ColumnContainer>
     </Suspense>
