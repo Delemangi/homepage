@@ -69,7 +69,7 @@ const PreloaderGate = ({ children }: PropsWithChildren) => {
   }, []);
 
   return (
-    <PreloaderProvider value={stage === 'done'}>
+    <PreloaderProvider value={stage !== 'loading'}>
       {children}
       {stage === 'loading' || stage === 'fading' ? (
         <Preloader fading={stage === 'fading'} />

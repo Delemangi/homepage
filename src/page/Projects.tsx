@@ -113,7 +113,7 @@ const Projects = () => {
         {projects.map((p, i) => (
           <ProjectCard
             animate={preloaderDone}
-            animationDelay={i * 0.1 + 0.2}
+            animationDelay={i * 0.06}
             key={p.title}
             {...p}
           />

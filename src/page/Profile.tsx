@@ -90,7 +90,7 @@ const Profile = () => {
         {skills.map((label, idx) => (
           <SkillChip
             animate={preloaderDone}
-            animationDelay={idx * 0.09 + 0.2}
+            animationDelay={idx * 0.06}
             key={label}
             label={label}
           />

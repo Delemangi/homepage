@@ -128,7 +128,7 @@ const SocialMedia = () => {
                     scale: 1.2,
                   },
                   animation: `fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both`,
-                  animationDelay: `${i * 0.09 + 0.2}s`,
+                  animationDelay: `${i * 0.06}s`,
                   animationPlayState: preloaderDone ? 'running' : 'paused',
                   transition: 'all 0.2s, color 0.3s ease-in-out',
                 }}

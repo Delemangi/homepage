@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import Column from '../components/Column';
 import UnderlinedLink from '../components/UnderlinedLink';
@@ -10,68 +10,73 @@ import Name from './Name';
 const Introduction = () => {
   const { preloaderDone } = usePreloader();
   return (
-    <Column
-      sx={{
-        animation: 'fadeIn 1.5s ease-in-out both',
-        animationPlayState: preloaderDone ? 'running' : 'paused',
-      }}
-    >
+    <Column>
       <Name />
-      <Typography
-        color="textSecondary"
-        fontSize={14}
+      <Box
+        sx={{
+          alignItems: 'center',
+          animation: 'fadeIn 800ms ease-out both',
+          animationPlayState: preloaderDone ? 'running' : 'paused',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
       >
-        Stefan Milev
-      </Typography>
-      <Typography
-        color="textSecondary"
-        fontSize={14}
-      >
-        Skopje, North Macedonia
-      </Typography>
-      <LocalTime fontSize={14} />
-      <Age
-        fontSize={14}
-        marginBottom={2}
-      />
-      <Typography fontSize={16}>
-        Software Engineer @{' '}
-        <UnderlinedLink
-          href="https://codechem.com"
-          target="_blank"
+        <Typography
+          color="textSecondary"
+          fontSize={14}
         >
-          CodeChem
-        </UnderlinedLink>
-      </Typography>
-      <Typography fontSize={16}>
-        CS Master&apos;s Student @{' '}
-        <UnderlinedLink
-          href="https://finki.ukim.mk"
-          target="_blank"
+          Stefan Milev
+        </Typography>
+        <Typography
+          color="textSecondary"
+          fontSize={14}
         >
-          FCSE
-        </UnderlinedLink>
-      </Typography>
-      <Typography
-        fontSize={16}
-        marginBottom={2}
-      >
-        Founder @{' '}
-        <UnderlinedLink
-          href="https://github.com/finki-hub"
-          target="_blank"
+          Skopje, North Macedonia
+        </Typography>
+        <LocalTime fontSize={14} />
+        <Age
+          fontSize={14}
+          marginBottom={2}
+        />
+        <Typography fontSize={16}>
+          Software Engineer @{' '}
+          <UnderlinedLink
+            href="https://codechem.com"
+            target="_blank"
+          >
+            CodeChem
+          </UnderlinedLink>
+        </Typography>
+        <Typography fontSize={16}>
+          CS Master&apos;s Student @{' '}
+          <UnderlinedLink
+            href="https://finki.ukim.mk"
+            target="_blank"
+          >
+            FCSE
+          </UnderlinedLink>
+        </Typography>
+        <Typography
+          fontSize={16}
+          marginBottom={2}
         >
-          finki-hub
-        </UnderlinedLink>{' '}
-        (
-        <UnderlinedLink
-          href="https://discord.gg/finki-studenti-810997107376914444"
-          target="_blank"
-        >
-          Discord
-        </UnderlinedLink>
-        )
-      </Typography>
+          Founder @{' '}
+          <UnderlinedLink
+            href="https://github.com/finki-hub"
+            target="_blank"
+          >
+            finki-hub
+          </UnderlinedLink>{' '}
+          (
+          <UnderlinedLink
+            href="https://discord.gg/finki-studenti-810997107376914444"
+            target="_blank"
+          >
+            Discord
+          </UnderlinedLink>
+          )
+        </Typography>
+      </Box>
     </Column>
   );
 };
