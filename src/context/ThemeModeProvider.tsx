@@ -1,7 +1,7 @@
 import { CssBaseline, type PaletteMode, ThemeProvider } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { createAppTheme } from './index';
+import { createAppTheme } from '../theme';
 import { ThemeModeContext } from './ThemeModeContext';
 
 const PREF_KEY = 'themePreference';
@@ -10,21 +10,20 @@ type Props = {
   readonly children: React.ReactNode;
 };
 
+const getInitialPreference = (): 'system' | PaletteMode => {
+  const raw = localStorage.getItem(PREF_KEY);
+
+  if (raw === 'system' || raw === 'light' || raw === 'dark') {
+    return raw;
+  }
+
+  return 'system';
+};
+
+const getSystemMode = (): PaletteMode =>
+  matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
 export const ThemeModeProvider = ({ children }: Props) => {
-  const getSystemMode = (): PaletteMode =>
-    matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-
-  const getInitialPreference = (): 'system' | PaletteMode => {
-    const raw =
-      typeof window === 'undefined' ? null : localStorage.getItem(PREF_KEY);
-
-    if (raw === 'system' || raw === 'light' || raw === 'dark') {
-      return raw;
-    }
-
-    return 'system';
-  };
-
   const [preference, setPreference] = useState<'system' | PaletteMode>(
     getInitialPreference,
   );
@@ -32,11 +31,7 @@ export const ThemeModeProvider = ({ children }: Props) => {
   const mode: PaletteMode = preference === 'system' ? systemMode : preference;
 
   useEffect(() => {
-    try {
-      localStorage.setItem(PREF_KEY, preference);
-    } catch {
-      // do nothing
-    }
+    localStorage.setItem(PREF_KEY, preference);
 
     document.documentElement.dataset.theme = mode;
     document.documentElement.dataset.themePreference = preference;
@@ -53,24 +48,19 @@ export const ThemeModeProvider = ({ children }: Props) => {
   }, [mode, preference]);
 
   useEffect(() => {
-    let cleanup = () => {};
+    const mq = matchMedia('(prefers-color-scheme: dark)');
 
-    if (typeof window !== 'undefined') {
-      const mq = matchMedia('(prefers-color-scheme: dark)');
+    const handler = (): void => {
+      setSystemMode(mq.matches ? 'dark' : 'light');
+    };
 
-      const handler = (): void => {
-        setSystemMode(mq.matches ? 'dark' : 'light');
-      };
+    mq.addEventListener('change', handler);
 
-      mq.addEventListener('change', handler);
+    handler();
 
-      handler();
-
-      cleanup = () => {
-        mq.removeEventListener('change', handler);
-      };
-    }
-    return cleanup;
+    return () => {
+      mq.removeEventListener('change', handler);
+    };
   }, []);
 
   const theme = useMemo(() => createAppTheme(mode), [mode]);
@@ -89,5 +79,3 @@ export const ThemeModeProvider = ({ children }: Props) => {
     </ThemeModeContext.Provider>
   );
 };
-
-export default ThemeModeProvider;

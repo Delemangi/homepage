@@ -2,8 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import PreloaderGate from './components/PreloaderGate';
+import { ThemeModeProvider } from './context/ThemeModeProvider';
 import App from './page/App';
-import ThemeModeProvider from './theme/ThemeModeProvider';
 
 // eslint-disable-next-line no-console
 console.log(

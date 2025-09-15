@@ -1,5 +1,5 @@
 import { type PaletteMode } from '@mui/material';
-import { createContext, useContext } from 'react';
+import { createContext } from 'react';
 
 export type ThemeModeContextValue = {
   mode: PaletteMode;
@@ -11,13 +11,3 @@ export type ThemeModeContextValue = {
 export const ThemeModeContext = createContext<
   ThemeModeContextValue | undefined
 >(undefined);
-
-export const useThemeMode = () => {
-  const ctx = useContext(ThemeModeContext);
-
-  if (!ctx) {
-    throw new Error('useThemeMode must be used within ThemeModeProvider');
-  }
-
-  return ctx;
-};

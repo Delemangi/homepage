@@ -1,11 +1,16 @@
 import { Chip } from '@mui/material';
 
 export type SkillChipProps = {
+  readonly animate?: boolean;
   readonly animationDelay?: number | string;
   readonly label: string;
 };
 
-const SkillChip = ({ animationDelay, label }: SkillChipProps) => (
+const SkillChip = ({
+  animate = true,
+  animationDelay,
+  label,
+}: SkillChipProps) => (
   <Chip
     label={label}
     onClickCapture={(e) => {
@@ -79,6 +84,7 @@ const SkillChip = ({ animationDelay, label }: SkillChipProps) => (
         typeof animationDelay === 'number'
           ? `${animationDelay}s`
           : animationDelay,
+      animationPlayState: animate ? 'running' : 'paused',
       bgcolor:
         t.palette.mode === 'dark'
           ? 'rgba(255, 255, 255, 0.06)'

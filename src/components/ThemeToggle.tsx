@@ -1,7 +1,8 @@
 import { IconButton, Tooltip } from '@mui/material';
 import { keyframes, styled } from '@mui/material/styles';
 
-import { useThemeMode } from '../theme/ThemeModeContext';
+import { usePreloader } from '../hooks/usePreloader';
+import { useThemeMode } from '../hooks/useThemeMode';
 
 const togglePop = keyframes({
   '0%': {
@@ -29,6 +30,7 @@ const Emoji = styled('span')({
 });
 
 const ThemeToggle = () => {
+  const { preloaderDone } = usePreloader();
   const { mode, toggleMode } = useThemeMode();
   const isDark = mode === 'dark';
 
@@ -40,6 +42,7 @@ const ThemeToggle = () => {
         key={mode}
         onClick={toggleMode}
         size="small"
+        sx={{ animationPlayState: preloaderDone ? 'running' : 'paused' }}
       >
         <Emoji
           role="img"

@@ -1,8 +1,8 @@
 import { Link, Typography } from '@mui/material';
 import React from 'react';
 
-import { useTextScramble } from '../components/useScramble';
 import { AURORA_ANIMATION, SITE_TITLE } from '../constants';
+import { useTextScramble } from '../hooks/useScramble';
 
 const Name = () => {
   const { start, text } = useTextScramble(SITE_TITLE, 700);

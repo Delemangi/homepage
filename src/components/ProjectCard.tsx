@@ -16,11 +16,14 @@ export type Project = {
   readonly title: string;
 };
 
-type Props = Readonly<Project & { readonly animationDelay?: number }>;
+type Props = Readonly<
+  Project & { readonly animate?: boolean; readonly animationDelay?: number }
+>;
 
 const emptyTech: string[] = [];
 
 const ProjectCard = ({
+  animate = true,
   animationDelay = 0,
   description,
   hrefCode,
@@ -64,6 +67,7 @@ const ProjectCard = ({
         },
         animation: 'fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both',
         animationDelay: `${animationDelay}s`,
+        animationPlayState: animate ? 'running' : 'paused',
         backgroundColor:
           t.palette.mode === 'dark'
             ? 'rgba(255, 255, 255, 0.04)'
@@ -124,6 +128,7 @@ const ProjectCard = ({
         >
           {tech.map((label, idx) => (
             <SkillChip
+              animate={animate}
               animationDelay={idx * 0.06 + 0.1}
               key={label}
               label={label}

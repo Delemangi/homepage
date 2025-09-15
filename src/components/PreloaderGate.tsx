@@ -1,5 +1,6 @@
 import { type PropsWithChildren, useEffect, useRef, useState } from 'react';
 
+import { PreloaderProvider } from '../context/PreloaderProvider';
 import Preloader from './Preloader';
 
 type Stage = 'done' | 'fading' | 'loading';
@@ -68,12 +69,12 @@ const PreloaderGate = ({ children }: PropsWithChildren) => {
   }, []);
 
   return (
-    <>
+    <PreloaderProvider value={stage === 'done'}>
       {children}
       {stage === 'loading' || stage === 'fading' ? (
         <Preloader fading={stage === 'fading'} />
       ) : null}
-    </>
+    </PreloaderProvider>
   );
 };
 
