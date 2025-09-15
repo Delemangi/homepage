@@ -18,7 +18,6 @@ const projects: Project[] = [
       'LangChain',
       'FastAPI',
       'discord.js',
-      '...',
     ],
     title: 'finki-hub',
   },
@@ -26,20 +25,20 @@ const projects: Project[] = [
     description:
       'Strict & modular ESLint config with presets for modern stacks (React, TS, Node) and composable rulesets.',
     hrefCode: 'https://github.com/Delemangi/eslint-config-imperium',
-    tech: ['ESLint', 'TypeScript', 'Node.js', '...'],
+    tech: ['ESLint', 'TypeScript', 'Node.js'],
     title: 'eslint-config-imperium',
   },
   {
     description: 'Personal site — you are currently here.',
     hrefCode: 'https://github.com/Delemangi/homepage',
-    tech: ['React', 'TypeScript', 'Vite', 'Material UI', 'Docker', '...'],
+    tech: ['React', 'TypeScript', 'Vite', 'Material UI', 'Docker'],
     title: 'homepage',
   },
   {
     description:
       'Discord bot for managing a network of Steam accounts using ArchiSteamFarm.',
     hrefCode: 'https://github.com/Delemangi/asf-discord-bot',
-    tech: ['TypeScript', 'discord.js', 'ArchiSteamFarm', 'Docker', '...'],
+    tech: ['TypeScript', 'discord.js', 'ArchiSteamFarm', 'Docker'],
     title: 'asf-discord-bot',
   },
 ];
