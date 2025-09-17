@@ -3,7 +3,8 @@ import type {
   MouseEvent as ReactMouseEvent,
 } from 'react';
 
-import { Box, Stack, Typography } from '@mui/material';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
 
 import SkillChip from '../page/SkillChip';
 import UnderlinedLink from './UnderlinedLink';
@@ -93,21 +94,50 @@ const ProjectCard = ({
       })}
       tabIndex={clickable ? 0 : undefined}
     >
-      <Typography
-        sx={(t) => ({
-          background:
-            t.palette.mode === 'dark'
-              ? 'linear-gradient(90deg, #6a82fb 0%, #ff63e9 100%)'
-              : 'linear-gradient(90deg, #ee3f71 0%, #ffc0cd 50%, #ee3f71 100%)',
-          backgroundClip: 'text',
-          color: 'transparent',
-          fontWeight: 700,
-          letterSpacing: 0.2,
-        })}
-        variant="h6"
+      <Box
+        alignItems="flex-start"
+        display="flex"
+        gap={1}
+        justifyContent="space-between"
       >
-        {title}
-      </Typography>
+        <Typography
+          sx={(t) => ({
+            background:
+              t.palette.mode === 'dark'
+                ? 'linear-gradient(90deg, #6a82fb 0%, #ff63e9 100%)'
+                : 'linear-gradient(90deg, #ee3f71 0%, #ffc0cd 50%, #ee3f71 100%)',
+            backgroundClip: 'text',
+            color: 'transparent',
+            flex: 1,
+            fontWeight: 700,
+            letterSpacing: 0.2,
+            minWidth: 0,
+            mr: 1,
+          })}
+          variant="h6"
+        >
+          {title}
+        </Typography>
+        {clickable ? (
+          <IconButton
+            component="a"
+            href={primaryHref ?? undefined}
+            onClickCapture={(e) => {
+              e.stopPropagation();
+            }}
+            rel="noopener noreferrer"
+            size="small"
+            sx={(t) => ({
+              '&:hover': { color: t.palette.text.primary },
+              alignSelf: 'flex-start',
+              color: 'text.secondary',
+            })}
+            target="_blank"
+          >
+            <OpenInNewIcon fontSize="small" />
+          </IconButton>
+        ) : null}
+      </Box>
 
       <Typography
         color="textSecondary"
