@@ -13,7 +13,7 @@
   },
   "description": "Delemangi's personal website",
   "devDependencies": {
-    "@types/react": "^19.1.15",
+    "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react-swc": "^4.1.0",
     "eslint": "^9.36.0",
