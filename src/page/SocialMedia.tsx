@@ -4,7 +4,6 @@ import { type MouseEvent, useCallback, useState } from 'react';
 import FloatingBar from '../components/FloatingBar';
 import MediaButton from '../components/MediaButton';
 import RowContainer from '../components/RowContainer';
-import { usePreloader } from '../hooks/usePreloader';
 import DiscordIcon from '../icons/DiscordIcon';
 import GitHubIcon from '../icons/GitHubIcon';
 import InstagramIcon from '../icons/InstagramIcon';
@@ -52,7 +51,6 @@ const socialIcons = [
 ];
 
 const SocialMedia = () => {
-  const { preloaderDone } = usePreloader();
   const [anchorElement, setAnchorElement] = useState<HTMLElement>();
 
   const handleDiscordOnClick = useCallback(
@@ -80,7 +78,7 @@ const SocialMedia = () => {
           zIndex: 'auto',
         }}
       >
-        {socialIcons.map((item, i) => {
+        {socialIcons.map((item) => {
           const isDiscord = item.onClick === 'discord';
           const Icon = item.icon;
           return (
@@ -127,9 +125,6 @@ const SocialMedia = () => {
                   '&:hover': {
                     scale: 1.2,
                   },
-                  animation: `fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both`,
-                  animationDelay: `${i * 0.06}s`,
-                  animationPlayState: preloaderDone ? 'running' : 'paused',
                   transition: 'all 0.2s, color 0.3s ease-in-out',
                 }}
               >

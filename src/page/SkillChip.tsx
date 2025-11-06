@@ -1,16 +1,10 @@
 import { Chip } from '@mui/material';
 
 export type SkillChipProps = {
-  readonly animate?: boolean;
-  readonly animationDelay?: number | string;
   readonly label: string;
 };
 
-const SkillChip = ({
-  animate = true,
-  animationDelay,
-  label,
-}: SkillChipProps) => (
+const SkillChip = ({ label }: SkillChipProps) => (
   <Chip
     label={label}
     onClickCapture={(e) => {
@@ -76,15 +70,8 @@ const SkillChip = ({
           boxShadow: 'none',
           transform: 'none',
         },
-        animation: 'none',
         transition: 'none',
       },
-      animation: 'fadeInStaggered 0.7s cubic-bezier(.4, 1, .4, 1) both',
-      animationDelay:
-        typeof animationDelay === 'number'
-          ? `${animationDelay}s`
-          : animationDelay,
-      animationPlayState: animate ? 'running' : 'paused',
       bgcolor:
         t.palette.mode === 'dark'
           ? 'rgba(255, 255, 255, 0.06)'
