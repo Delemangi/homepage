@@ -7,6 +7,7 @@ import FloatingBar from '../components/FloatingBar';
 import GlobalStyle from '../components/GlobalStyle';
 import LoadingSpinner from '../components/LoadingSpinner';
 import SourceLinkButton from '../components/SourceLinkButton';
+import StaggeredReveal from '../components/StaggeredReveal';
 import ThemeToggle from '../components/ThemeToggle';
 
 const LazyIntroduction = lazy(() => import('./Introduction'));
@@ -55,10 +56,18 @@ const App = () => (
         }}
       >
         <ColumnBox>
-          <LazyIntroduction />
-          <LazySocialMedia />
-          <LazyProfile />
-          <LazyProjects />
+          <StaggeredReveal delay={0}>
+            <LazyIntroduction />
+          </StaggeredReveal>
+          <StaggeredReveal delay={150}>
+            <LazySocialMedia />
+          </StaggeredReveal>
+          <StaggeredReveal delay={300}>
+            <LazyProfile />
+          </StaggeredReveal>
+          <StaggeredReveal delay={450}>
+            <LazyProjects />
+          </StaggeredReveal>
         </ColumnBox>
       </ColumnContainer>
     </Suspense>
