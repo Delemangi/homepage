@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 
 import Column from '../components/Column';
 import ProjectCard, { type Project } from '../components/ProjectCard';
+import TextReveal from '../components/TextReveal';
 
 const projects: Project[] = [
   {
@@ -44,52 +45,53 @@ const projects: Project[] = [
 
 const Projects = () => (
   <Column>
-    <Typography
-      sx={(t) => ({
-        background:
-          t.palette.mode === 'dark'
-            ? 'linear-gradient(90deg, rgba(125, 255, 214, 0.9), rgba(106, 130, 251, 0.9))'
-            : 'linear-gradient(90deg, rgba(238, 63, 113, 0.95), rgba(96, 211, 244, 0.95))',
-        backgroundClip: 'text',
-        color: 'transparent',
-        fontWeight: 700,
-        letterSpacing: 0.2,
-        marginBottom: 0.75,
-      })}
-      variant="h5"
-    >
-      Projects
-    </Typography>
+    <TextReveal>
+      <Typography
+        sx={(t) => ({
+          background:
+            t.palette.mode === 'dark'
+              ? 'linear-gradient(90deg, rgba(125, 255, 214, 0.9), rgba(106, 130, 251, 0.9))'
+              : 'linear-gradient(90deg, rgba(238, 63, 113, 0.95), rgba(96, 211, 244, 0.95))',
+          backgroundClip: 'text',
+          color: 'transparent',
+          fontWeight: 700,
+          letterSpacing: 0.2,
+          marginBottom: 0.75,
+        })}
+        variant="h5"
+      >
+        Projects
+      </Typography>
+    </TextReveal>
 
-    <Box
-      sx={(t) => ({
-        alignItems: 'center',
-        color: t.palette.text.secondary,
-        display: 'flex',
-        gap: 1,
-        marginBottom: 2,
-        opacity: 0.9,
-      })}
-    >
+    <TextReveal delay={100}>
       <Box
         sx={(t) => ({
-          backgroundColor: t.palette.success.main,
-          borderRadius: '50%',
-          boxShadow:
-            t.palette.mode === 'dark'
-              ? '0 0 10px rgba(76, 175, 80, 0.5)'
-              : '0 0 8px rgba(76, 175, 80, 0.35)',
-          height: 8,
-          width: 8,
+          alignItems: 'center',
+          color: t.palette.text.secondary,
+          display: 'flex',
+          gap: 1,
+          marginBottom: 2,
+          opacity: 0.9,
         })}
-      />
-      <Typography
-        color="textSecondary"
-        variant="body2"
       >
-        Actively maintained
-      </Typography>
-    </Box>
+        <Box
+          sx={(t) => ({
+            backgroundColor: t.palette.success.main,
+            borderRadius: '50%',
+            boxShadow:
+              t.palette.mode === 'dark'
+                ? '0 0 10px rgba(76, 175, 80, 0.5)'
+                : '0 0 8px rgba(76, 175, 80, 0.35)',
+            height: 8,
+            width: 8,
+          })}
+        />
+        <Typography color="textSecondary" variant="body2">
+          Actively maintained
+        </Typography>
+      </Box>
+    </TextReveal>
 
     <Box
       sx={{
@@ -102,10 +104,7 @@ const Projects = () => (
       }}
     >
       {projects.map((p) => (
-        <ProjectCard
-          key={p.title}
-          {...p}
-        />
+        <ProjectCard key={p.title} {...p} />
       ))}
     </Box>
   </Column>

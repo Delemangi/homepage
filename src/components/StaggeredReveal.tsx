@@ -32,6 +32,7 @@ const StaggeredReveal = ({ children, delay = 0 }: Props) => {
     <Box
       sx={{
         opacity: isVisible ? 1 : 0,
+        scrollSnapAlign: 'start',
         transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
         transition:
           'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',

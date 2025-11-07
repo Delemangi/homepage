@@ -57,6 +57,7 @@ const StyledBackground = styled(Box)(({ theme }) => {
     overflowX: 'hidden',
     overflowY: 'auto',
     position: 'fixed',
+    scrollBehavior: 'smooth',
     top: 0,
     width: '100%',
     zIndex: -1,

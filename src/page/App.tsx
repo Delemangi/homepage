@@ -53,6 +53,8 @@ const App = () => (
             sm: 0,
             xs: 2,
           },
+          scrollBehavior: 'smooth',
+          scrollSnapType: 'y proximity',
         }}
       >
         <ColumnBox>
