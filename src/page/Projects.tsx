@@ -87,7 +87,10 @@ const Projects = () => (
             width: 8,
           })}
         />
-        <Typography color="textSecondary" variant="body2">
+        <Typography
+          color="textSecondary"
+          variant="body2"
+        >
           Actively maintained
         </Typography>
       </Box>
@@ -104,7 +107,10 @@ const Projects = () => (
       }}
     >
       {projects.map((p) => (
-        <ProjectCard key={p.title} {...p} />
+        <ProjectCard
+          key={p.title}
+          {...p}
+        />
       ))}
     </Box>
   </Column>

@@ -83,9 +83,17 @@ const Profile = () => (
     </TextReveal>
 
     <TextReveal delay={400}>
-      <Stack direction="row" flexWrap="wrap" spacing={1} useFlexGap>
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        spacing={1}
+        useFlexGap
+      >
         {SKILLS.map((label) => (
-          <SkillChip key={label} label={label} />
+          <SkillChip
+            key={label}
+            label={label}
+          />
         ))}
       </Stack>
     </TextReveal>
