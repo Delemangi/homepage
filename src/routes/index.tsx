@@ -9,7 +9,6 @@ import GlobalStyle from '../components/GlobalStyle';
 import LoadingSpinner from '../components/LoadingSpinner';
 import SourceLinkButton from '../components/SourceLinkButton';
 import StaggeredReveal from '../components/StaggeredReveal';
-import TerminalHint from '../components/terminal/TerminalHint';
 import TerminalToggle from '../components/terminal/TerminalToggle';
 import ThemeToggle from '../components/ThemeToggle';
 import { Route as RootRoute } from './__root';
@@ -26,7 +25,6 @@ const IndexPage = () => (
       <TerminalToggle />
       <SourceLinkButton />
     </FloatingBar>
-    <TerminalHint />
     <GlobalStyle />
     <Suspense fallback={<LoadingSpinner />}>
       <ColumnContainer
