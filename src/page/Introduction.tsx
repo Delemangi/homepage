@@ -57,19 +57,11 @@ const Introduction = () => (
       >
         Founder @{' '}
         <UnderlinedLink
-          href="https://github.com/finki-hub"
+          href="https://finki-hub.com"
           target="_blank"
         >
           finki-hub
         </UnderlinedLink>{' '}
-        (
-        <UnderlinedLink
-          href="https://discord.gg/finki-studenti-810997107376914444"
-          target="_blank"
-        >
-          Discord
-        </UnderlinedLink>
-        )
       </Typography>
     </Box>
   </Column>
