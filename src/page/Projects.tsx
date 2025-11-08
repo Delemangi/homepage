@@ -106,11 +106,13 @@ const Projects = () => (
         },
       }}
     >
-      {projects.map((p) => (
-        <ProjectCard
+      {projects.map((p, index) => (
+        <TextReveal
+          delay={200 + index * 100}
           key={p.title}
-          {...p}
-        />
+        >
+          <ProjectCard {...p} />
+        </TextReveal>
       ))}
     </Box>
   </Column>
