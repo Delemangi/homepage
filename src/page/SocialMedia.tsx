@@ -1,9 +1,9 @@
-import { Box, Popover, Tooltip, Typography } from '@mui/material';
+import { Box, Popover, Typography } from '@mui/material';
 import { type MouseEvent, useCallback, useState } from 'react';
 
 import FloatingBar from '../components/FloatingBar';
-import MediaButton from '../components/MediaButton';
 import RowContainer from '../components/RowContainer';
+import SocialMediaButton from '../components/SocialMediaButton';
 import DiscordIcon from '../icons/DiscordIcon';
 import GitHubIcon from '../icons/GitHubIcon';
 import InstagramIcon from '../icons/InstagramIcon';
@@ -12,16 +12,24 @@ import MailIcon from '../icons/MailIcon';
 import MonkeyTypeIcon from '../icons/MonkeyTypeIcon';
 import SteamIcon from '../icons/SteamIcon';
 
-const socialIcons = [
+const COPY_ICONS = [
   {
-    href: 'mailto:milev.stefan@gmail.com',
     icon: MailIcon,
+    onClick: 'mail',
     title: 'Mail',
   },
   {
     icon: DiscordIcon,
     onClick: 'discord',
-    title: 'Discord',
+    title: 'Discord Username',
+  },
+] as const;
+
+const LINK_ICONS = [
+  {
+    href: 'https://discord.gg/7Fw53MdbUP',
+    icon: DiscordIcon,
+    title: 'Discord Server',
   },
   {
     href: 'https://github.com/Delemangi/',
@@ -48,15 +56,15 @@ const socialIcons = [
     icon: MonkeyTypeIcon,
     title: 'Monkeytype',
   },
-];
+] as const;
 
 const SocialMedia = () => {
   const [anchorElement, setAnchorElement] = useState<HTMLElement>();
 
-  const handleDiscordOnClick = useCallback(
-    async (event: MouseEvent<HTMLButtonElement>) => {
+  const handleCopyOnClick = useCallback(
+    (text: string) => async (event: MouseEvent<HTMLButtonElement>) => {
       setAnchorElement(event.currentTarget);
-      await navigator.clipboard.writeText('delemangi');
+      await navigator.clipboard.writeText(text);
       setTimeout(() => {
         setAnchorElement(undefined);
       }, 1_500);
@@ -64,8 +72,16 @@ const SocialMedia = () => {
     [],
   );
 
+  const getCopyHandler = useCallback(
+    (type: 'discord' | 'mail') => {
+      const text = type === 'discord' ? 'delemangi' : 'milev.stefan@gmail.com';
+      return handleCopyOnClick(text);
+    },
+    [handleCopyOnClick],
+  );
+
   return (
-    <RowContainer sx={{ marginBottom: 2 }}>
+    <RowContainer sx={{ gap: 2, marginBottom: 2 }}>
       <FloatingBar
         sx={{
           flexWrap: 'wrap',
@@ -78,61 +94,98 @@ const SocialMedia = () => {
           zIndex: 'auto',
         }}
       >
-        {socialIcons.map((item) => {
-          const isDiscord = item.onClick === 'discord';
-          const Icon = item.icon;
-          return (
-            <Tooltip
-              arrow
-              key={item.title}
-              placement="bottom"
-              slotProps={{
-                arrow: {
-                  sx: {
-                    '&:before': { transform: 'rotate(45deg) scale(0.66)' },
-                    color: 'rgba(106, 130, 251, 0.12)',
-                    height: 8,
-                    width: 8,
-                  },
+        {COPY_ICONS.map((item) => (
+          <SocialMediaButton
+            icon={item.icon}
+            key={item.title}
+            onClick={getCopyHandler(item.onClick)}
+            title={item.title}
+            tooltipSlotProps={{
+              arrow: {
+                sx: {
+                  '&:before': { transform: 'rotate(45deg) scale(0.66)' },
+                  color: 'rgba(106, 130, 251, 0.12)',
+                  height: 8,
+                  width: 8,
                 },
-                popper: {
-                  modifiers: [{ name: 'offset', options: { offset: [0, -9] } }],
-                },
-                tooltip: () => ({
-                  sx: (t) => ({
-                    backgroundColor: 'rgba(106, 130, 251, 0.12)',
-                    borderRadius: 1,
-                    boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
-                    color:
-                      t.palette.mode === 'dark'
-                        ? 'white'
-                        : t.palette.text.primary,
-                    fontSize: 14,
-                    fontWeight: 600,
-                    letterSpacing: 1,
-                    m: 0,
-                    px: 1,
-                    py: 0.5,
-                  }),
+              },
+              popper: {
+                modifiers: [{ name: 'offset', options: { offset: [0, -9] } }],
+              },
+              tooltip: () => ({
+                sx: (t) => ({
+                  backgroundColor: 'rgba(106, 130, 251, 0.12)',
+                  borderRadius: 1,
+                  boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
+                  color:
+                    t.palette.mode === 'dark'
+                      ? 'white'
+                      : t.palette.text.primary,
+                  fontSize: 14,
+                  fontWeight: 600,
+                  letterSpacing: 1,
+                  m: 0,
+                  px: 1,
+                  py: 0.5,
                 }),
-              }}
-              title={item.title}
-            >
-              <MediaButton
-                href={item.href}
-                onClick={isDiscord ? handleDiscordOnClick : undefined}
-                sx={{
-                  '&:hover': {
-                    scale: 1.2,
-                  },
-                  transition: 'all 0.2s, color 0.3s ease-in-out',
-                }}
-              >
-                <Icon />
-              </MediaButton>
-            </Tooltip>
-          );
-        })}
+              }),
+            }}
+            type="copy"
+          />
+        ))}
+      </FloatingBar>
+
+      <FloatingBar
+        sx={{
+          flexWrap: 'wrap',
+          gap: 1,
+          justifyContent: 'center',
+          padding: '4px 6px',
+          position: 'static',
+          right: 'auto',
+          top: 'auto',
+          zIndex: 'auto',
+        }}
+      >
+        {LINK_ICONS.map((item) => (
+          <SocialMediaButton
+            href={item.href}
+            icon={item.icon}
+            key={item.title}
+            title={item.title}
+            tooltipSlotProps={{
+              arrow: {
+                sx: {
+                  '&:before': { transform: 'rotate(45deg) scale(0.66)' },
+                  color: 'rgba(106, 130, 251, 0.12)',
+                  height: 8,
+                  width: 8,
+                },
+              },
+              popper: {
+                modifiers: [{ name: 'offset', options: { offset: [0, -9] } }],
+              },
+              tooltip: () => ({
+                sx: (t) => ({
+                  backgroundColor: 'rgba(106, 130, 251, 0.12)',
+                  borderRadius: 1,
+                  boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
+                  color:
+                    t.palette.mode === 'dark'
+                      ? 'white'
+                      : t.palette.text.primary,
+                  fontSize: 14,
+                  fontWeight: 600,
+                  letterSpacing: 1,
+                  m: 0,
+                  px: 1,
+                  py: 0.5,
+                }),
+              }),
+            }}
+            type="link"
+          />
+        ))}
       </FloatingBar>
 
       <Popover
