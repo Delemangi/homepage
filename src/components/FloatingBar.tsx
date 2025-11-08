@@ -14,6 +14,9 @@ const FloatingBar = styled(Box)(({ theme }) => ({
   padding: '2px 4px',
   position: 'fixed',
   right: 'max(16px, env(safe-area-inset-right, 0px) + 8px)',
+  [theme.breakpoints.down('sm')]: {
+    top: 'max(12px, env(safe-area-inset-top, 0px) + 12px)',
+  },
   top: 12,
   WebkitBackdropFilter: 'blur(6px)',
   zIndex: 10,

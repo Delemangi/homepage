@@ -51,7 +51,7 @@ const IndexPage = () => (
           },
           paddingTop: {
             sm: 6,
-            xs: 4,
+            xs: 8,
           },
           paddingX: {
             sm: 0,
