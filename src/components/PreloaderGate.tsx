@@ -42,16 +42,13 @@ const PreloaderGate = ({ children }: PropsWithChildren) => {
       }, HEX_DURATION_MS),
     );
 
-    // Prefetch lazies so Suspense doesn't flash after gate
     void Promise.allSettled([
       import('../page/Introduction'),
       import('../page/SocialMedia'),
       import('../page/Profile'),
       import('../page/Projects'),
     ])
-      .catch(() => {
-        // ignore prefetch errors
-      })
+      .catch(() => {})
       .finally(() => {
         prefetched = true;
         maybeProceed();

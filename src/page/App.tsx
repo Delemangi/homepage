@@ -1,79 +1,26 @@
-import { lazy, Suspense } from 'react';
+import { RouterProvider } from '@tanstack/react-router';
+import { useEffect } from 'react';
 
-import Background from '../components/Background';
-import ColumnBox from '../components/ColumnBox';
-import ColumnContainer from '../components/ColumnContainer';
-import FloatingBar from '../components/FloatingBar';
-import GlobalStyle from '../components/GlobalStyle';
-import LoadingSpinner from '../components/LoadingSpinner';
-import SourceLinkButton from '../components/SourceLinkButton';
-import StaggeredReveal from '../components/StaggeredReveal';
-import ThemeToggle from '../components/ThemeToggle';
+import { router } from '../router';
 
-const LazyIntroduction = lazy(() => import('./Introduction'));
-const LazySocialMedia = lazy(() => import('./SocialMedia'));
-const LazyProfile = lazy(() => import('./Profile'));
-const LazyProjects = lazy(() => import('./Projects'));
+const App = () => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.key === '`') {
+        e.preventDefault();
+        const isTerminal = window.location.pathname === '/terminal';
+        void router.navigate({ to: isTerminal ? '/' : '/terminal' });
+      }
+    };
 
-const App = () => (
-  <Background>
-    <FloatingBar>
-      <ThemeToggle />
-      <SourceLinkButton />
-    </FloatingBar>
-    <GlobalStyle />
-    <Suspense fallback={<LoadingSpinner />}>
-      <ColumnContainer
-        sx={{
-          justifyContent: {
-            sm: 'center',
-            xs: 'flex-start',
-          },
-          margin: 'auto',
-          maxWidth: {
-            lg: '44%',
-            md: '70%',
-            sm: '85%',
-            xl: '38%',
-            xs: '92%',
-          },
-          minHeight: {
-            sm: '95svh',
-            xs: '100svh',
-          },
-          paddingBottom: {
-            sm: 4,
-            xs: 3,
-          },
-          paddingTop: {
-            sm: 6,
-            xs: 4,
-          },
-          paddingX: {
-            sm: 0,
-            xs: 2,
-          },
-          scrollBehavior: 'smooth',
-          scrollSnapType: 'y proximity',
-        }}
-      >
-        <ColumnBox>
-          <StaggeredReveal delay={0}>
-            <LazyIntroduction />
-          </StaggeredReveal>
-          <StaggeredReveal delay={150}>
-            <LazySocialMedia />
-          </StaggeredReveal>
-          <StaggeredReveal delay={300}>
-            <LazyProfile />
-          </StaggeredReveal>
-          <StaggeredReveal delay={450}>
-            <LazyProjects />
-          </StaggeredReveal>
-        </ColumnBox>
-      </ColumnContainer>
-    </Suspense>
-  </Background>
-);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  return <RouterProvider router={router} />;
+};
 
 export default App;

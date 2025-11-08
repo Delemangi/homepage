@@ -1,7 +1,6 @@
 import { Box, CircularProgress } from '@mui/material';
 
 const LoadingSpinner = () => (
-  // center a spinner from MUI
   <Box
     sx={{
       alignItems: 'center',

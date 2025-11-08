@@ -16,7 +16,6 @@ export const useTextScramble = (target: string, duration = 700) => {
   const start = useCallback(() => {
     if (isRunning) return;
     setIsRunning(true);
-    // Begin on first animation frame to avoid mid-progress starts
     let begin: null | number = null;
     const n = target.length;
     const thresholds = Array.from({ length: n }, (_, i) =>
