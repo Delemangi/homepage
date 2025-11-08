@@ -67,7 +67,7 @@ const Profile = () => (
       >
         Outside work, I spend time on coding projects and play games, especially
         survival, roguelike, and factory titles. I also collect mechanical
-        keyboards.
+        keyboards and fiddle with homelab infrastructure.
       </Typography>
     </TextReveal>
 
