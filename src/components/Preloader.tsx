@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme } from '@mui/material';
-import { useEffect, useRef } from 'react';
+import { useEffect, useEffectEvent, useRef } from 'react';
 
 import { AURORA_ANIMATION, SITE_TITLE } from '../constants';
 import { useTextScramble } from '../hooks/useScramble';
@@ -15,8 +15,10 @@ const Preloader = ({ fading = false }: PreloaderProps) => {
   const ghostRef = useRef<HTMLDivElement | null>(null);
   const { start, text } = useTextScramble(SITE_TITLE, 700);
 
-  useEffect(() => {
-    let timeoutId: null | number = setTimeout(() => {
+  const onMount = useEffectEvent(() => {
+    start();
+
+    const timeoutId = setTimeout(() => {
       const ghost = ghostRef.current;
       const target = document.querySelector('#site-title-target');
 
@@ -35,17 +37,17 @@ const Preloader = ({ fading = false }: PreloaderProps) => {
           ghost.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
         });
       }
+    }, 750);
 
-      start();
-    }, 0);
+    return timeoutId;
+  });
 
+  useEffect(() => {
+    const timeoutId = onMount();
     return () => {
-      if (timeoutId !== null) {
-        clearTimeout(timeoutId);
-        timeoutId = null;
-      }
+      clearTimeout(timeoutId);
     };
-  }, [start]);
+  }, []);
 
   return (
     <Box

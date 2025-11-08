@@ -1,16 +1,20 @@
 import { Link, Typography } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { AURORA_ANIMATION, SITE_TITLE } from '../constants';
+import { PreloaderContext } from '../context/PreloaderContext';
 import { useTextScramble } from '../hooks/useScramble';
 
 const Name = () => {
+  const { preloaderDone } = useContext(PreloaderContext);
   const { start, text } = useTextScramble(SITE_TITLE, 700);
 
   const onTitleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    start();
+    if (preloaderDone) {
+      start();
+    }
   };
 
   return (

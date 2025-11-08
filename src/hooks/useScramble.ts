@@ -12,9 +12,11 @@ export const useTextScramble = (target: string, duration = 700) => {
   const [text, setText] = useState(target);
   const [isRunning, setIsRunning] = useState(false);
   const rafRef = useRef<null | number>(null);
+  const isRunningRef = useRef(false);
 
   const start = useCallback(() => {
-    if (isRunning) return;
+    if (isRunningRef.current) return;
+    isRunningRef.current = true;
     setIsRunning(true);
     let begin: null | number = null;
     const n = target.length;
@@ -38,17 +40,21 @@ export const useTextScramble = (target: string, duration = 700) => {
         rafRef.current = requestAnimationFrame(tick);
       } else {
         setText(target);
+        isRunningRef.current = false;
         setIsRunning(false);
         rafRef.current = null;
       }
     };
 
     rafRef.current = requestAnimationFrame(tick);
-  }, [duration, isRunning, target]);
+  }, [duration, target]);
 
   useEffect(
     () => () => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+      isRunningRef.current = false;
     },
     [],
   );

@@ -51,13 +51,17 @@ export const useTerminal = () => {
     inputRef.current?.focus();
   }, []);
 
-  const scrollToBottom = useCallback(() => {
+  const scrollToBottom = () => {
     setTimeout(() => {
       if (terminalRef.current && shouldAutoScrollRef.current) {
         terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
       }
     }, 0);
-  }, []);
+  };
+
+  const navigateToHome = () => {
+    void router.navigate({ to: '/' });
+  };
 
   const handleCommand = useCallback(
     (cmd: string) => {
@@ -78,9 +82,7 @@ export const useTerminal = () => {
       }
 
       const output = executeCommand(trimmedCmd, {
-        navigateToHome: () => {
-          void router.navigate({ to: '/' });
-        },
+        navigateToHome,
       });
       const timestamp = Date.now();
       setHistory((prev) => [
@@ -95,7 +97,7 @@ export const useTerminal = () => {
       setHistoryIndex(-1);
       scrollToBottom();
     },
-    [scrollToBottom, router],
+    [router],
   );
 
   const handleKeyDown = useCallback(
