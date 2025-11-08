@@ -1,4 +1,4 @@
-import { Box, Popover, Typography } from '@mui/material';
+import { Box, Popover, Typography, useTheme } from '@mui/material';
 import { type MouseEvent, useCallback, useState } from 'react';
 
 import FloatingBar from '../components/FloatingBar';
@@ -87,6 +87,7 @@ const getTooltipSlotProps = () => ({
 });
 
 const SocialMedia = () => {
+  const theme = useTheme();
   const [anchorElement, setAnchorElement] = useState<HTMLElement>();
 
   const handleCopyOnClick = useCallback(
@@ -119,7 +120,7 @@ const SocialMedia = () => {
       >
         <Typography
           sx={{
-            color: '#00ffd0',
+            color: theme.palette.mode === 'dark' ? '#00ffd0' : '#f4b860',
             fontSize: 10,
             fontWeight: 600,
             letterSpacing: 1.5,
@@ -164,7 +165,7 @@ const SocialMedia = () => {
       >
         <Typography
           sx={{
-            color: '#6a82fb',
+            color: theme.palette.mode === 'dark' ? '#6a82fb' : '#ee3f71',
             fontSize: 10,
             fontWeight: 600,
             letterSpacing: 1.5,

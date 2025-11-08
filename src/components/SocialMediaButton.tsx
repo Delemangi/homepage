@@ -1,4 +1,9 @@
-import { type SxProps, Tooltip, type TooltipProps } from '@mui/material';
+import {
+  type SxProps,
+  Tooltip,
+  type TooltipProps,
+  useTheme,
+} from '@mui/material';
 import { type ComponentType, type MouseEventHandler } from 'react';
 
 import MediaButton from './MediaButton';
@@ -20,7 +25,17 @@ const SocialMediaButton = ({
   tooltipSlotProps,
   type,
 }: SocialMediaButtonProps) => {
-  const accentColor = type === 'copy' ? '#00ffd0' : '#6a82fb';
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+
+  const accentColor =
+    type === 'copy'
+      ? isDark
+        ? '#00ffd0'
+        : '#f4b860'
+      : isDark
+        ? '#6a82fb'
+        : '#ee3f71';
 
   const buttonStyles: SxProps = {
     '&::after': {
