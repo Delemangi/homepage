@@ -9,7 +9,7 @@
     "@mui/icons-material": "^7.3.6",
     "@mui/material": "^7.3.6",
     "@tanstack/react-router": "^1.140.5",
-    "react": "^19.2.1",
+    "react": "^19.2.3",
     "react-dom": "^19.2.1"
   },
   "description": "Delemangi's personal website",
