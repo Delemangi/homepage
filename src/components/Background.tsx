@@ -102,6 +102,7 @@ const Background = ({ children }: Props) => {
   }, [ripples]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRipples([]);
     rippleId.current = 0;
   }, [theme.palette.mode]);

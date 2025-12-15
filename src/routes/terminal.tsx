@@ -16,8 +16,10 @@ const TerminalPage = () => (
   </>
 );
 
-export const Route = createRoute({
+const route = createRoute({
   component: TerminalPage,
   getParentRoute: () => RootRoute,
   path: '/terminal',
 });
+
+export { route as Route };

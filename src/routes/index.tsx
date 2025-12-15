@@ -80,8 +80,10 @@ const IndexPage = () => (
   </Background>
 );
 
-export const Route = createRoute({
+const route = createRoute({
   component: IndexPage,
   getParentRoute: () => RootRoute,
   path: '/',
 });
+
+export { route as Route };
