@@ -9,7 +9,6 @@ import GlobalStyle from '../components/GlobalStyle';
 import LoadingSpinner from '../components/LoadingSpinner';
 import SourceLinkButton from '../components/SourceLinkButton';
 import StaggeredReveal from '../components/StaggeredReveal';
-import TerminalToggle from '../components/terminal/TerminalToggle';
 import ThemeToggle from '../components/ThemeToggle';
 import { Route as RootRoute } from './__root';
 
@@ -22,7 +21,6 @@ const IndexPage = () => (
   <Background>
     <FloatingBar>
       <ThemeToggle />
-      <TerminalToggle />
       <SourceLinkButton />
     </FloatingBar>
     <GlobalStyle />
