@@ -8,7 +8,7 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.6",
     "@mui/material": "^7.3.6",
-    "@tanstack/react-router": "^1.142.8",
+    "@tanstack/react-router": "^1.142.11",
     "react": "^19.2.1",
     "react-dom": "^19.2.3"
   },
