@@ -1,8 +1,9 @@
-name: delemangi-home-dev
+name: delemangi-homepage-dev
+
 services:
   app:
     build: .
-    container_name: delemangi-home-dev
+    container_name: delemangi-homepage-dev
     image: delemangi-home:latest
     ports:
       - 8088:8088

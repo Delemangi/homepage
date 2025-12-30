@@ -1,7 +1,8 @@
-name: delemangi-home
+name: delemangi-homepage
+
 services:
   app:
-    container_name: delemangi-home
+    container_name: delemangi-homepage
     image: ghcr.io/delemangi/homepage:latest
     ports:
       - 8088:8088
