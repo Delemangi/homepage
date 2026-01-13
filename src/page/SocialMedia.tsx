@@ -121,7 +121,7 @@ const SocialMedia = () => {
         <Typography
           sx={{
             color: theme.palette.mode === 'dark' ? '#00ffd0' : '#f4b860',
-            fontSize: 10,
+            fontSize: 12,
             fontWeight: 600,
             letterSpacing: 1.5,
             opacity: 0.6,
@@ -136,7 +136,7 @@ const SocialMedia = () => {
             flexWrap: 'wrap',
             gap: 1,
             justifyContent: 'center',
-            padding: '4px 6px',
+            padding: '6px 10px',
             position: 'static',
             right: 'auto',
             top: 'auto',
@@ -166,7 +166,7 @@ const SocialMedia = () => {
         <Typography
           sx={{
             color: theme.palette.mode === 'dark' ? '#6a82fb' : '#ee3f71',
-            fontSize: 10,
+            fontSize: 12,
             fontWeight: 600,
             letterSpacing: 1.5,
             opacity: 0.6,
@@ -181,7 +181,7 @@ const SocialMedia = () => {
             flexWrap: 'wrap',
             gap: 1,
             justifyContent: 'center',
-            padding: '4px 6px',
+            padding: '6px 10px',
             position: 'static',
             right: 'auto',
             top: 'auto',

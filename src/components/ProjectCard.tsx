@@ -64,8 +64,8 @@ const ProjectCard = ({
         },
         backgroundColor:
           t.palette.mode === 'dark'
-            ? 'rgba(255, 255, 255, 0.04)'
-            : 'rgba(0, 0, 0, 0.03)',
+            ? 'rgba(255, 255, 255, 0.09)'
+            : 'rgba(0, 0, 0, 0.09)',
         border: `1px solid ${
           t.palette.mode === 'dark'
             ? 'rgba(255, 255, 255, 0.08)'

@@ -30,7 +30,7 @@ const LocalTime = (props: Props) => {
   return (
     <Typography
       color="textSecondary"
-      fontSize={14}
+      fontSize={18}
       {...props}
     >
       {time}

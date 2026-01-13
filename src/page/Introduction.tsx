@@ -18,22 +18,22 @@ const Introduction = () => (
     >
       <Typography
         color="textSecondary"
-        fontSize={14}
+        fontSize={18}
       >
         Stefan Milev
       </Typography>
       <Typography
         color="textSecondary"
-        fontSize={14}
+        fontSize={18}
       >
         Skopje, North Macedonia
       </Typography>
-      <LocalTime fontSize={14} />
+      <LocalTime fontSize={18} />
       <Age
-        fontSize={14}
+        fontSize={18}
         marginBottom={2}
       />
-      <Typography fontSize={16}>
+      <Typography fontSize={18}>
         Software Engineer @{' '}
         <UnderlinedLink
           href="https://codechem.com"

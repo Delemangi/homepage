@@ -18,7 +18,9 @@ const SkillChip = ({ label }: SkillChipProps) => (
     }}
     size="small"
     sx={(t) => ({
-      '& .MuiChip-label': { px: 1.25 },
+      '& .MuiChip-label': {
+        px: 1.5,
+      },
       '&::after': {
         background:
           t.palette.mode === 'dark'
