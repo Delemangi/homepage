@@ -1,8 +1,34 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 
 import Column from '../components/Column';
 import ProjectCard, { type Project } from '../components/ProjectCard';
 import TextReveal from '../components/TextReveal';
+import SkillChip from './SkillChip';
+
+const SKILLS = [
+  'Node.js',
+  'React',
+  'Solid',
+  'Next.js',
+  'Electron',
+  'Material UI',
+  'Chakra UI',
+  'FastAPI',
+  'Django',
+  'Spring Boot',
+  'MCP',
+  'AWS',
+  'Azure',
+  'Cloudflare',
+  'discord.js',
+  'PostgreSQL',
+  'MongoDB',
+  'Milvus',
+  'ElasticSearch',
+  'LangChain',
+  'Docker',
+  'Kubernetes',
+] as const;
 
 const projects: Project[] = [
   {
@@ -43,7 +69,7 @@ const projects: Project[] = [
   },
 ];
 
-const Projects = () => (
+const Portfolio = () => (
   <Column>
     <TextReveal>
       <Typography
@@ -60,40 +86,49 @@ const Projects = () => (
         })}
         variant="h5"
       >
-        Projects
+        Portfolio
       </Typography>
     </TextReveal>
 
     <TextReveal delay={100}>
-      <Box
-        sx={(t) => ({
-          alignItems: 'center',
-          color: t.palette.text.secondary,
-          display: 'flex',
-          gap: 1,
-          marginBottom: 2,
-          opacity: 0.9,
-        })}
+      <Typography
+        align="justify"
+        color="textSecondary"
+        fontSize={14}
+        marginBottom={1}
       >
-        <Box
-          sx={(t) => ({
-            backgroundColor: t.palette.success.main,
-            borderRadius: '50%',
-            boxShadow:
-              t.palette.mode === 'dark'
-                ? '0 0 10px rgba(76, 175, 80, 0.5)'
-                : '0 0 8px rgba(76, 175, 80, 0.35)',
-            height: 8,
-            width: 8,
-          })}
-        />
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          Actively maintained
-        </Typography>
-      </Box>
+        Here are some technologies I use frequently professionally and in my own
+        projects:
+      </Typography>
+    </TextReveal>
+
+    <TextReveal delay={200}>
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        spacing={1}
+        sx={{ marginBottom: 3 }}
+        useFlexGap
+      >
+        {SKILLS.map((label) => (
+          <SkillChip
+            key={label}
+            label={label}
+          />
+        ))}
+      </Stack>
+    </TextReveal>
+
+    <TextReveal delay={300}>
+      <Typography
+        align="justify"
+        color="textSecondary"
+        fontSize={14}
+        marginBottom={2}
+      >
+        Below are some of my personal projects and open-source contributions.
+        Each project is something I needed and built for myself.
+      </Typography>
     </TextReveal>
 
     <Box
@@ -108,7 +143,7 @@ const Projects = () => (
     >
       {projects.map((p, index) => (
         <TextReveal
-          delay={200 + index * 100}
+          delay={400 + index * 100}
           key={p.title}
         >
           <ProjectCard {...p} />
@@ -118,4 +153,4 @@ const Projects = () => (
   </Column>
 );
 
-export default Projects;
+export default Portfolio;

@@ -1,33 +1,7 @@
-import { Stack, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import Column from '../components/Column';
 import TextReveal from '../components/TextReveal';
-import SkillChip from './SkillChip';
-
-const SKILLS = [
-  'Node.js',
-  'React',
-  'Solid',
-  'Next.js',
-  'Electron',
-  'Material UI',
-  'Chakra UI',
-  'FastAPI',
-  'Django',
-  'Spring Boot',
-  'MCP',
-  'AWS',
-  'Azure',
-  'Cloudflare',
-  'discord.js',
-  'PostgreSQL',
-  'MongoDB',
-  'Milvus',
-  'ElasticSearch',
-  'LangChain',
-  'Docker',
-  'Kubernetes',
-] as const;
 
 const Profile = () => (
   <Column>
@@ -67,40 +41,11 @@ const Profile = () => (
         align="justify"
         color="textSecondary"
         fontSize={15}
-        marginBottom={2}
       >
         Outside work, I spend time on coding projects and play games, especially
         survival, roguelike, and factory titles. I also collect mechanical
         keyboards and break things on my homelab infrastructure.
       </Typography>
-    </TextReveal>
-
-    <TextReveal delay={300}>
-      <Typography
-        align="justify"
-        color="textSecondary"
-        fontSize={14}
-        marginBottom={1}
-      >
-        Here are some technologies I use frequently professionally and in my own
-        projects:
-      </Typography>
-    </TextReveal>
-
-    <TextReveal delay={400}>
-      <Stack
-        direction="row"
-        flexWrap="wrap"
-        spacing={1}
-        useFlexGap
-      >
-        {SKILLS.map((label) => (
-          <SkillChip
-            key={label}
-            label={label}
-          />
-        ))}
-      </Stack>
     </TextReveal>
   </Column>
 );

@@ -15,7 +15,8 @@ import { Route as RootRoute } from './__root';
 const LazyIntroduction = lazy(() => import('../page/Introduction'));
 const LazySocialMedia = lazy(() => import('../page/SocialMedia'));
 const LazyProfile = lazy(() => import('../page/Profile'));
-const LazyProjects = lazy(() => import('../page/Projects'));
+const LazyTimeline = lazy(() => import('../page/Timeline'));
+const LazyPortfolio = lazy(() => import('../page/Portfolio'));
 
 const IndexPage = () => (
   <Background>
@@ -70,7 +71,10 @@ const IndexPage = () => (
             <LazyProfile />
           </StaggeredReveal>
           <StaggeredReveal delay={450}>
-            <LazyProjects />
+            <LazyTimeline />
+          </StaggeredReveal>
+          <StaggeredReveal delay={600}>
+            <LazyPortfolio />
           </StaggeredReveal>
         </ColumnBox>
       </ColumnContainer>

@@ -43,7 +43,7 @@ const Introduction = () => (
         </UnderlinedLink>
       </Typography>
       <Typography fontSize={16}>
-        CS Master&apos;s Student @{' '}
+        MSc, Computer Science @{' '}
         <UnderlinedLink
           href="https://finki.ukim.mk"
           target="_blank"
