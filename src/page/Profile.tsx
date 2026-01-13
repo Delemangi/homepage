@@ -5,20 +5,24 @@ import TextReveal from '../components/TextReveal';
 import SkillChip from './SkillChip';
 
 const SKILLS = [
-  'Microservices',
   'Node.js',
-  'Serverless',
   'React',
+  'Solid',
+  'Next.js',
+  'Electron',
+  'Material UI',
+  'Chakra UI',
   'FastAPI',
+  'Django',
   'Spring Boot',
-  'RAG',
   'MCP',
-  'Prompt Engineering',
-  'AI/ML',
   'AWS',
+  'Azure',
+  'Cloudflare',
   'discord.js',
   'PostgreSQL',
   'MongoDB',
+  'Milvus',
   'ElasticSearch',
   'LangChain',
   'Docker',
@@ -67,7 +71,7 @@ const Profile = () => (
       >
         Outside work, I spend time on coding projects and play games, especially
         survival, roguelike, and factory titles. I also collect mechanical
-        keyboards and fiddle with homelab infrastructure.
+        keyboards and break things on my homelab infrastructure.
       </Typography>
     </TextReveal>
 
@@ -78,7 +82,8 @@ const Profile = () => (
         fontSize={14}
         marginBottom={1}
       >
-        Here are some technologies I&apos;ve used extensively in production:
+        Here are some technologies I use frequently professionally and in my own
+        projects:
       </Typography>
     </TextReveal>
 
