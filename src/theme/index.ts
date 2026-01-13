@@ -73,6 +73,3 @@ export const createAppTheme = (mode: PaletteMode) =>
       fontFamily: 'Kode Mono, monospace',
     },
   });
-
-const theme = createAppTheme('dark');
-export default theme;

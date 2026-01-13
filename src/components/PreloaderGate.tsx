@@ -46,6 +46,7 @@ const PreloaderGate = ({ children }: PropsWithChildren) => {
       import('../page/Introduction'),
       import('../page/SocialMedia'),
       import('../page/Profile'),
+      import('../page/Timeline'),
       import('../page/Portfolio'),
     ])
       .catch(() => {})

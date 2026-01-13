@@ -2,41 +2,35 @@ import { Box, Typography } from '@mui/material';
 
 import Column from '../components/Column';
 import TextReveal from '../components/TextReveal';
-import { calculateDuration } from '../utils/calculateDuration';
 
 export type TimelineItem = {
-  readonly company?: string;
-  readonly endDate: string;
-  readonly institution?: string;
-  readonly position?: string;
-  readonly skills?: string[];
-  readonly startDate: string;
+  readonly endYear: string;
+  readonly organization: string;
+  readonly position: string;
+  readonly startYear: string;
   readonly type: 'education' | 'work';
 };
 
 const timeline: TimelineItem[] = [
   {
-    endDate: 'Sep 2024',
-    institution: 'Faculty of Computer Science and Engineering',
+    endYear: '2024',
+    organization: 'Faculty of Computer Science and Engineering',
     position: 'BSc, Computer Science',
-    skills: ['DevOps', 'Spring Boot'],
-    startDate: 'Oct 2020',
+    startYear: '2020',
     type: 'education',
   },
   {
-    endDate: 'Dec 2025',
-    institution: 'Faculty of Computer Science and Engineering',
+    endYear: '2025',
+    organization: 'Faculty of Computer Science and Engineering',
     position: 'MSc, Computer Science',
-    skills: ['Agents', 'Retrieval-Augmented Generation (RAG)'],
-    startDate: 'Oct 2024',
+    startYear: '2024',
     type: 'education',
   },
   {
-    company: 'CodeChem',
-    endDate: 'Present',
+    endYear: 'Present',
+    organization: 'CodeChem',
     position: 'Software Engineer',
-    skills: ['JavaScript', 'React.js'],
-    startDate: 'Jul 2022',
+    startYear: '2022',
     type: 'work',
   },
 ];
@@ -104,7 +98,7 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
                 : t.palette.mode === 'dark'
                   ? 'rgb(94, 234, 212)'
                   : 'rgb(20, 184, 166)',
-            fontSize: 11,
+            fontSize: 12,
             px: 1.25,
             py: 0.4,
           }}
@@ -112,24 +106,22 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
           {item.type === 'work' ? 'Experience' : 'Education'}
         </Box>
       </Box>
-      {item.type === 'work' && (
-        <Typography
-          color="textSecondary"
-          sx={{
-            fontSize: 13,
-            ml: 2,
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {calculateDuration(item.startDate, item.endDate)}
-        </Typography>
-      )}
+      <Typography
+        color="textSecondary"
+        sx={{
+          fontSize: 13,
+          ml: 2,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {`${item.startYear} - ${item.endYear}`}
+      </Typography>
     </Box>
     <Typography
       color="textSecondary"
       sx={{ fontSize: 14 }}
     >
-      {item.type === 'work' ? item.company : item.institution}
+      {item.organization}
     </Typography>
   </Box>
 );
@@ -158,7 +150,7 @@ const Timeline = () => (
       {timeline.map((item) => (
         <TimelineItemComponent
           item={item}
-          key={`${item.type}-${item.position}-${item.startDate}`}
+          key={`${item.type}-${item.position}-${item.startYear}`}
         />
       ))}
     </Box>
