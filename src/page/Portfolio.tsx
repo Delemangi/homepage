@@ -126,8 +126,9 @@ const Portfolio = () => (
         fontSize={14}
         marginBottom={2}
       >
-        Below are some of my personal projects and open-source contributions.
-        Each project is something I needed and built for myself.
+        Below are some of my personal projects and open-source contributions
+        that I still maintain. Each project is something I needed and built for
+        myself.
       </Typography>
     </TextReveal>
 
