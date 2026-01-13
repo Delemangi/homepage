@@ -29,7 +29,7 @@ const projects: Project[] = [
     title: 'eslint-config-imperium',
   },
   {
-    description: 'Personal site — you are currently here.',
+    description: 'You are currently here!',
     hrefCode: 'https://github.com/Delemangi/homepage',
     tech: ['React', 'TypeScript', 'Vite', 'Material UI', 'Docker'],
     title: 'homepage',
