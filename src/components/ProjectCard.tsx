@@ -139,7 +139,6 @@ const ProjectCard = ({
         {description}
       </Typography>
 
-      {/* Flexible spacer to push chips and links to the bottom */}
       <Box sx={{ flexGrow: 1 }} />
 
       {tech.length > 0 ? (

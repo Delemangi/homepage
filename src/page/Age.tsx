@@ -4,8 +4,13 @@ import { useEffect, useState } from 'react';
 import { BIRTHDAY } from '../constants';
 
 const getAge = (decimals = 9) => {
-  const birthDate = new Date(BIRTHDAY);
-  const currentDate = new Date();
+  const [year, month, day] = BIRTHDAY.split('-').map(Number);
+  const birthDate = new Date(Date.UTC(year, month - 1, day - 1, 23, 0, 0, 0));
+
+  const now = new Date();
+  const utcTime = now.getTime() + now.getTimezoneOffset() * 60 * 1_000;
+  const currentDate = new Date(utcTime + 60 * 60 * 1_000);
+
   const diff = currentDate.getTime() - birthDate.getTime();
   const age = diff / (1_000 * 60 * 60 * 24 * 365.25);
 

@@ -11,26 +11,20 @@ const keyFrames = css`
     }
   }
 
-  /* Global Scrollbar Styles */
-  /* Firefox */
   html,
   body,
   * {
     scrollbar-width: thin;
   }
 
-  /* Light mode (default) */
   :root:not([data-theme='dark']) {
     scrollbar-color: rgba(238, 63, 113, 0.55) rgba(0, 0, 0, 0.06);
   }
 
-  /* Dark mode */
   :root[data-theme='dark'] {
     scrollbar-color: rgba(106, 130, 251, 0.55) rgba(255, 255, 255, 0.06);
   }
 
-  /* WebKit/Blink */
-  /* Base size */
   *::-webkit-scrollbar {
     width: 12px;
     height: 12px;
@@ -38,7 +32,6 @@ const keyFrames = css`
   *::-webkit-scrollbar-corner {
     background: transparent;
   }
-  /* Light mode visuals */
   :root:not([data-theme='dark']) *::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.06);
   }
@@ -52,7 +45,6 @@ const keyFrames = css`
     background-color: rgba(238, 63, 113, 0.7);
   }
 
-  /* Dark mode visuals */
   :root[data-theme='dark'] *::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.06);
   }
