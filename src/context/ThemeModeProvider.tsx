@@ -33,8 +33,8 @@ export const ThemeModeProvider = ({ children }: Props) => {
   useEffect(() => {
     localStorage.setItem(PREF_KEY, preference);
 
-    document.documentElement.dataset.theme = mode;
-    document.documentElement.dataset.themePreference = preference;
+    document.documentElement.dataset['theme'] = mode;
+    document.documentElement.dataset['themePreference'] = preference;
   }, [mode, preference]);
 
   const toggleMode = useCallback(() => {

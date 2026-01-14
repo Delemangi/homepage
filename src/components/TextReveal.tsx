@@ -19,8 +19,9 @@ const TextReveal = ({ children, delay = 0, direction = 'up' }: Props) => {
     }
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
           setTimeout(() => {
             setIsVisible(true);
           }, delay);

@@ -31,7 +31,12 @@ export const useTextScramble = (target: string, duration = 700) => {
       let out = '';
 
       for (let i = 0; i < n; i++) {
-        out += eased >= thresholds[i] ? target[i] : getRandomChar();
+        const threshold = thresholds[i];
+        if (threshold === undefined) {
+          out += getRandomChar();
+        } else {
+          out += eased >= threshold ? target[i] : getRandomChar();
+        }
       }
 
       setText(out);

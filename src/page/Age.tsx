@@ -5,6 +5,11 @@ import { BIRTHDAY } from '../constants';
 
 const getAge = (decimals = 9) => {
   const [year, month, day] = BIRTHDAY.split('-').map(Number);
+
+  if (year === undefined || month === undefined || day === undefined) {
+    throw new Error('Invalid birthday format');
+  }
+
   const birthDate = new Date(Date.UTC(year, month - 1, day - 1, 23, 0, 0, 0));
 
   const now = new Date();
