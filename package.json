@@ -10,7 +10,7 @@
     "@mui/material": "^7.3.6",
     "@tanstack/react-router": "^1.157.14",
     "react": "^19.2.1",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.4"
   },
   "description": "Delemangi's personal website",
   "devDependencies": {
