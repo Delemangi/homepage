@@ -29,8 +29,8 @@ const TextReveal = ({ children, delay = 0, direction = 'up' }: Props) => {
         }
       },
       {
-        rootMargin: '0px',
-        threshold: 0.2,
+        rootMargin: '50px 0px',
+        threshold: 0.05,
       },
     );
 
