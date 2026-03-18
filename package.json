@@ -8,7 +8,7 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.9",
     "@mui/material": "^7.3.7",
-    "@tanstack/react-router": "^1.167.4",
+    "@tanstack/react-router": "^1.167.5",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
@@ -17,10 +17,10 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react-swc": "^4.3.0",
-    "eslint": "^9.39.2",
+    "eslint": "^9.39.4",
     "eslint-config-imperium": "^3.4.0",
     "typescript": "~5.9.3",
-    "vite": "^7.3.1"
+    "vite": "^8.0.0"
   },
   "engines": {
     "node": "^20 || ^22 || ^24"
