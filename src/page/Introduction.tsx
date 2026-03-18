@@ -51,16 +51,25 @@ const Introduction = () => (
           FCSE
         </UnderlinedLink>
       </Typography>
-      <Typography
-        fontSize={16}
-        marginBottom={2}
-      >
+      <Typography fontSize={16}>
         Founder @{' '}
         <UnderlinedLink
           href="https://finki-hub.com"
           target="_blank"
         >
           finki-hub
+        </UnderlinedLink>{' '}
+      </Typography>
+      <Typography
+        fontSize={16}
+        marginBottom={2}
+      >
+        Co-founder @{' '}
+        <UnderlinedLink
+          href="https://learnify.mk"
+          target="_blank"
+        >
+          learnify.mk
         </UnderlinedLink>{' '}
       </Typography>
     </Box>
