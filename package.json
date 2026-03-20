@@ -20,7 +20,7 @@
     "eslint": "^9.39.4",
     "eslint-config-imperium": "^3.4.0",
     "typescript": "~5.9.3",
-    "vite": "^8.0.0"
+    "vite": "^8.0.1"
   },
   "engines": {
     "node": "^20 || ^22 || ^24"
