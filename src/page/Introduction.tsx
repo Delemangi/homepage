@@ -37,6 +37,7 @@ const Introduction = () => (
         Software Engineer @{' '}
         <UnderlinedLink
           href="https://codechem.com"
+          rel="noopener noreferrer"
           target="_blank"
         >
           CodeChem
@@ -46,6 +47,7 @@ const Introduction = () => (
         MSc, Computer Science @{' '}
         <UnderlinedLink
           href="https://finki.ukim.mk"
+          rel="noopener noreferrer"
           target="_blank"
         >
           FCSE
@@ -55,6 +57,7 @@ const Introduction = () => (
         Founder @{' '}
         <UnderlinedLink
           href="https://finki-hub.com"
+          rel="noopener noreferrer"
           target="_blank"
         >
           finki-hub
@@ -67,6 +70,7 @@ const Introduction = () => (
         Co-founder @{' '}
         <UnderlinedLink
           href="https://learnify.mk"
+          rel="noopener noreferrer"
           target="_blank"
         >
           learnify.mk

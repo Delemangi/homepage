@@ -86,14 +86,43 @@ const getTooltipSlotProps = () => ({
   }),
 });
 
+const FLOATING_BAR_SX = {
+  flexWrap: 'wrap',
+  gap: 1,
+  justifyContent: 'center',
+  padding: '6px 10px',
+  position: 'static',
+  right: 'auto',
+  top: 'auto',
+  zIndex: 'auto',
+} as const;
+
+const getSectionLabelSx = (color: string) =>
+  ({
+    color,
+    fontSize: 12,
+    fontWeight: 600,
+    letterSpacing: 1.5,
+    opacity: 0.6,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  }) as const;
+
 const SocialMedia = () => {
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const [anchorElement, setAnchorElement] = useState<HTMLElement>();
 
   const handleCopyOnClick = useCallback(
     (text: string) => async (event: MouseEvent<HTMLButtonElement>) => {
       setAnchorElement(event.currentTarget);
-      await navigator.clipboard.writeText(text);
+
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        /* clipboard write may fail when permission is denied */
+      }
+
       setTimeout(() => {
         setAnchorElement(undefined);
       }, 1_500);
@@ -118,31 +147,10 @@ const SocialMedia = () => {
           gap: 0.5,
         }}
       >
-        <Typography
-          sx={{
-            color: theme.palette.mode === 'dark' ? '#00ffd0' : '#f4b860',
-            fontSize: 12,
-            fontWeight: 600,
-            letterSpacing: 1.5,
-            opacity: 0.6,
-            textAlign: 'center',
-            textTransform: 'uppercase',
-          }}
-        >
+        <Typography sx={getSectionLabelSx(isDark ? '#00ffd0' : '#f4b860')}>
           Contact
         </Typography>
-        <FloatingBar
-          sx={{
-            flexWrap: 'wrap',
-            gap: 1,
-            justifyContent: 'center',
-            padding: '6px 10px',
-            position: 'static',
-            right: 'auto',
-            top: 'auto',
-            zIndex: 'auto',
-          }}
-        >
+        <FloatingBar sx={FLOATING_BAR_SX}>
           {COPY_ICONS.map((item) => (
             <SocialMediaButton
               icon={item.icon}
@@ -163,31 +171,10 @@ const SocialMedia = () => {
           gap: 0.5,
         }}
       >
-        <Typography
-          sx={{
-            color: theme.palette.mode === 'dark' ? '#6a82fb' : '#ee3f71',
-            fontSize: 12,
-            fontWeight: 600,
-            letterSpacing: 1.5,
-            opacity: 0.6,
-            textAlign: 'center',
-            textTransform: 'uppercase',
-          }}
-        >
+        <Typography sx={getSectionLabelSx(isDark ? '#6a82fb' : '#ee3f71')}>
           Profiles
         </Typography>
-        <FloatingBar
-          sx={{
-            flexWrap: 'wrap',
-            gap: 1,
-            justifyContent: 'center',
-            padding: '6px 10px',
-            position: 'static',
-            right: 'auto',
-            top: 'auto',
-            zIndex: 'auto',
-          }}
-        >
+        <FloatingBar sx={FLOATING_BAR_SX}>
           {LINK_ICONS.map((item) => (
             <SocialMediaButton
               href={item.href}

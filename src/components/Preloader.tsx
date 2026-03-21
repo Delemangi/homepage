@@ -72,9 +72,9 @@ const Preloader = ({ fading = false }: PreloaderProps) => {
       }}
     >
       <Typography
+        aria-label={SITE_TITLE}
         component="div"
         ref={ghostRef}
-        role="img"
         sx={(t) => ({
           animation: fading ? 'none' : AURORA_ANIMATION,
           background:

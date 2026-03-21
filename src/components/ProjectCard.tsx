@@ -166,6 +166,7 @@ const ProjectCard = ({
           {hrefLive ? (
             <UnderlinedLink
               href={hrefLive}
+              rel="noopener noreferrer"
               target="_blank"
             >
               Live
@@ -174,6 +175,7 @@ const ProjectCard = ({
           {hrefCode ? (
             <UnderlinedLink
               href={hrefCode}
+              rel="noopener noreferrer"
               target="_blank"
             >
               Code

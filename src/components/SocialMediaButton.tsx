@@ -72,6 +72,7 @@ const SocialMediaButton = ({
       title={title}
     >
       <MediaButton
+        aria-label={title}
         href={href}
         onClick={onClick}
         sx={buttonStyles}

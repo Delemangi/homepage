@@ -9,6 +9,7 @@ const MediaButton = ({ children, href, ...props }: Props) =>
     <IconButton
       component="a"
       href={href}
+      rel="noopener noreferrer"
       target="_blank"
       {...props}
     >

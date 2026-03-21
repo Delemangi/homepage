@@ -48,12 +48,10 @@ const PreloaderGate = ({ children }: PropsWithChildren) => {
       import('../page/Profile'),
       import('../page/Timeline'),
       import('../page/Portfolio'),
-    ])
-      .catch(() => {})
-      .finally(() => {
-        prefetched = true;
-        maybeProceed();
-      });
+    ]).finally(() => {
+      prefetched = true;
+      maybeProceed();
+    });
 
     return () => {
       cancelled = true;
