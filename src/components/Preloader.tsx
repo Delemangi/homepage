@@ -49,6 +49,11 @@ const Preloader = ({ fading = false }: PreloaderProps) => {
     };
   }, []);
 
+  const radialGradient =
+    theme.palette.mode === 'dark'
+      ? `radial-gradient(900px 600px at 30% 30%, rgba(106, 130, 251, 0.12), transparent 60%), radial-gradient(800px 600px at 70% 70%, rgba(238, 63, 113, 0.12), transparent 60%), ${bg}`
+      : `radial-gradient(900px 600px at 30% 30%, rgba(106, 130, 251, 0.10), transparent 60%), radial-gradient(800px 600px at 70% 70%, rgba(238, 63, 113, 0.10), transparent 60%), ${bg}`;
+
   return (
     <Box
       sx={{
@@ -57,11 +62,7 @@ const Preloader = ({ fading = false }: PreloaderProps) => {
           to: { transform: 'scaleY(1)' },
         },
         alignItems: 'center',
-        background: fading
-          ? 'transparent'
-          : theme.palette.mode === 'dark'
-            ? `radial-gradient(900px 600px at 30% 30%, rgba(106, 130, 251, 0.12), transparent 60%), radial-gradient(800px 600px at 70% 70%, rgba(238, 63, 113, 0.12), transparent 60%), ${bg}`
-            : `radial-gradient(900px 600px at 30% 30%, rgba(106, 130, 251, 0.10), transparent 60%), radial-gradient(800px 600px at 70% 70%, rgba(238, 63, 113, 0.10), transparent 60%), ${bg}`,
+        background: fading ? 'transparent' : radialGradient,
         display: 'flex',
         inset: 0,
         justifyContent: 'center',

@@ -35,18 +35,41 @@ const timeline: TimelineItem[] = [
   },
 ];
 
+const TIMELINE_COLORS = {
+  education: {
+    dark: 'rgb(94, 234, 212)',
+    light: 'rgb(20, 184, 166)',
+  },
+  work: {
+    dark: 'rgb(106, 130, 251)',
+    light: 'rgb(238, 63, 113)',
+  },
+} as const;
+
+const TIMELINE_BG_COLORS = {
+  education: {
+    dark: 'rgba(94, 234, 212, 0.15)',
+    light: 'rgba(20, 184, 166, 0.15)',
+  },
+  work: {
+    dark: 'rgba(106, 130, 251, 0.2)',
+    light: 'rgba(238, 63, 113, 0.15)',
+  },
+} as const;
+
 const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
   <Box
     sx={{
       '&:last-child': {
         mb: 0,
       },
-      borderColor: (t) =>
-        item.type === 'work'
+      borderColor: (t) => {
+        const mode = t.palette.mode === 'dark' ? 'dark' : 'light';
+
+        return item.type === 'work'
           ? t.palette.divider
-          : t.palette.mode === 'dark'
-            ? 'rgb(94, 234, 212)'
-            : 'rgb(20, 184, 166)',
+          : TIMELINE_COLORS[item.type][mode];
+      },
       borderLeft: '3px solid',
       display: 'flex',
       flexDirection: 'column',
@@ -81,23 +104,17 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
         </Typography>
         <Box
           sx={{
-            backgroundColor: (t) =>
-              item.type === 'work'
-                ? t.palette.mode === 'dark'
-                  ? 'rgba(106, 130, 251, 0.2)'
-                  : 'rgba(238, 63, 113, 0.15)'
-                : t.palette.mode === 'dark'
-                  ? 'rgba(94, 234, 212, 0.15)'
-                  : 'rgba(20, 184, 166, 0.15)',
+            backgroundColor: (t) => {
+              const mode = t.palette.mode === 'dark' ? 'dark' : 'light';
+
+              return TIMELINE_BG_COLORS[item.type][mode];
+            },
             borderRadius: 1,
-            color: (t) =>
-              item.type === 'work'
-                ? t.palette.mode === 'dark'
-                  ? 'rgb(106, 130, 251)'
-                  : 'rgb(238, 63, 113)'
-                : t.palette.mode === 'dark'
-                  ? 'rgb(94, 234, 212)'
-                  : 'rgb(20, 184, 166)',
+            color: (t) => {
+              const mode = t.palette.mode === 'dark' ? 'dark' : 'light';
+
+              return TIMELINE_COLORS[item.type][mode];
+            },
             fontSize: 12,
             px: 1.25,
             py: 0.4,

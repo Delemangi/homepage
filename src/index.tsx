@@ -13,13 +13,16 @@ console.log(
   'color:#ee3f71;text-decoration:underline;font-size:12px',
 );
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-createRoot(document.querySelector('#root')!).render(
-  <StrictMode>
-    <ThemeModeProvider>
-      <PreloaderGate>
-        <App />
-      </PreloaderGate>
-    </ThemeModeProvider>
-  </StrictMode>,
-);
+const root = document.querySelector('#root');
+
+if (root !== null) {
+  createRoot(root).render(
+    <StrictMode>
+      <ThemeModeProvider>
+        <PreloaderGate>
+          <App />
+        </PreloaderGate>
+      </ThemeModeProvider>
+    </StrictMode>,
+  );
+}
