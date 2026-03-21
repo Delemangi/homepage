@@ -9,6 +9,7 @@
     "@mui/icons-material": "^7.3.9",
     "@mui/material": "^7.3.7",
     "@tanstack/react-router": "^1.168.1",
+    "@vitejs/plugin-react": "^6.0.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
@@ -16,7 +17,6 @@
   "devDependencies": {
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react-swc": "^4.3.0",
     "eslint": "^9.39.4",
     "eslint-config-imperium": "^3.4.0",
     "typescript": "~5.9.3",
