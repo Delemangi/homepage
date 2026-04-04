@@ -11,7 +11,7 @@ const MAX_WAIT_MS = 2_200;
 
 const PreloaderGate = ({ children }: PropsWithChildren) => {
   const [stage, setStage] = useState<Stage>('loading');
-  const startRef = useRef<number>(Date.now());
+  const startRef = useRef(Date.now());
   const timers = useRef<number[]>([]);
 
   useEffect(() => {
