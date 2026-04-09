@@ -88,10 +88,12 @@ const ProjectCard = ({
       tabIndex={clickable ? 0 : undefined}
     >
       <Box
-        alignItems="flex-start"
-        display="flex"
-        gap={1}
-        justifyContent="space-between"
+        sx={{
+          alignItems: 'flex-start',
+          display: 'flex',
+          gap: 1,
+          justifyContent: 'space-between',
+        }}
       >
         <Typography
           sx={(t) => ({
@@ -132,10 +134,7 @@ const ProjectCard = ({
         ) : null}
       </Box>
 
-      <Typography
-        color="textSecondary"
-        fontSize={14}
-      >
+      <Typography sx={{ color: 'text.secondary', fontSize: 14 }}>
         {description}
       </Typography>
 
@@ -144,9 +143,8 @@ const ProjectCard = ({
       {tech.length > 0 ? (
         <Stack
           direction="row"
-          flexWrap="wrap"
           spacing={1}
-          useFlexGap
+          sx={{ flexWrap: 'wrap' }}
         >
           {tech.map((label) => (
             <SkillChip
@@ -160,8 +158,7 @@ const ProjectCard = ({
       {(hrefCode ?? hrefLive) ? (
         <Stack
           direction="row"
-          gap={2}
-          marginTop={0.5}
+          sx={{ gap: 2, marginTop: 0.5 }}
         >
           {hrefLive ? (
             <UnderlinedLink

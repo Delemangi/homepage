@@ -18,7 +18,7 @@ const Name = () => {
   };
 
   return (
-    <Typography fontSize={48}>
+    <Typography sx={{ fontSize: 48 }}>
       <Link
         href="#"
         id="site-title-target"

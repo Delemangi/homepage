@@ -26,9 +26,7 @@ const Profile = () => (
     <TextReveal delay={100}>
       <Typography
         align="justify"
-        color="textSecondary"
-        fontSize={15}
-        marginBottom={1.5}
+        sx={{ color: 'text.secondary', fontSize: 15, marginBottom: 1.5 }}
       >
         Software Engineer building end-to-end products, from front-end to
         back-end, DevOps and AI. I ship scalable microservices & web apps, as
@@ -39,8 +37,7 @@ const Profile = () => (
     <TextReveal delay={200}>
       <Typography
         align="justify"
-        color="textSecondary"
-        fontSize={15}
+        sx={{ color: 'text.secondary', fontSize: 15 }}
       >
         Outside work, I spend time on coding projects and play games, especially
         survival, roguelike, and factory titles. I also collect mechanical

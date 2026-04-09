@@ -16,16 +16,10 @@ const Introduction = () => (
         flexDirection: 'column',
       }}
     >
-      <Typography
-        color="textSecondary"
-        fontSize={18}
-      >
+      <Typography sx={{ color: 'text.secondary', fontSize: 18 }}>
         Stefan Milev
       </Typography>
-      <Typography
-        color="textSecondary"
-        fontSize={18}
-      >
+      <Typography sx={{ color: 'text.secondary', fontSize: 18 }}>
         Skopje, North Macedonia
       </Typography>
       <LocalTime fontSize={18} />
@@ -33,7 +27,7 @@ const Introduction = () => (
         fontSize={18}
         marginBottom={2}
       />
-      <Typography fontSize={18}>
+      <Typography sx={{ fontSize: 18 }}>
         Software Engineer @{' '}
         <UnderlinedLink
           href="https://codechem.com"
@@ -43,7 +37,7 @@ const Introduction = () => (
           CodeChem
         </UnderlinedLink>
       </Typography>
-      <Typography fontSize={16}>
+      <Typography sx={{ fontSize: 16 }}>
         MSc, Computer Science @{' '}
         <UnderlinedLink
           href="https://finki.ukim.mk"
@@ -53,7 +47,7 @@ const Introduction = () => (
           FCSE
         </UnderlinedLink>
       </Typography>
-      <Typography fontSize={16}>
+      <Typography sx={{ fontSize: 16 }}>
         Founder @{' '}
         <UnderlinedLink
           href="https://finki-hub.com"
@@ -63,10 +57,7 @@ const Introduction = () => (
           finki-hub
         </UnderlinedLink>{' '}
       </Typography>
-      <Typography
-        fontSize={16}
-        marginBottom={2}
-      >
+      <Typography sx={{ fontSize: 16, marginBottom: 2 }}>
         Co-founder @{' '}
         <UnderlinedLink
           href="https://learnify.mk"

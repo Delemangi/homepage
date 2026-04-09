@@ -22,9 +22,12 @@ const getAge = (decimals = 9) => {
   return age.toFixed(decimals);
 };
 
-type Props = TypographyProps;
+type Props = Omit<TypographyProps, 'fontSize' | 'marginBottom'> & {
+  readonly fontSize?: number;
+  readonly marginBottom?: number;
+};
 
-const Age = (props: Props) => {
+const Age = ({ fontSize, marginBottom, ...props }: Props) => {
   const [age, setAge] = useState(() => getAge());
   const [hovering, setHovering] = useState(false);
 
@@ -43,7 +46,6 @@ const Age = (props: Props) => {
 
   return (
     <Typography
-      fontSize={16}
       {...props}
       onMouseEnter={() => {
         setHovering(true);
@@ -53,6 +55,8 @@ const Age = (props: Props) => {
       }}
       sx={{
         cursor: 'default',
+        ...(fontSize !== undefined && { fontSize }),
+        ...(marginBottom !== undefined && { marginBottom }),
       }}
     >
       <Box

@@ -12,9 +12,11 @@ const formatLocalTime = () =>
     timeZoneName: 'short',
   }).format(new Date());
 
-type Props = TypographyProps;
+type Props = Omit<TypographyProps, 'fontSize'> & {
+  readonly fontSize?: number;
+};
 
-const LocalTime = (props: Props) => {
+const LocalTime = ({ fontSize, ...props }: Props) => {
   const [time, setTime] = useState(() => formatLocalTime());
 
   useEffect(() => {
@@ -29,9 +31,11 @@ const LocalTime = (props: Props) => {
 
   return (
     <Typography
-      color="textSecondary"
-      fontSize={18}
       {...props}
+      sx={{
+        color: 'text.secondary',
+        ...(fontSize !== undefined && { fontSize }),
+      }}
     >
       {time}
     </Typography>

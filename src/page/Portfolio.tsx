@@ -93,9 +93,7 @@ const Portfolio = () => (
     <TextReveal delay={100}>
       <Typography
         align="justify"
-        color="textSecondary"
-        fontSize={14}
-        marginBottom={1}
+        sx={{ color: 'text.secondary', fontSize: 14, marginBottom: 1 }}
       >
         Here are some technologies I use frequently professionally and in my own
         projects:
@@ -105,10 +103,8 @@ const Portfolio = () => (
     <TextReveal delay={200}>
       <Stack
         direction="row"
-        flexWrap="wrap"
         spacing={1}
-        sx={{ marginBottom: 3 }}
-        useFlexGap
+        sx={{ flexWrap: 'wrap', marginBottom: 3 }}
       >
         {SKILLS.map((label) => (
           <SkillChip
@@ -122,9 +118,7 @@ const Portfolio = () => (
     <TextReveal delay={300}>
       <Typography
         align="justify"
-        color="textSecondary"
-        fontSize={14}
-        marginBottom={2}
+        sx={{ color: 'text.secondary', fontSize: 14, marginBottom: 2 }}
       >
         Below are some of my personal projects and open-source contributions
         that I still maintain. Each project is something I needed and built for
