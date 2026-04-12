@@ -1,8 +1,4 @@
 {
-  "author": "Delemangi",
-  "bugs": {
-    "url": "https://github.com/Delemangi/homepage/issues"
-  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
@@ -12,7 +8,6 @@
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
   },
-  "description": "Delemangi's personal website",
   "devDependencies": {
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -22,17 +17,9 @@
     "typescript": "^6.0.2",
     "vite": "^8.0.8"
   },
-  "engines": {
-    "node": "^20 || ^22 || ^24"
-  },
-  "homepage": "https://github.com/Delemangi/homepage",
   "license": "MIT",
-  "main": "src/index.tsx",
   "name": "homepage",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Delemangi/homepage.git"
-  },
+  "private": true,
   "scripts": {
     "build": "tsc && vite build",
     "check": "tsc --noEmit",
@@ -42,5 +29,5 @@
     "preview": "vite preview --host"
   },
   "type": "module",
-  "version": "1.0.0"
+  "version": "0.0.0"
 }
