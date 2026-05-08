@@ -15,7 +15,7 @@
     "eslint": "^9.39.4",
     "eslint-config-imperium": "^3.6.0",
     "typescript": "^6.0.3",
-    "vite": "^8.0.10"
+    "vite": "^8.0.11"
   },
   "license": "MIT",
   "name": "homepage",
