@@ -14,9 +14,5 @@ export const PreloaderProvider = ({
     [value],
   );
 
-  return (
-    <PreloaderContext.Provider value={ctx}>
-      {children}
-    </PreloaderContext.Provider>
-  );
+  return <PreloaderContext value={ctx}>{children}</PreloaderContext>;
 };

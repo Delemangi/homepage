@@ -71,11 +71,11 @@ export const ThemeModeProvider = ({ children }: Props) => {
   );
 
   return (
-    <ThemeModeContext.Provider value={contextValue}>
+    <ThemeModeContext value={contextValue}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {children}
       </ThemeProvider>
-    </ThemeModeContext.Provider>
+    </ThemeModeContext>
   );
 };
