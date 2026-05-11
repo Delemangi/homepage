@@ -12,12 +12,13 @@ const MAX_WAIT_MS = 2_200;
 const PreloaderGate = ({ children }: PropsWithChildren) => {
   const [stage, setStage] = useState<Stage>('loading');
   const startRef = useRef(Date.now());
-  const timers = useRef<number[]>([]);
 
   useEffect(() => {
     let cancelled = false;
     let minElapsed = false;
     let prefetched = false;
+    let minTimer: null | ReturnType<typeof setTimeout> = null;
+    let fadeTimer: null | ReturnType<typeof setTimeout> = null;
 
     const maybeProceed = () => {
       if (cancelled) return;
@@ -27,40 +28,39 @@ const PreloaderGate = ({ children }: PropsWithChildren) => {
       if (minElapsed && (prefetched || elapsed >= MAX_WAIT_MS)) {
         setStage('fading');
 
-        timers.current.push(
-          setTimeout(() => {
-            if (!cancelled) setStage('done');
-          }, FADE_DURATION_MS),
-        );
+        fadeTimer = setTimeout(() => {
+          if (!cancelled) setStage('done');
+        }, FADE_DURATION_MS);
       }
     };
 
-    timers.current.push(
-      setTimeout(() => {
-        minElapsed = true;
-        maybeProceed();
-      }, HEX_DURATION_MS),
-    );
+    minTimer = setTimeout(() => {
+      minElapsed = true;
+      maybeProceed();
+    }, HEX_DURATION_MS);
 
-    void Promise.allSettled([
-      import('../page/Introduction'),
-      import('../page/SocialMedia'),
-      import('../page/Profile'),
-      import('../page/Timeline'),
-      import('../page/Portfolio'),
-    ]).finally(() => {
+    const prefetch = async () => {
+      await Promise.allSettled([
+        import('../page/Introduction'),
+        import('../page/SocialMedia'),
+        import('../page/Profile'),
+        import('../page/Timeline'),
+        import('../page/Portfolio'),
+      ]);
       prefetched = true;
       maybeProceed();
-    });
+    };
+
+    void prefetch();
 
     return () => {
       cancelled = true;
 
-      for (const t of timers.current) {
-        clearTimeout(t);
-      }
+      clearTimeout(minTimer);
 
-      timers.current = [];
+      if (fadeTimer !== null) {
+        clearTimeout(fadeTimer);
+      }
     };
   }, []);
 

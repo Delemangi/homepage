@@ -22,6 +22,7 @@ const StyledBackground = styled(Box)(({ theme }) => {
       radial-gradient(900px 500px at 80% 20%, rgba(255, 192, 205, 0.14), rgba(0, 0, 0, 0) 65%),
       radial-gradient(850px 520px at 35% 85%, rgba(244, 184, 96, 0.12), rgba(0, 0, 0, 0) 70%)
     `;
+
   return {
     '&::before': {
       background: blurredAurora,
@@ -77,11 +78,13 @@ type RippleType = {
 const Background = ({ children }: Props) => {
   const theme = useTheme();
   const [ripples, setRipples] = useState<RippleType[]>([]);
-  const rippleId = useRef(0);
+  const rippleIdRef = useRef(0);
 
   const handleClick = (e: React.MouseEvent) => {
+    const id = rippleIdRef.current;
+    rippleIdRef.current += 1;
     const newRipple = {
-      id: rippleId.current++,
+      id,
       x: e.clientX,
       y: e.clientY,
     };
@@ -102,9 +105,8 @@ const Background = ({ children }: Props) => {
   }, [ripples]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRipples([]);
-    rippleId.current = 0;
+    rippleIdRef.current = 0;
   }, [theme.palette.mode]);
 
   return (

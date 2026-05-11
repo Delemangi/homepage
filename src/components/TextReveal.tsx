@@ -10,6 +10,7 @@ type Props = Readonly<{
 const TextReveal = ({ children, delay = 0, direction = 'up' }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const timeoutRef = useRef<null | ReturnType<typeof setTimeout>>(null);
 
   useEffect(() => {
     const element = ref.current;
@@ -22,7 +23,7 @@ const TextReveal = ({ children, delay = 0, direction = 'up' }: Props) => {
       (entries) => {
         const entry = entries[0];
         if (entry?.isIntersecting) {
-          setTimeout(() => {
+          timeoutRef.current = setTimeout(() => {
             setIsVisible(true);
           }, delay);
           observer.unobserve(element);
@@ -37,6 +38,10 @@ const TextReveal = ({ children, delay = 0, direction = 'up' }: Props) => {
     observer.observe(element);
 
     return () => {
+      if (timeoutRef.current !== null) {
+        clearTimeout(timeoutRef.current);
+      }
+
       observer.disconnect();
     };
   }, [delay]);
