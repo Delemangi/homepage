@@ -133,6 +133,7 @@ const SocialMedia = () => {
   const getCopyHandler = useCallback(
     (type: 'discord' | 'mail') => {
       const text = type === 'discord' ? 'delemangi' : 'milev.stefan@gmail.com';
+
       return handleCopyOnClick(text);
     },
     [handleCopyOnClick],

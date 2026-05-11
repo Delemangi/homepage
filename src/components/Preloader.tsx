@@ -18,7 +18,7 @@ const Preloader = ({ fading = false }: PreloaderProps) => {
   const onMount = useEffectEvent(() => {
     start();
 
-    const timeoutId = setTimeout(() => {
+    return setTimeout(() => {
       const ghost = ghostRef.current;
       const target = document.querySelector('#site-title-target');
 
@@ -38,12 +38,11 @@ const Preloader = ({ fading = false }: PreloaderProps) => {
         });
       }
     }, 750);
-
-    return timeoutId;
   });
 
   useEffect(() => {
     const timeoutId = onMount();
+
     return () => {
       clearTimeout(timeoutId);
     };
