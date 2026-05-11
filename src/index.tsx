@@ -5,7 +5,7 @@ import PreloaderGate from './components/PreloaderGate';
 import { ThemeModeProvider } from './context/ThemeModeProvider';
 import App from './page/App';
 
-// eslint-disable-next-line no-console
+// eslint-disable-next-line no-console -- Intentional welcome message for developers in browser console
 console.log(
   '%cHello there! 👋\n%cPoking around? The source lives at %chttps://github.com/Delemangi/homepage',
   'color:#6a82fb;font-weight:700;font-size:14px',
