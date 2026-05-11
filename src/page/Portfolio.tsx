@@ -105,6 +105,7 @@ const Portfolio = () => (
         direction="row"
         spacing={1}
         sx={{ flexWrap: 'wrap', marginBottom: 3 }}
+        useFlexGap
       >
         {SKILLS.map((label) => (
           <SkillChip
