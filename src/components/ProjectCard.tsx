@@ -145,6 +145,7 @@ const ProjectCard = ({
           direction="row"
           spacing={1}
           sx={{ flexWrap: 'wrap' }}
+          useFlexGap
         >
           {tech.map((label) => (
             <SkillChip
