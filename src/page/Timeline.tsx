@@ -15,14 +15,14 @@ const timeline: TimelineItem[] = [
   {
     endYear: '2024',
     organization: 'Faculty of Computer Science and Engineering',
-    position: 'BSc, Computer Science',
+    position: 'BSc in Computer Science',
     startYear: '2020',
     type: 'education',
   },
   {
     endYear: '2025',
     organization: 'Faculty of Computer Science and Engineering',
-    position: 'MSc, Computer Science',
+    position: 'MSc in Computer Science',
     startYear: '2024',
     type: 'education',
   },
@@ -131,7 +131,7 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
           whiteSpace: 'nowrap',
         }}
       >
-        {`${item.startYear} - ${item.endYear}`}
+        {`${item.startYear}–${item.endYear}`}
       </Typography>
     </Box>
     <Typography
@@ -160,7 +160,7 @@ const Timeline = () => (
         })}
         variant="h5"
       >
-        Timeline
+        Experience & education
       </Typography>
     </TextReveal>
     <Box sx={{ width: '100%' }}>
