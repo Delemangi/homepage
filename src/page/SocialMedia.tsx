@@ -6,7 +6,6 @@ import RowContainer from '../components/RowContainer';
 import SocialMediaButton from '../components/SocialMediaButton';
 import DiscordIcon from '../icons/DiscordIcon';
 import GitHubIcon from '../icons/GitHubIcon';
-import InstagramIcon from '../icons/InstagramIcon';
 import LinkedInIcon from '../icons/LinkedInIcon';
 import MailIcon from '../icons/MailIcon';
 import MonkeyTypeIcon from '../icons/MonkeyTypeIcon';
@@ -45,11 +44,6 @@ const LINK_ICONS = [
     href: 'https://www.linkedin.com/in/stefan-milev/',
     icon: LinkedInIcon,
     title: 'LinkedIn',
-  },
-  {
-    href: 'https://www.instagram.com/stefan_milev_/',
-    icon: InstagramIcon,
-    title: 'Instagram',
   },
   {
     href: 'https://monkeytype.com/profile/Delemangi',
