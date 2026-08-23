@@ -20,28 +20,23 @@ const Profile = () => (
         })}
         variant="h5"
       >
-        Profile
+        About
       </Typography>
     </TextReveal>
     <TextReveal delay={100}>
       <Typography
-        align="justify"
         sx={{ color: 'text.secondary', fontSize: 15, marginBottom: 1.5 }}
       >
-        Software Engineer building end-to-end products, from front-end to
-        back-end, DevOps and AI. I ship scalable microservices & web apps, as
-        well as AI RAG systems that turns ideas into practical features.
+        I’m a software engineer building end-to-end products across frontend,
+        backend, infrastructure, and AI. My work spans web applications,
+        scalable services, and retrieval-augmented generation (RAG) systems.
       </Typography>
     </TextReveal>
 
     <TextReveal delay={200}>
-      <Typography
-        align="justify"
-        sx={{ color: 'text.secondary', fontSize: 15 }}
-      >
-        Outside work, I spend time on coding projects and play games, especially
-        survival, roguelike, and factory titles. I also collect mechanical
-        keyboards and break things on my homelab infrastructure.
+      <Typography sx={{ color: 'text.secondary', fontSize: 15 }}>
+        Outside work, I build side projects, play video games, collect
+        mechanical keyboards, and occasionally break my homelab.
       </Typography>
     </TextReveal>
   </Column>

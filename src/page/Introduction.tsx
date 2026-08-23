@@ -28,7 +28,7 @@ const Introduction = () => (
         marginBottom={2}
       />
       <Typography sx={{ fontSize: 18 }}>
-        Software Engineer @{' '}
+        Software Engineer at&nbsp;
         <UnderlinedLink
           href="https://codechem.com"
           rel="noopener noreferrer"
@@ -38,7 +38,7 @@ const Introduction = () => (
         </UnderlinedLink>
       </Typography>
       <Typography sx={{ fontSize: 16 }}>
-        MSc, Computer Science @{' '}
+        MSc in Computer Science at&nbsp;
         <UnderlinedLink
           href="https://finki.ukim.mk"
           rel="noopener noreferrer"
@@ -48,7 +48,7 @@ const Introduction = () => (
         </UnderlinedLink>
       </Typography>
       <Typography sx={{ fontSize: 16 }}>
-        Founder @{' '}
+        Founder of&nbsp;
         <UnderlinedLink
           href="https://finki-hub.com"
           rel="noopener noreferrer"
@@ -58,7 +58,7 @@ const Introduction = () => (
         </UnderlinedLink>{' '}
       </Typography>
       <Typography sx={{ fontSize: 16, marginBottom: 2 }}>
-        Co-founder @{' '}
+        Co-founder of&nbsp;
         <UnderlinedLink
           href="https://learnify.mk"
           rel="noopener noreferrer"
