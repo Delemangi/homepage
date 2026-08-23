@@ -24,7 +24,7 @@ const SKILLS = [
   'PostgreSQL',
   'MongoDB',
   'Milvus',
-  'ElasticSearch',
+  'Elasticsearch',
   'LangChain',
   'Docker',
   'Kubernetes',
@@ -33,7 +33,7 @@ const SKILLS = [
 const projects: Project[] = [
   {
     description:
-      'Collection of FCSE data tools: scrapers, bots, web apps and a RAG chatbot.',
+      'Open-source tools for FCSE students, including scrapers, bots, web apps, and a RAG chatbot.',
     hrefCode: 'https://github.com/finki-hub',
     tech: [
       'React',
@@ -49,20 +49,20 @@ const projects: Project[] = [
   },
   {
     description:
-      'Strict & modular ESLint config with presets for modern stacks (React, TS, Node) and composable rulesets.',
+      'A strict, modular ESLint configuration with composable presets for React, TypeScript, and Node.js.',
     hrefCode: 'https://github.com/Delemangi/eslint-config-imperium',
     tech: ['ESLint', 'TypeScript', 'Node.js'],
     title: 'eslint-config-imperium',
   },
   {
-    description: 'You are currently here!',
+    description: 'This website. You are currently using the live demo.',
     hrefCode: 'https://github.com/Delemangi/homepage',
     tech: ['React', 'TypeScript', 'Vite', 'Material UI', 'Docker'],
     title: 'homepage',
   },
   {
     description:
-      'Discord bot for managing a network of Steam accounts using ArchiSteamFarm.',
+      'A Discord bot for managing multiple Steam accounts through ArchiSteamFarm.',
     hrefCode: 'https://github.com/Delemangi/asf-discord-bot',
     tech: ['TypeScript', 'discord.js', 'ArchiSteamFarm', 'Docker'],
     title: 'asf-discord-bot',
@@ -86,7 +86,7 @@ const Portfolio = () => (
         })}
         variant="h5"
       >
-        Portfolio
+        Projects & skills
       </Typography>
     </TextReveal>
 
@@ -95,8 +95,7 @@ const Portfolio = () => (
         align="justify"
         sx={{ color: 'text.secondary', fontSize: 14, marginBottom: 1 }}
       >
-        Here are some technologies I use frequently professionally and in my own
-        projects:
+        Technologies I use regularly at work and in personal projects.
       </Typography>
     </TextReveal>
 
@@ -121,9 +120,8 @@ const Portfolio = () => (
         align="justify"
         sx={{ color: 'text.secondary', fontSize: 14, marginBottom: 2 }}
       >
-        Below are some of my personal projects and open-source contributions
-        that I still maintain. Each project is something I needed and built for
-        myself.
+        A selection of personal and open-source projects I still maintain,
+        mostly built to solve problems I had myself.
       </Typography>
     </TextReveal>
 
