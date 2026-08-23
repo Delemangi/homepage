@@ -1,10 +1,11 @@
-import type {
-  KeyboardEvent as ReactKeyboardEvent,
-  MouseEvent as ReactMouseEvent,
-} from 'react';
-
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { Box, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  type BoxProps,
+  IconButton,
+  Stack,
+  Typography,
+} from '@mui/material';
 
 import SkillChip from '../page/SkillChip';
 import UnderlinedLink from './UnderlinedLink';
@@ -31,7 +32,7 @@ const ProjectCard = ({
   const primaryHref = hrefLive ?? hrefCode;
   const clickable = Boolean(primaryHref);
 
-  const handleCardClick = (e: ReactMouseEvent<HTMLDivElement>) => {
+  const handleCardClick: NonNullable<BoxProps['onClick']> = (e) => {
     if (!primaryHref) return;
 
     const target = e.target as HTMLElement;
@@ -40,7 +41,7 @@ const ProjectCard = ({
 
     window.open(primaryHref, '_blank', 'noopener,noreferrer');
   };
-  const handleKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown: NonNullable<BoxProps['onKeyDown']> = (e) => {
     if (!primaryHref) return;
 
     if (e.key === 'Enter' || e.key === ' ') {
@@ -115,6 +116,7 @@ const ProjectCard = ({
         </Typography>
         {clickable ? (
           <IconButton
+            aria-label={`Open ${title}`}
             component="a"
             href={primaryHref ?? undefined}
             onClickCapture={(e) => {
@@ -167,7 +169,7 @@ const ProjectCard = ({
               rel="noopener noreferrer"
               target="_blank"
             >
-              Live
+              Live site
             </UnderlinedLink>
           ) : null}
           {hrefCode ? (
@@ -176,7 +178,7 @@ const ProjectCard = ({
               rel="noopener noreferrer"
               target="_blank"
             >
-              Code
+              Source code
             </UnderlinedLink>
           ) : null}
         </Stack>

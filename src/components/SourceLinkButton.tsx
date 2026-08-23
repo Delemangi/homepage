@@ -3,8 +3,9 @@ import { IconButton, Tooltip } from '@mui/material';
 import GitHubIcon from '../icons/GitHubIcon';
 
 const SourceLinkButton = () => (
-  <Tooltip title="Source on GitHub">
+  <Tooltip title="View source on GitHub">
     <IconButton
+      aria-label="View source on GitHub"
       component="a"
       href="https://github.com/Delemangi/homepage"
       rel="noopener noreferrer"
