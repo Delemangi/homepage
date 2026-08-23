@@ -15,12 +15,12 @@ const COPY_ICONS = [
   {
     icon: MailIcon,
     onClick: 'mail',
-    title: 'Mail',
+    title: 'Copy email address',
   },
   {
     icon: DiscordIcon,
     onClick: 'discord',
-    title: 'Discord Username',
+    title: 'Copy Discord username',
   },
 ] as const;
 
@@ -28,27 +28,27 @@ const LINK_ICONS = [
   {
     href: 'https://discord.gg/7Fw53MdbUP',
     icon: DiscordIcon,
-    title: 'Discord Server',
+    title: 'Open Discord server',
   },
   {
     href: 'https://github.com/Delemangi/',
     icon: GitHubIcon,
-    title: 'GitHub',
+    title: 'Open GitHub profile',
   },
   {
     href: 'https://steamcommunity.com/id/delemangi/',
     icon: SteamIcon,
-    title: 'Steam',
+    title: 'Open Steam profile',
   },
   {
     href: 'https://www.linkedin.com/in/stefan-milev/',
     icon: LinkedInIcon,
-    title: 'LinkedIn',
+    title: 'Open LinkedIn profile',
   },
   {
     href: 'https://monkeytype.com/profile/Delemangi',
     icon: MonkeyTypeIcon,
-    title: 'Monkeytype',
+    title: 'Open Monkeytype profile',
   },
 ] as const;
 
@@ -167,7 +167,7 @@ const SocialMedia = () => {
         }}
       >
         <Typography sx={getSectionLabelSx(isDark ? '#6a82fb' : '#ee3f71')}>
-          Profiles
+          Elsewhere
         </Typography>
         <FloatingBar sx={FLOATING_BAR_SX}>
           {LINK_ICONS.map((item) => (
@@ -216,7 +216,7 @@ const SocialMedia = () => {
             py: 0.5,
           }}
         >
-          <Typography component="span">Copied!</Typography>
+          <Typography component="span">Copied to clipboard</Typography>
         </Box>
       </Popover>
     </RowContainer>
