@@ -7,11 +7,15 @@ RUN npm ci --ignore-scripts
 COPY . ./
 RUN npm run build
 
-FROM nginx:alpine@sha256:db35bfc6b2951e7f8a72db5db120288c127ffaeeb4a6d4b95a26fead017d5913 AS final
+FROM nginxinc/nginx-unprivileged:stable-alpine-slim@sha256:e88d990b349df8cf4aa82f16642d7a23375016638c9ace4e5c6ca25028e62e65 AS final
+
+USER root
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 RUN rm -rf /usr/share/nginx/html/*
 
 COPY --from=build /app/dist /usr/share/nginx/html
+
+USER 101:101
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
