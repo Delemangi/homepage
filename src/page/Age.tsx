@@ -1,22 +1,10 @@
 import { Box, Typography, type TypographyProps } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import { BIRTHDAY } from '../constants';
+import { BIRTH_INSTANT } from '../constants';
 
 const getAge = (decimals = 9) => {
-  const [year, month, day] = BIRTHDAY.split('-').map(Number);
-
-  if (year === undefined || month === undefined || day === undefined) {
-    throw new Error('Invalid birthday format');
-  }
-
-  const birthDate = new Date(Date.UTC(year, month - 1, day - 1, 23, 0, 0, 0));
-
-  const now = new Date();
-  const utcTime = now.getTime() + now.getTimezoneOffset() * 60 * 1_000;
-  const currentDate = new Date(utcTime + 60 * 60 * 1_000);
-
-  const diff = currentDate.getTime() - birthDate.getTime();
+  const diff = Date.now() - BIRTH_INSTANT;
   const age = diff / (1_000 * 60 * 60 * 24 * 365.25);
 
   return age.toFixed(decimals);
@@ -83,6 +71,9 @@ const Age = ({ fontSize, marginBottom, ...props }: Props) => {
         <Box
           component="span"
           sx={{
+            '@media (prefers-reduced-motion: reduce)': {
+              transition: 'none',
+            },
             display: 'inline-block',
             maxWidth: hovering ? '10em' : '0px',
             overflow: 'hidden',
