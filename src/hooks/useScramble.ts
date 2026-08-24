@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { useReducedMotion } from './useReducedMotion';
+
 const RANDOM_SET =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -10,12 +12,18 @@ const getRandomChar = () =>
 const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
 
 export const useTextScramble = (target: string, duration = 700) => {
+  const reduceMotion = useReducedMotion();
   const [text, setText] = useState(target);
-  const [isRunning, setIsRunning] = useState(false);
+  const [, setIsRunning] = useState(false);
   const rafRef = useRef<null | number>(null);
   const isRunningRef = useRef(false);
 
   const start = useCallback(() => {
+    if (reduceMotion) {
+      setText(target);
+      return;
+    }
+
     if (isRunningRef.current) return;
     isRunningRef.current = true;
     setIsRunning(true);
@@ -54,7 +62,18 @@ export const useTextScramble = (target: string, duration = 700) => {
     };
 
     rafRef.current = requestAnimationFrame(tick);
-  }, [duration, target]);
+  }, [duration, reduceMotion, target]);
+
+  useEffect(() => {
+    if (!reduceMotion) return;
+
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+
+    isRunningRef.current = false;
+  }, [reduceMotion]);
 
   useEffect(
     () => () => {
@@ -66,5 +85,9 @@ export const useTextScramble = (target: string, duration = 700) => {
     [],
   );
 
-  return { isRunning, start, text } as const;
+  return {
+    isRunning: !reduceMotion && isRunningRef.current,
+    start,
+    text: !reduceMotion && isRunningRef.current ? text : target,
+  } as const;
 };
