@@ -1,6 +1,13 @@
-import { Box, styled, useTheme } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import { Box, styled } from '@mui/material';
+import {
+  type MouseEvent,
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
+import { useReducedMotion } from '../hooks/useReducedMotion';
 import Ripple from './Ripple';
 
 const createSquares = (stroke: string) =>
@@ -34,6 +41,9 @@ const StyledBackground = styled(Box)(({ theme }) => {
       position: 'absolute',
       zIndex: 0,
     },
+    '@media (prefers-reduced-motion: reduce)': {
+      scrollBehavior: 'auto',
+    },
     background: isDark
       ? `
     linear-gradient(120deg, #232b36 0%, #181e24 100%),
@@ -66,7 +76,7 @@ const StyledBackground = styled(Box)(({ theme }) => {
 });
 
 type Props = {
-  readonly children: React.ReactNode;
+  readonly children: ReactNode;
 };
 
 type RippleType = {
@@ -76,11 +86,13 @@ type RippleType = {
 };
 
 const Background = ({ children }: Props) => {
-  const theme = useTheme();
+  const reduceMotion = useReducedMotion();
   const [ripples, setRipples] = useState<RippleType[]>([]);
   const rippleIdRef = useRef(0);
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: MouseEvent) => {
+    if (reduceMotion) return;
+
     const id = rippleIdRef.current;
     rippleIdRef.current += 1;
     const newRipple = {
@@ -103,11 +115,6 @@ const Background = ({ children }: Props) => {
       clearTimeout(timeout);
     };
   }, [ripples]);
-
-  useEffect(() => {
-    setRipples([]);
-    rippleIdRef.current = 0;
-  }, [theme.palette.mode]);
 
   return (
     <StyledBackground onClick={handleClick}>

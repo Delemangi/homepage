@@ -68,6 +68,7 @@ const SkillChip = ({ label }: SkillChipProps) => (
       },
       '@media (prefers-reduced-motion: reduce)': {
         '&::after': { transform: 'none', transition: 'none' },
+        '&:active': { transform: 'none' },
         '&:hover': {
           boxShadow: 'none',
           transform: 'none',
