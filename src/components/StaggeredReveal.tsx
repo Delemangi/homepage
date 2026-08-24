@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
-import { type ReactNode, useContext, useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 
-import { PreloaderContext } from '../context/PreloaderContext';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 type Props = Readonly<{
   children: ReactNode;
@@ -9,13 +9,15 @@ type Props = Readonly<{
 }>;
 
 const StaggeredReveal = ({ children, delay = 0 }: Props) => {
-  const { preloaderDone } = useContext(PreloaderContext);
-  const [isVisible, setIsVisible] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const [isVisible, setIsVisible] = useState(reduceMotion);
 
   useEffect(() => {
     let timeout: number | undefined;
 
-    if (preloaderDone) {
+    if (reduceMotion) {
+      setIsVisible(true);
+    } else {
       timeout = setTimeout(() => {
         setIsVisible(true);
       }, delay);
@@ -26,16 +28,18 @@ const StaggeredReveal = ({ children, delay = 0 }: Props) => {
         clearTimeout(timeout);
       }
     };
-  }, [delay, preloaderDone]);
+  }, [delay, reduceMotion]);
 
   return (
     <Box
       sx={{
-        opacity: isVisible ? 1 : 0,
+        opacity: 1,
         scrollSnapAlign: 'start',
-        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-        transition:
-          'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+        transform:
+          reduceMotion || isVisible ? 'translateY(0)' : 'translateY(20px)',
+        transition: reduceMotion
+          ? 'none'
+          : 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
       }}
     >
       {children}

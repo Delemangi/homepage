@@ -1,6 +1,8 @@
 import { Box } from '@mui/material';
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 
+import { useReducedMotion } from '../hooks/useReducedMotion';
+
 type Props = Readonly<{
   children: ReactNode;
   delay?: number;
@@ -8,11 +10,17 @@ type Props = Readonly<{
 }>;
 
 const TextReveal = ({ children, delay = 0, direction = 'up' }: Props) => {
+  const reduceMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(reduceMotion);
   const timeoutRef = useRef<null | ReturnType<typeof setTimeout>>(null);
 
   useEffect(() => {
+    if (reduceMotion) {
+      setIsVisible(true);
+      return () => {};
+    }
+
     const element = ref.current;
 
     if (!element) {
@@ -44,7 +52,7 @@ const TextReveal = ({ children, delay = 0, direction = 'up' }: Props) => {
 
       observer.disconnect();
     };
-  }, [delay]);
+  }, [delay, reduceMotion]);
 
   const getTransform = () => {
     if (isVisible) return 'translate(0, 0)';
@@ -71,10 +79,11 @@ const TextReveal = ({ children, delay = 0, direction = 'up' }: Props) => {
     <Box
       ref={ref}
       sx={{
-        opacity: isVisible ? 1 : 0,
-        transform: getTransform(),
-        transition:
-          'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+        opacity: reduceMotion || isVisible ? 1 : 0,
+        transform: reduceMotion ? 'none' : getTransform(),
+        transition: reduceMotion
+          ? 'none'
+          : 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
       }}
     >
       {children}
