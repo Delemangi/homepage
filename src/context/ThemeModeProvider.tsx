@@ -1,19 +1,32 @@
 import { CssBaseline, type PaletteMode, ThemeProvider } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { createAppTheme } from '../theme';
 import { ThemeModeContext } from './ThemeModeContext';
 
 const PREF_KEY = 'themePreference';
+const THEME_DATASET_KEY = 'theme';
+const THEME_PREFERENCE_DATASET_KEY = 'themePreference';
 
 type Props = {
-  readonly children: React.ReactNode;
+  readonly children: ReactNode;
 };
 
-const getInitialPreference = (): 'system' | PaletteMode => {
+type ThemePreference = 'system' | PaletteMode;
+
+const isThemePreference = (value: null | string): value is ThemePreference =>
+  value !== null && ['dark', 'light', 'system'].includes(value);
+
+const getInitialPreference = (): ThemePreference => {
   const raw = localStorage.getItem(PREF_KEY);
 
-  if (raw === 'system' || raw === 'light' || raw === 'dark') {
+  if (isThemePreference(raw)) {
     return raw;
   }
 
@@ -24,17 +37,17 @@ const getSystemMode = (): PaletteMode =>
   matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
 export const ThemeModeProvider = ({ children }: Props) => {
-  const [preference, setPreference] = useState<'system' | PaletteMode>(
-    getInitialPreference,
-  );
+  const [preference, setPreference] =
+    useState<ThemePreference>(getInitialPreference);
   const [systemMode, setSystemMode] = useState<PaletteMode>(getSystemMode);
   const mode: PaletteMode = preference === 'system' ? systemMode : preference;
 
   useEffect(() => {
     localStorage.setItem(PREF_KEY, preference);
 
-    document.documentElement.dataset['theme'] = mode;
-    document.documentElement.dataset['themePreference'] = preference;
+    const { dataset } = document.documentElement;
+    dataset[THEME_DATASET_KEY] = mode;
+    dataset[THEME_PREFERENCE_DATASET_KEY] = preference;
   }, [mode, preference]);
 
   const toggleMode = useCallback(() => {
