@@ -2,7 +2,7 @@ name: Dependabot Auto-Merge
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: write
@@ -10,5 +10,5 @@ permissions:
 
 jobs:
   dependabot:
-    uses: Delemangi/.github/.github/workflows/dependabot.yaml@main
+    uses: Delemangi/.github/.github/workflows/dependabot.yaml@bebef88ed98bc1b3b43ed317e8fb9efae29427db
     secrets: inherit
