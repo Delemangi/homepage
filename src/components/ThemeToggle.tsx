@@ -17,15 +17,11 @@ const ThemeToggle = () => {
   return (
     <Tooltip title={label}>
       <IconButton
+        aria-label={label}
         onClick={toggleMode}
         size="small"
       >
-        <Emoji
-          role="img"
-          title={label}
-        >
-          {isDark ? '🌞' : '🌙'}
-        </Emoji>
+        <Emoji aria-hidden>{isDark ? '🌞' : '🌙'}</Emoji>
       </IconButton>
     </Tooltip>
   );
