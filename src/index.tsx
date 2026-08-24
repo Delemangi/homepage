@@ -1,7 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import PreloaderGate from './components/PreloaderGate';
 import { ThemeModeProvider } from './context/ThemeModeProvider';
 import App from './page/App';
 
@@ -19,9 +18,7 @@ if (root !== null) {
   createRoot(root).render(
     <StrictMode>
       <ThemeModeProvider>
-        <PreloaderGate>
-          <App />
-        </PreloaderGate>
+        <App />
       </ThemeModeProvider>
     </StrictMode>,
   );

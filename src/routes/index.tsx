@@ -1,33 +1,43 @@
 import { createRoute } from '@tanstack/react-router';
-import { lazy, Suspense } from 'react';
 
 import Background from '../components/Background';
 import ColumnBox from '../components/ColumnBox';
 import ColumnContainer from '../components/ColumnContainer';
 import FloatingBar from '../components/FloatingBar';
 import GlobalStyle from '../components/GlobalStyle';
-import LoadingSpinner from '../components/LoadingSpinner';
 import SourceLinkButton from '../components/SourceLinkButton';
 import StaggeredReveal from '../components/StaggeredReveal';
 import ThemeToggle from '../components/ThemeToggle';
+import Introduction from '../page/Introduction';
+import Portfolio from '../page/Portfolio';
+import Profile from '../page/Profile';
+import SocialMedia from '../page/SocialMedia';
+import Timeline from '../page/Timeline';
 import { Route as RootRoute } from './__root';
-
-const LazyIntroduction = lazy(() => import('../page/Introduction'));
-const LazySocialMedia = lazy(() => import('../page/SocialMedia'));
-const LazyProfile = lazy(() => import('../page/Profile'));
-const LazyTimeline = lazy(() => import('../page/Timeline'));
-const LazyPortfolio = lazy(() => import('../page/Portfolio'));
 
 const IndexPage = () => (
   <Background>
-    <FloatingBar>
-      <ThemeToggle />
-      <SourceLinkButton />
-    </FloatingBar>
+    <nav aria-label="Site controls">
+      <FloatingBar
+        sx={{
+          position: { sm: 'fixed', xs: 'absolute' },
+          top: {
+            sm: 12,
+            xs: 'max(12px, env(safe-area-inset-top, 0px) + 12px)',
+          },
+        }}
+      >
+        <ThemeToggle />
+        <SourceLinkButton />
+      </FloatingBar>
+    </nav>
     <GlobalStyle />
-    <Suspense fallback={<LoadingSpinner />}>
+    <main>
       <ColumnContainer
         sx={{
+          '@media (prefers-reduced-motion: reduce)': {
+            scrollBehavior: 'auto',
+          },
           justifyContent: {
             sm: 'center',
             xs: 'flex-start',
@@ -61,24 +71,26 @@ const IndexPage = () => (
         }}
       >
         <ColumnBox>
-          <StaggeredReveal delay={0}>
-            <LazyIntroduction />
-          </StaggeredReveal>
-          <StaggeredReveal delay={150}>
-            <LazySocialMedia />
-          </StaggeredReveal>
+          <header>
+            <StaggeredReveal delay={0}>
+              <Introduction />
+            </StaggeredReveal>
+            <StaggeredReveal delay={150}>
+              <SocialMedia />
+            </StaggeredReveal>
+          </header>
           <StaggeredReveal delay={300}>
-            <LazyProfile />
+            <Profile />
           </StaggeredReveal>
           <StaggeredReveal delay={450}>
-            <LazyTimeline />
+            <Timeline />
           </StaggeredReveal>
           <StaggeredReveal delay={600}>
-            <LazyPortfolio />
+            <Portfolio />
           </StaggeredReveal>
         </ColumnBox>
       </ColumnContainer>
-    </Suspense>
+    </main>
   </Background>
 );
 
