@@ -1,26 +1,26 @@
+import type { MouseEvent } from 'react';
+
 import { Link, Typography } from '@mui/material';
-import React, { useContext } from 'react';
 
 import { AURORA_ANIMATION, SITE_TITLE } from '../constants';
-import { PreloaderContext } from '../context/PreloaderContext';
 import { useTextScramble } from '../hooks/useScramble';
 
 const Name = () => {
-  const { preloaderDone } = useContext(PreloaderContext);
   const { start, text } = useTextScramble(SITE_TITLE, 700);
 
-  const onTitleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (preloaderDone) {
-      start();
-    }
+  const onTitleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    start();
   };
 
   return (
-    <Typography sx={{ fontSize: 48 }}>
+    <Typography
+      component="h1"
+      sx={{ fontSize: 48, margin: 0 }}
+    >
       <Link
-        href="#"
+        component="button"
         id="site-title-target"
         onClickCapture={onTitleClick}
         onMouseDownCapture={(e) => {
@@ -37,19 +37,29 @@ const Name = () => {
                 : theme.palette.info.main,
             scale: 1.02,
           },
+          '@media (prefers-reduced-motion: reduce)': {
+            '&:hover': { scale: 1 },
+            animation: 'none',
+            transition: 'none',
+          },
           animation: AURORA_ANIMATION,
           background:
             theme.palette.mode === 'dark'
               ? 'linear-gradient(90deg, #6a82fb 0%, #ff63e9 100%)'
-              : 'linear-gradient(90deg, #ee3f71 0%, #ffc0cd 50%, #ee3f71 100%)',
+              : `linear-gradient(90deg, ${theme.palette.primary.main} 0%, #9b2450 50%, ${theme.palette.primary.main} 100%)`,
           backgroundClip: 'text',
           backgroundPosition: '0% 50%',
           backgroundSize: '250% 100%',
+          border: 0,
           color: 'transparent',
+          cursor: 'pointer',
           display: 'inline-block',
+          font: 'inherit',
+          padding: 0,
           textDecoration: 'none',
-          transition: 'all 0.2s, color 0.3s ease-in-out',
+          transition: 'scale 0.2s, color 0.3s ease-in-out',
         })}
+        type="button"
       >
         {text}
       </Link>

@@ -7,11 +7,13 @@ const Profile = () => (
   <Column>
     <TextReveal>
       <Typography
+        component="h2"
+        id="about-heading"
         sx={(t) => ({
           background:
             t.palette.mode === 'dark'
               ? 'linear-gradient(90deg, rgba(255, 125, 125, 0.9), rgba(106, 130, 251, 0.9))'
-              : 'linear-gradient(90deg, rgba(238, 63, 113, 0.95), rgba(244, 184, 96, 0.95))',
+              : `linear-gradient(90deg, ${t.palette.primary.main}, ${t.palette.info.main})`,
           backgroundClip: 'text',
           color: 'transparent',
           fontWeight: 700,

@@ -147,6 +147,8 @@ const Timeline = () => (
   <Column>
     <TextReveal>
       <Typography
+        component="h2"
+        id="timeline-heading"
         sx={(t) => ({
           background:
             t.palette.mode === 'dark'

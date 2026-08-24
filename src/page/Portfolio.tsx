@@ -73,11 +73,13 @@ const Portfolio = () => (
   <Column>
     <TextReveal>
       <Typography
+        component="h2"
+        id="portfolio-heading"
         sx={(t) => ({
           background:
             t.palette.mode === 'dark'
               ? 'linear-gradient(90deg, rgba(125, 255, 214, 0.9), rgba(106, 130, 251, 0.9))'
-              : 'linear-gradient(90deg, rgba(238, 63, 113, 0.95), rgba(96, 211, 244, 0.95))',
+              : `linear-gradient(90deg, ${t.palette.primary.main}, #006b8c)`,
           backgroundClip: 'text',
           color: 'transparent',
           fontWeight: 700,
