@@ -1,5 +1,12 @@
-import { Box, Popover, Typography, useTheme } from '@mui/material';
-import { type MouseEvent, useCallback, useState } from 'react';
+import {
+  Alert,
+  Box,
+  Portal,
+  Snackbar,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import { type MouseEvent, useCallback, useRef, useState } from 'react';
 
 import FloatingBar from '../components/FloatingBar';
 import RowContainer from '../components/RowContainer';
@@ -97,29 +104,39 @@ const getSectionLabelSx = (color: string) =>
     fontSize: 12,
     fontWeight: 600,
     letterSpacing: 1.5,
-    opacity: 0.6,
     textAlign: 'center',
     textTransform: 'uppercase',
   }) as const;
 
+type CopyFeedback = Readonly<{
+  id: number;
+  kind: 'error' | 'success';
+  message: string;
+}>;
+
 const SocialMedia = () => {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
-  const [anchorElement, setAnchorElement] = useState<HTMLElement>();
+  const [copyFeedback, setCopyFeedback] = useState<CopyFeedback>();
+  const feedbackIdRef = useRef(0);
 
   const handleCopyOnClick = useCallback(
     (text: string) => async (event: MouseEvent<HTMLButtonElement>) => {
-      setAnchorElement(event.currentTarget);
+      event.currentTarget.focus();
+      let kind: CopyFeedback['kind'];
+      let message: string;
 
       try {
         await navigator.clipboard.writeText(text);
+        kind = 'success';
+        message = 'Copied to clipboard';
       } catch {
-        /* clipboard write may fail when permission is denied */
+        kind = 'error';
+        message = 'Could not copy to clipboard';
       }
 
-      setTimeout(() => {
-        setAnchorElement(undefined);
-      }, 1_500);
+      feedbackIdRef.current += 1;
+      setCopyFeedback({ id: feedbackIdRef.current, kind, message });
     },
     [],
   );
@@ -142,7 +159,9 @@ const SocialMedia = () => {
           gap: 0.5,
         }}
       >
-        <Typography sx={getSectionLabelSx(isDark ? '#00ffd0' : '#f4b860')}>
+        <Typography
+          sx={getSectionLabelSx(isDark ? '#00ffd0' : theme.palette.info.main)}
+        >
           Contact
         </Typography>
         <FloatingBar sx={FLOATING_BAR_SX}>
@@ -166,7 +185,11 @@ const SocialMedia = () => {
           gap: 0.5,
         }}
       >
-        <Typography sx={getSectionLabelSx(isDark ? '#6a82fb' : '#ee3f71')}>
+        <Typography
+          sx={getSectionLabelSx(
+            isDark ? '#6a82fb' : theme.palette.primary.main,
+          )}
+        >
           Elsewhere
         </Typography>
         <FloatingBar sx={FLOATING_BAR_SX}>
@@ -183,42 +206,29 @@ const SocialMedia = () => {
         </FloatingBar>
       </Box>
 
-      <Popover
-        anchorEl={anchorElement}
-        anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
-        disableRestoreFocus
-        onClose={() => {
-          setAnchorElement(undefined);
-        }}
-        open={Boolean(anchorElement)}
-        slotProps={{
-          paper: () => ({
-            backgroundColor: 'rgba(106, 130, 251, 0.12)',
-            borderRadius: 1,
-            boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
-            color: 'inherit',
-            px: 2,
-            py: 0.5,
-          }),
-        }}
-        transformOrigin={{ horizontal: 'center', vertical: 'top' }}
-      >
-        <Box
-          sx={{
-            backgroundColor: 'rgba(0, 255, 208, 0.12)',
-            borderRadius: 1,
-            boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
-            color: 'white',
-            fontSize: 14,
-            fontWeight: 600,
-            letterSpacing: 1,
-            px: 2,
-            py: 0.5,
+      <Portal>
+        <Snackbar
+          anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+          autoHideDuration={1_500}
+          key={copyFeedback?.id}
+          onClose={(_, reason) => {
+            if (reason !== 'clickaway') setCopyFeedback(undefined);
           }}
+          open={copyFeedback !== undefined}
         >
-          <Typography component="span">Copied to clipboard</Typography>
-        </Box>
-      </Popover>
+          <Alert
+            role="status"
+            severity={copyFeedback?.kind ?? 'success'}
+            sx={{
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.24)',
+              fontWeight: 600,
+            }}
+            variant="filled"
+          >
+            {copyFeedback?.message}
+          </Alert>
+        </Snackbar>
+      </Portal>
     </RowContainer>
   );
 };
