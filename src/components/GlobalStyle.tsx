@@ -1,5 +1,5 @@
 import { Global } from '@emotion/react';
-import { css } from '@mui/material';
+import { css, useTheme } from '@mui/material';
 
 const keyFrames = css`
   @keyframes auroraSweep {
@@ -11,10 +11,38 @@ const keyFrames = css`
     }
   }
 
+  ::view-transition-old(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-new(root) {
+    animation: themeReveal 650ms cubic-bezier(0.16, 1, 0.3, 1);
+    clip-path: circle(
+      150% at var(--theme-origin-x, 100%) var(--theme-origin-y, 0%)
+    );
+    mix-blend-mode: normal;
+  }
+
+  @keyframes themeReveal {
+    from {
+      clip-path: circle(
+        0 at var(--theme-origin-x, 100%) var(--theme-origin-y, 0%)
+      );
+      filter: blur(6px);
+    }
+    to {
+      clip-path: circle(
+        150% at var(--theme-origin-x, 100%) var(--theme-origin-y, 0%)
+      );
+      filter: blur(0);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
+    *:not([data-motion='reduced-opacity']),
+    *:not([data-motion='reduced-opacity'])::before,
+    *:not([data-motion='reduced-opacity'])::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       scroll-behavior: auto !important;
@@ -26,6 +54,20 @@ const keyFrames = css`
   body,
   * {
     scrollbar-width: thin;
+  }
+
+  html {
+    background: #090b10;
+  }
+
+  body {
+    margin: 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: rgba(139, 157, 255, 0.28);
   }
 
   :root:not([data-theme='dark']) {
@@ -70,6 +112,22 @@ const keyFrames = css`
   }
 `;
 
-const GlobalStyle = () => <Global styles={keyFrames} />;
+const GlobalStyle = () => {
+  const theme = useTheme();
+
+  return (
+    <Global
+      styles={[
+        keyFrames,
+        {
+          ':focus-visible': {
+            outline: `2px solid ${theme.palette.primary.main}`,
+            outlineOffset: 3,
+          },
+        },
+      ]}
+    />
+  );
+};
 
 export default GlobalStyle;
