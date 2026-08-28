@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 
+import { useHashNavigation } from '../hooks/useHashNavigation';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 
 type Props = Readonly<{
@@ -9,11 +10,20 @@ type Props = Readonly<{
   direction?: 'down' | 'left' | 'right' | 'up';
 }>;
 
+const offsetByDirection = {
+  down: 'translate3d(0, -16px, 0)',
+  left: 'translate3d(16px, 0, 0)',
+  right: 'translate3d(-16px, 0, 0)',
+  up: 'translate3d(0, 16px, 0)',
+} as const;
+
 const TextReveal = ({ children, delay = 0, direction = 'up' }: Props) => {
+  const isHashNavigation = useHashNavigation();
   const reduceMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(reduceMotion);
   const timeoutRef = useRef<null | ReturnType<typeof setTimeout>>(null);
+  const showContent = isHashNavigation || reduceMotion || isVisible;
 
   useEffect(() => {
     if (reduceMotion) {
@@ -54,36 +64,23 @@ const TextReveal = ({ children, delay = 0, direction = 'up' }: Props) => {
     };
   }, [delay, reduceMotion]);
 
-  const getTransform = () => {
-    if (isVisible) return 'translate(0, 0)';
-
-    switch (direction) {
-      case 'down':
-        return 'translate(0, -30px)';
-
-      case 'left':
-        return 'translate(30px, 0)';
-
-      case 'right':
-        return 'translate(-30px, 0)';
-
-      case 'up':
-        return 'translate(0, 30px)';
-
-      default:
-        return 'translate(0, 30px)';
-    }
-  };
-
   return (
     <Box
       ref={ref}
       sx={{
-        opacity: reduceMotion || isVisible ? 1 : 0,
-        transform: reduceMotion ? 'none' : getTransform(),
-        transition: reduceMotion
-          ? 'none'
-          : 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+        '&:has(:target)': {
+          opacity: 1,
+          transform: 'translate3d(0, 0, 0)',
+          transition: 'none',
+        },
+        opacity: showContent ? 1 : 0,
+        transform: showContent
+          ? 'translate3d(0, 0, 0)'
+          : offsetByDirection[direction],
+        transition:
+          reduceMotion || isHashNavigation
+            ? 'none'
+            : 'opacity 560ms cubic-bezier(.16,1,.3,1), transform 560ms cubic-bezier(.16,1,.3,1)',
       }}
     >
       {children}

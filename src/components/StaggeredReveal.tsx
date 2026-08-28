@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { type ReactNode, useEffect, useState } from 'react';
 
+import { useHashNavigation } from '../hooks/useHashNavigation';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 
 type Props = Readonly<{
@@ -9,8 +10,10 @@ type Props = Readonly<{
 }>;
 
 const StaggeredReveal = ({ children, delay = 0 }: Props) => {
+  const isHashNavigation = useHashNavigation();
   const reduceMotion = useReducedMotion();
   const [isVisible, setIsVisible] = useState(reduceMotion);
+  const showContent = isHashNavigation || reduceMotion || isVisible;
 
   useEffect(() => {
     let timeout: number | undefined;
@@ -33,13 +36,22 @@ const StaggeredReveal = ({ children, delay = 0 }: Props) => {
   return (
     <Box
       sx={{
-        opacity: 1,
+        '&:has(:target)': {
+          filter: 'blur(0)',
+          opacity: 1,
+          transform: 'translate3d(0, 0, 0)',
+          transition: 'none',
+        },
+        filter: showContent ? 'blur(0)' : 'blur(6px)',
+        opacity: showContent ? 1 : 0,
         scrollSnapAlign: 'start',
-        transform:
-          reduceMotion || isVisible ? 'translateY(0)' : 'translateY(20px)',
-        transition: reduceMotion
-          ? 'none'
-          : 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+        transform: showContent
+          ? 'translate3d(0, 0, 0)'
+          : 'translate3d(0, 16px, 0)',
+        transition:
+          reduceMotion || isHashNavigation
+            ? 'none'
+            : 'opacity 560ms cubic-bezier(.16,1,.3,1), transform 560ms cubic-bezier(.16,1,.3,1), filter 620ms cubic-bezier(.16,1,.3,1)',
       }}
     >
       {children}
