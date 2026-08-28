@@ -6,13 +6,31 @@ export const createAppTheme = (mode: PaletteMode) =>
       MuiIconButton: {
         styleOverrides: {
           root: {
-            '&:hover': {
-              backgroundColor: 'transparent',
-              color: mode === 'dark' ? '#ff63e9' : '#9a5b00',
-              filter: 'drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25))',
+            '&:active': {
+              transform: 'translateY(0) scale(0.96)',
             },
-            color: mode === 'dark' ? '#6a82fb' : '#ee3f71',
-            transition: 'color 0.2s, filter 0.2s',
+            '&:hover': {
+              backgroundColor:
+                mode === 'dark'
+                  ? 'rgba(139, 157, 255, 0.10)'
+                  : 'rgba(181, 25, 77, 0.08)',
+              color: mode === 'dark' ? '#f4f6ff' : '#371924',
+              transform: 'translateY(-1px)',
+            },
+            '@media (max-width: 599.95px)': {
+              minHeight: 44,
+              minWidth: 44,
+            },
+            '@media (prefers-reduced-motion: reduce)': {
+              '&:active, &:hover': {
+                transform: 'none',
+              },
+              transition: 'none',
+            },
+            borderRadius: 8,
+            color: mode === 'dark' ? '#8b9dff' : '#b5194d',
+            transition:
+              'color 180ms ease-out, background-color 180ms ease-out, transform 180ms cubic-bezier(.2,.8,.2,1)',
           },
         },
       },
@@ -22,38 +40,41 @@ export const createAppTheme = (mode: PaletteMode) =>
       ...(mode === 'dark'
         ? {
             background: {
-              default: '#10151a',
-              paper: '#181e24',
+              default: '#090b10',
+              paper: '#11141c',
+            },
+            info: {
+              main: '#53e6c3',
             },
             primary: {
-              main: '#6a82fb',
+              main: '#8b9dff',
             },
             secondary: {
-              main: '#ff63e9',
+              main: '#ff71d8',
             },
             text: {
-              primary: '#f1f6fa',
-              secondary: '#aeefff',
+              primary: '#f4f6ff',
+              secondary: '#a7afc0',
             },
           }
         : {
             background: {
-              default: '#fdfcfd',
+              default: '#f7f5f8',
               paper: '#ffffff',
             },
             info: {
-              main: '#9a5b00',
+              main: '#7a5700',
             },
             primary: {
-              light: '#f67598',
+              light: '#d65b82',
               main: '#b5194d',
             },
             secondary: {
-              main: '#ffc0cd',
+              main: '#c04472',
             },
             text: {
-              primary: '#1f1416',
-              secondary: '#6b4c57',
+              primary: '#26141d',
+              secondary: '#66545d',
             },
           }),
     },
@@ -61,15 +82,13 @@ export const createAppTheme = (mode: PaletteMode) =>
       allVariants:
         mode === 'dark'
           ? {
-              color: '#f1f6fa',
-              letterSpacing: 1,
-              textShadow: '0 1px 2px rgba(0, 0, 0, 0.18)',
+              color: '#f4f6ff',
+              letterSpacing: 0,
             }
           : {
-              color: '#1f1416',
-              letterSpacing: 1,
-              textShadow: '0 0 0 transparent',
+              color: '#26141d',
+              letterSpacing: 0,
             },
-      fontFamily: 'Kode Mono, monospace',
+      fontFamily: 'Sora, system-ui, sans-serif',
     },
   });
