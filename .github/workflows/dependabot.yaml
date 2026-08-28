@@ -11,5 +11,5 @@ permissions:
 jobs:
   dependabot:
     if: github.actor == 'dependabot[bot]'
-    uses: Delemangi/.github/.github/workflows/dependabot.yaml@bebef88ed98bc1b3b43ed317e8fb9efae29427db
+    uses: Delemangi/.github/.github/workflows/dependabot.yaml@main
     secrets: inherit
