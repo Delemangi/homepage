@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, type Theme } from '@mui/material';
 import { createRoute } from '@tanstack/react-router';
 
 import Background from '../components/Background';
@@ -18,18 +18,14 @@ import { Route as RootRoute } from './__root';
 
 const readingSurfaceSx = {
   backdropFilter: 'blur(20px) saturate(125%)',
-  backgroundColor: (theme: {
-    readonly palette: { readonly mode: 'dark' | 'light' };
-  }) =>
+  backgroundColor: (theme: Theme) =>
     theme.palette.mode === 'dark'
       ? 'rgba(17, 20, 28, 0.72)'
       : 'rgba(255, 255, 255, 0.72)',
   border: '1px solid',
   borderColor: 'divider',
   borderRadius: 3,
-  boxShadow: (theme: {
-    readonly palette: { readonly mode: 'dark' | 'light' };
-  }) =>
+  boxShadow: (theme: Theme) =>
     theme.palette.mode === 'dark'
       ? '0 24px 72px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
       : '0 24px 72px rgba(61, 28, 43, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.88)',
