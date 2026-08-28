@@ -27,11 +27,10 @@ const SocialMediaButton = ({
   type,
 }: SocialMediaButtonProps) => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
 
   const accentColors = {
-    copy: isDark ? '#00ffd0' : theme.palette.info.main,
-    link: isDark ? '#6a82fb' : theme.palette.primary.main,
+    copy: theme.palette.info.main,
+    link: theme.palette.primary.main,
   };
   const accentColor = accentColors[type];
 

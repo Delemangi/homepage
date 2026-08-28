@@ -116,7 +116,6 @@ type CopyFeedback = Readonly<{
 
 const SocialMedia = () => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
   const [copyFeedback, setCopyFeedback] = useState<CopyFeedback>();
   const feedbackIdRef = useRef(0);
 
@@ -151,17 +150,15 @@ const SocialMedia = () => {
   );
 
   return (
-    <RowContainer sx={{ gap: 2, marginBottom: 2 }}>
+    <RowContainer sx={{ gap: 2, marginBottom: 2, marginTop: 2 }}>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 0.5,
+          gap: 1,
         }}
       >
-        <Typography
-          sx={getSectionLabelSx(isDark ? '#00ffd0' : theme.palette.info.main)}
-        >
+        <Typography sx={getSectionLabelSx(theme.palette.info.main)}>
           Contact
         </Typography>
         <FloatingBar sx={FLOATING_BAR_SX}>
@@ -182,14 +179,10 @@ const SocialMedia = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 0.5,
+          gap: 1,
         }}
       >
-        <Typography
-          sx={getSectionLabelSx(
-            isDark ? '#6a82fb' : theme.palette.primary.main,
-          )}
-        >
+        <Typography sx={getSectionLabelSx(theme.palette.primary.main)}>
           Elsewhere
         </Typography>
         <FloatingBar sx={FLOATING_BAR_SX}>

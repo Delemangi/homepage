@@ -54,4 +54,15 @@ describe('SocialMedia', () => {
       'Copied to clipboard',
     );
   });
+
+  it('uses the Aurora contact and navigation accents in dark mode', () => {
+    render(
+      <ThemeProvider theme={createAppTheme('dark')}>
+        <SocialMedia />
+      </ThemeProvider>,
+    );
+
+    expect(screen.getByText('Contact')).toHaveStyle({ color: '#53e6c3' });
+    expect(screen.getByText('Elsewhere')).toHaveStyle({ color: '#8b9dff' });
+  });
 });
