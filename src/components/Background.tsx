@@ -1,42 +1,46 @@
-import { Box, styled } from '@mui/material';
-import {
-  type MouseEvent,
-  type ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { Box, type BoxProps, styled } from '@mui/material';
+import { type MouseEvent, useRef, useState } from 'react';
 
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import Ripple from './Ripple';
 
 const createSquares = (stroke: string) =>
-  `url("data:image/svg+xml;utf8,<svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='0.35' y='0.35' width='39.3' height='39.3' stroke='${stroke}' stroke-width='0.7' fill='none'/></svg>")`;
+  `url("data:image/svg+xml;utf8,<svg width='56' height='56' viewBox='0 0 56 56' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M56 0H0V56' stroke='${stroke}' stroke-width='0.7' fill='none'/></svg>")`;
 
 const StyledBackground = styled(Box)(({ theme }) => {
   const isDark = theme.palette.mode === 'dark';
   const grid = createSquares(
-    isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.06)',
+    isDark ? 'rgba(139,157,255,0.05)' : 'rgba(91,52,70,0.04)',
   );
   const blurredAurora = isDark
     ? `
-      radial-gradient(1000px 600px at 10% 10%, rgba(106, 130, 251, 0.25), rgba(0, 0, 0, 0) 60%),
-      radial-gradient(900px 500px at 85% 25%, rgba(255, 99, 233, 0.18), rgba(0, 0, 0, 0) 65%),
-      radial-gradient(800px 500px at 30% 80%, rgba(0, 255, 208, 0.15), rgba(0, 0, 0, 0) 70%)
+      radial-gradient(900px 620px at 10% 4%, rgba(139, 157, 255, 0.28), transparent 62%),
+      radial-gradient(780px 560px at 82% 12%, rgba(255, 113, 216, 0.18), transparent 66%),
+      radial-gradient(720px 520px at 42% 74%, rgba(83, 230, 195, 0.10), transparent 72%)
     `
     : `
-      radial-gradient(1000px 600px at 12% 12%, rgba(238, 63, 113, 0.18), rgba(0, 0, 0, 0) 60%),
-      radial-gradient(900px 500px at 80% 20%, rgba(255, 192, 205, 0.14), rgba(0, 0, 0, 0) 65%),
-      radial-gradient(850px 520px at 35% 85%, rgba(244, 184, 96, 0.12), rgba(0, 0, 0, 0) 70%)
+      radial-gradient(900px 620px at 10% 4%, rgba(181, 25, 77, 0.15), transparent 62%),
+      radial-gradient(780px 560px at 82% 12%, rgba(192, 68, 114, 0.12), transparent 66%),
+      radial-gradient(720px 520px at 42% 74%, rgba(122, 87, 0, 0.07), transparent 72%)
     `;
 
   return {
+    '&::after': {
+      background: isDark
+        ? 'linear-gradient(180deg, transparent 0%, rgba(9, 11, 16, 0.34) 55%, rgba(9, 11, 16, 0.82) 100%)'
+        : 'linear-gradient(180deg, transparent 0%, rgba(247, 245, 248, 0.28) 55%, rgba(247, 245, 248, 0.78) 100%)',
+      content: "''",
+      inset: 0,
+      pointerEvents: 'none',
+      position: 'absolute',
+      zIndex: 0,
+    },
     '&::before': {
       background: blurredAurora,
       content: "''",
-      filter: 'blur(44px)',
+      filter: 'blur(54px)',
       inset: 0,
-      opacity: isDark ? 0.45 : 0.5,
+      opacity: isDark ? 0.78 : 0.64,
       pointerEvents: 'none',
       position: 'absolute',
       zIndex: 0,
@@ -46,23 +50,16 @@ const StyledBackground = styled(Box)(({ theme }) => {
     },
     background: isDark
       ? `
-    linear-gradient(120deg, #232b36 0%, #181e24 100%),
-  linear-gradient(100deg, rgba(106, 130, 251, 0.18) 10%, rgba(0, 255, 208, 0.10) 80%),
-  linear-gradient(210deg, rgba(255, 99, 233, 0.13) 20%, rgba(0, 0, 0, 0) 80%),
-    ${grid}
+    ${grid},
+    linear-gradient(145deg, #090b10 0%, #0d1018 48%, #090b10 100%)
   `
       : `
-    linear-gradient(120deg, #fdfcfd 0%, #ffffff 100%),
-  linear-gradient(100deg, rgba(238, 63, 113, 0.10) 12%, rgba(255, 192, 205, 0.08) 88%),
-  linear-gradient(210deg, rgba(255, 128, 171, 0.08) 25%, rgba(0, 0, 0, 0) 85%),
-    ${grid}
+    ${grid},
+    linear-gradient(145deg, #f7f5f8 0%, #fffefe 52%, #f4f0f4 100%)
   `,
-    backgroundBlendMode: isDark
-      ? 'screen, lighten, lighten, overlay'
-      : 'soft-light, screen, screen, multiply',
-    backgroundPosition: 'center, center, center, 0 0',
-    backgroundRepeat: 'no-repeat, no-repeat, no-repeat, repeat',
-    backgroundSize: 'cover, cover, cover, 40px 40px',
+    backgroundPosition: '0 0, center',
+    backgroundRepeat: 'repeat, no-repeat',
+    backgroundSize: '56px 56px, cover',
     height: '100%',
     left: 0,
     overflowX: 'hidden',
@@ -71,60 +68,54 @@ const StyledBackground = styled(Box)(({ theme }) => {
     scrollBehavior: 'smooth',
     top: 0,
     width: '100%',
-    zIndex: -1,
+    zIndex: 0,
   };
 });
 
-type Props = {
-  readonly children: ReactNode;
-};
+type Props = Pick<BoxProps, 'children'>;
 
-type RippleType = {
+type RipplePosition = Readonly<{
   id: number;
   x: number;
   y: number;
-};
+}>;
 
 const Background = ({ children }: Props) => {
   const reduceMotion = useReducedMotion();
-  const [ripples, setRipples] = useState<RippleType[]>([]);
+  const [ripples, setRipples] = useState<readonly RipplePosition[]>([]);
   const rippleIdRef = useRef(0);
 
-  const handleClick = (e: MouseEvent) => {
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     if (reduceMotion) return;
 
-    const id = rippleIdRef.current;
-    rippleIdRef.current += 1;
-    const newRipple = {
-      id,
-      x: e.clientX,
-      y: e.clientY,
+    const ripple = {
+      id: rippleIdRef.current,
+      x: event.clientX,
+      y: event.clientY,
     };
 
-    setRipples((prev) => [...prev, newRipple]);
+    rippleIdRef.current += 1;
+    setRipples((current) => [...current, ripple]);
   };
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (ripples.length === 0) return;
-
-      setRipples((prev) => prev.slice(1));
-    }, 800);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [ripples]);
+  const removeRipple = (id: number) => {
+    setRipples((current) => current.filter((item) => item.id !== id));
+  };
 
   return (
-    <StyledBackground onClick={handleClick}>
+    <StyledBackground
+      data-testid="ambient-background"
+      onClick={handleClick}
+    >
       {ripples.map((ripple) => (
         <Ripple
+          aria-hidden="true"
+          data-testid="ambient-ripple"
           key={ripple.id}
-          style={{
-            left: ripple.x,
-            top: ripple.y,
+          onAnimationEnd={() => {
+            removeRipple(ripple.id);
           }}
+          style={{ left: ripple.x, top: ripple.y }}
         />
       ))}
       {children}
