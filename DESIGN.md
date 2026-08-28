@@ -2,7 +2,7 @@
 
 ## 1. Atmosphere & Identity
 
-The homepage is a personal, technical profile with a restrained playful edge. Its signature is an aurora-like pink/blue accent over a subtle grid, with translucent controls and short tactile interactions that keep the page expressive without obscuring its content.
+The homepage is a personal, technical profile presented as an **Aurora Command Deck**: a precise, developer-native interface with a cinematic edge. Its signature is an illuminated wordmark that resolves into the hero on every load, surrounded by a localized aurora, restrained grid, and instrument-like surfaces that feel physical without competing with the work.
 
 ## 2. Color
 
@@ -10,27 +10,33 @@ The implementation uses Material UI theme roles for text and surfaces, with the 
 
 | Role | Light | Dark | Usage |
 | --- | --- | --- | --- |
-| Primary accent | `#b5194d` | `#6a82fb` | Links, headings, focus and portfolio accents |
-| Secondary accent | `#ffc0cd` | `#ff63e9` | Aurora surfaces; not foreground text in light mode |
-| Contact accent | `#9a5b00` | `#00ffd0` | Contact controls |
-| Main surface | `#fdfcfd` | `#181e24` | Page background |
-| Elevated surface | `rgba(255, 255, 255, 0.6)` | `rgba(24, 30, 36, 0.55)` | Floating controls |
+| Primary accent | `#b5194d` | `#8b9dff` | Links, headings, focus, and project accents |
+| Secondary accent | `#c04472` | `#ff71d8` | Wordmark and localized aurora highlights |
+| Contact accent | `#7a5700` | `#53e6c3` | Contact controls and availability details |
+| Main surface | `#f7f5f8` | `#090b10` | Page background |
+| Reading surface | `rgba(255, 255, 255, 0.72)` | `rgba(17, 20, 28, 0.72)` | Text-heavy sections |
+| Elevated surface | `rgba(255, 255, 255, 0.84)` | `rgba(23, 27, 37, 0.78)` | Controls and project cards |
+| Hairline | `rgba(35, 25, 42, 0.10)` | `rgba(255, 255, 255, 0.08)` | Surface rims and dividers |
 
 Rules:
 
 - Prefer Material UI semantic palette roles such as `text.primary`, `text.secondary`, `primary`, `secondary`, and `info`.
-- Accent gradients may combine the established primary and secondary accent colors.
+- Accent gradients may combine the established primary and secondary colors, but remain localized to the hero, headings, and interactive highlights.
+- Body copy uses neutral text roles; accent colors never carry entire paragraphs.
+- The grid remains below `0.05` opacity in dark mode and `0.04` in light mode, fading further behind reading surfaces.
 - Status feedback must distinguish success from failure through both text and color.
 
 ## 3. Typography
 
-- Font stack: `Kode Mono, monospace`.
-- Display/site title: 48px, bold visual emphasis.
-- Section heading: Material UI `h4`/`h5` scale, rendered with semantic heading elements.
+- Display and body stack: `Sora, system-ui, sans-serif`.
+- Technical/utility stack: `Kode Mono, ui-monospace, monospace`.
+- Display/site title: fluid `clamp(48px, 8vw, 88px)`, weight 700, `-0.085em` tracking, unit line-height, and `0.08em` bottom padding on the painted text element so the `g` is never clipped. The larger intro wordmark uses the same relative metrics so its FLIP handoff scales into the final title without a line-box jump.
+- Hero statement: fluid `clamp(28px, 4vw, 52px)`, weight 600, balanced wrapping.
+- Section heading: fluid `clamp(28px, 4vw, 44px)`, rendered with semantic heading elements.
 - Card heading: Material UI `h6`, weight 700.
-- Body: 16px default.
+- Body: 16–18px with a maximum readable measure of 65 characters.
 - Secondary/card copy: 14px minimum.
-- Overline labels: 12px, weight 600, uppercase with expanded tracking.
+- Overline and metadata labels: 12–13px Kode Mono, weight 600, uppercase with expanded tracking.
 
 There is one page-level `h1`; sections follow with `h2`, and card titles use `h3` where appropriate.
 
@@ -38,32 +44,59 @@ There is one page-level `h1`; sections follow with `h2`, and card titles use `h3
 
 - Base unit: 4px, inherited from the Material UI spacing system.
 - Common steps: 4, 8, 12, 16, 20, 24, 32, and 48px.
-- Page content is a centered vertical column with full-width responsive rows.
+- Page content uses a centered `min(1180px, calc(100% - 32px))` shell.
+- The desktop hero uses an asymmetric two-column composition; content collapses to one left-aligned column below 768px.
+- Major sections use 80–120px vertical spacing on desktop and 56–80px on mobile.
 - Card layouts collapse to a readable single column at 375px and must not create horizontal scrolling.
 - Floating controls account for safe-area insets and scroll with content on small screens.
+- The hero identity overline reads `STEFAN MILEV · SOFTWARE ENGINEER · SKOPJE, NORTH MACEDONIA`; the real name is explicit while `Delemangi` remains the primary wordmark.
+- Identity metadata wraps only between complete segments; the location drops to a clean line without a leading separator below the desktop breakpoint.
+- The hero relies on the page's natural reading flow rather than duplicating nearby section navigation with call-to-action buttons.
+- Personal metadata is visually subordinate to the professional role and concise work-focus statement; labels must describe their values literally.
+- Project presentation uses one curated grid of dimensional cards. Only active, substantive work earns a card; narrow utilities and repositories already represented by an organization card are omitted.
+- Project cards sharing a desktop grid row stretch to the same visual height while retaining their independent hover translation.
 
 ## 5. Components
 
 ### Floating Bar
 
-- **Structure:** translucent flex cluster containing icon buttons.
+- **Structure:** compact instrument surface with a hairline rim, inset highlight, and grouped icon buttons.
 - **States:** default, hover, focus-visible, active.
 - **Accessibility:** every icon button has an explicit accessible name and keyboard support.
 - **Motion:** transform/opacity feedback only; no transform under reduced motion.
 
 ### Project Card
 
-- **Structure:** card content with title, description, technology chips, and explicit destination links.
+- **Structure:** elevated command-deck panel with title, description, technology chips, and explicit destination links.
 - **States:** default, hover, focus-visible, active.
 - **Accessibility:** destinations are semantic anchors; nested links must never trigger a second destination.
-- **Motion:** short elevation/scale affordance, disabled under reduced motion.
+- **Motion:** cursor-local highlight, short elevation, and spring-like press affordance; all transforms are disabled under reduced motion.
+
+### Current State Panel
+
+- **Structure:** elevated hero-side panel containing the current role, linked employer, a concise work-focus statement, and literally labeled local time and age metadata.
+- **Hierarchy:** the role is the dominant line, while the linked employer forms a quieter secondary line; professional focus follows before subordinate personal metadata.
+- **States:** external employer link uses the standard underlined-link states; the status light is decorative.
+- **Accessibility:** metadata uses visible labels and values; color never carries meaning alone.
+
+### Intro Sequence
+
+- **Structure:** fixed decorative overlay rendered above an already-mounted page; it is hidden from assistive technology.
+- **Timing:** deterministic sequence on every page load and never coupled to network or module loading. The overlay enters, hands the wordmark to the real heading, then enters an explicit exit phase with a roughly 350ms eased opacity fade before unmounting.
+- **Handoff:** the illuminated wordmark stands alone, resolves, then uses a FLIP-style transform to meet the real page heading before the overlay fades as one surface.
+- **Reduced motion:** a brief opacity-only exit; no secondary status copy, scramble, scale, or spatial handoff.
+
+### Reading Surface
+
+- **Structure:** translucent tonal section with a subtle rim and directional light, used only where it improves hierarchy or contrast.
+- **Depth:** one outer containment ring, one inset top highlight, and a tinted ambient shadow. A single blur does not qualify as a finished surface.
 
 ### Skill Chip
 
 - **Structure:** compact Material UI chip.
-- **States:** default, hover, focus-visible, active.
-- **Accessibility:** decorative interaction only; it does not masquerade as navigation.
-- **Motion:** highlight sweep and transform are disabled under reduced motion.
+- **States:** static label; no hover, focus, or active affordance.
+- **Accessibility:** non-actionable metadata that does not masquerade as navigation.
+- **Motion:** none.
 
 ### Reveal Text
 
@@ -75,20 +108,24 @@ There is one page-level `h1`; sections follow with `h2`, and card titles use `h3
 
 | Type | Duration | Easing | Usage |
 | --- | --- | --- | --- |
-| Micro | 100–150ms | ease-out | Press and focus feedback |
-| Standard | 200–300ms | ease-in-out | Hover, reveal, and popover feedback |
-| Emphasis | 600–800ms | cubic-bezier(.4, 1, .4, 1) | Site-title scramble or entrance treatment |
+| Micro | 100–150ms | ease-out | Press, focus, and icon swaps |
+| Standard | 180–280ms | cubic-bezier(.2,.8,.2,1) | Hover, surface, and underline feedback |
+| Overlay exit | 350ms | cubic-bezier(.16,1,.3,1) | Intro surface handoff and removal |
+| Reveal | 450–650ms | cubic-bezier(.16,1,.3,1) | Section masks and content entrances |
+| Emphasis | 650–900ms | cubic-bezier(.4,1,.4,1) | Intro wordmark and theme transition |
 
 Rules:
 
 - Prefer `transform`, `opacity`, and color/filter effects; compact disclosure and underline affordances may animate `max-width` or `background-size` when they do not shift surrounding layout.
-- Motion communicates interaction or state; it does not delay access to content.
+- Motion communicates interaction or state. The intro may cover the page briefly, but the page is already mounted and the sequence never waits on loading.
+- Spatial movement is interruptible and limited to short transforms; opacity and filter transitions use fixed easing.
+- Section reveals travel no more than 16px and run once.
 - `prefers-reduced-motion: reduce` disables decorative transforms, ripples, scrambles, smooth scrolling, and staged reveals.
 - State changes such as clipboard success or failure remain immediate and explicit.
 
 ## 7. Depth & Surface
 
-The depth strategy is mixed: translucent tonal surfaces use subtle borders and restrained shadows, while the page atmosphere uses layered radial gradients and a fine grid. Shadows support interactive elevation and must not become the primary separator for every section.
+The depth strategy follows a single overhead light source. Elevated surfaces combine a low-opacity outer ring, inset top highlight, inset bottom shade, and cool-tinted ambient shadow. The page atmosphere uses a localized multi-stop aurora, subtle grain, and a fine grid; reading zones remain quieter than the hero. Shadows support hierarchy and interaction rather than decorating every block.
 
 ## 8. Accessibility Constraints & Accepted Debt
 
@@ -96,6 +133,7 @@ The depth strategy is mixed: translucent tonal surfaces use subtle borders and r
 
 - Target WCAG 2.2 AA.
 - Maintain visible keyboard focus, semantic landmarks, sequential headings, and descriptive link/button names.
+- Expose the segmented hero identity as one deterministic screen-reader string while keeping its responsive visual rendering out of the accessibility tree.
 - All interactions work without a pointer.
 - Reduced-motion preferences are honored throughout the page.
 - Success and error feedback is announced through visible text and an appropriate live region.
@@ -104,4 +142,4 @@ The depth strategy is mixed: translucent tonal surfaces use subtle borders and r
 
 | Item | Location | Why accepted | Owner / Exit |
 | --- | --- | --- | --- |
-| Existing raw color literals | Existing MUI `sx` and styled components | This document codifies the current visual system; a token migration would be an unrelated redesign | Consolidate only during a future visual-system refactor |
+| Existing raw color literals | Legacy MUI `sx` and styled components outside the redesigned surfaces | The redesign migrates touched surfaces first to keep the change reviewable | Consolidate remaining literals during future component work |
