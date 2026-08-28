@@ -20,16 +20,6 @@ jobs:
     secrets: inherit
 
   test-build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-      - uses: actions/setup-node@v6
-        with:
-          cache: npm
-          node-version: 24
-      - run: npm ci --ignore-scripts
-      - run: npm audit --audit-level=low
-      - run: npm test
-      - run: npm run build
+    uses: Delemangi/.github/.github/workflows/test-build.yaml@main
+    with:
+      node-version: "24"
