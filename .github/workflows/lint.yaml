@@ -12,20 +12,20 @@ permissions:
 
 jobs:
   tsc:
-    uses: Delemangi/.github/.github/workflows/tsc.yaml@bebef88ed98bc1b3b43ed317e8fb9efae29427db
+    uses: Delemangi/.github/.github/workflows/tsc.yaml@main
     secrets: inherit
 
   eslint:
-    uses: Delemangi/.github/.github/workflows/eslint.yaml@bebef88ed98bc1b3b43ed317e8fb9efae29427db
+    uses: Delemangi/.github/.github/workflows/eslint.yaml@main
     secrets: inherit
 
   test-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/checkout@v6
         with:
           persist-credentials: false
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+      - uses: actions/setup-node@v6
         with:
           cache: npm
           node-version: 24
