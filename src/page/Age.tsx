@@ -17,7 +17,7 @@ type Props = Omit<TypographyProps, 'fontSize' | 'marginBottom'> & {
 
 const Age = ({ fontSize, marginBottom, ...props }: Props) => {
   const [age, setAge] = useState(() => getAge());
-  const [hovering, setHovering] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -35,26 +35,23 @@ const Age = ({ fontSize, marginBottom, ...props }: Props) => {
   return (
     <Typography
       {...props}
-      onMouseEnter={() => {
-        setHovering(true);
-      }}
-      onMouseLeave={() => {
-        setHovering(false);
-      }}
       sx={{
-        cursor: 'default',
         ...(fontSize !== undefined && { fontSize }),
         ...(marginBottom !== undefined && { marginBottom }),
       }}
     >
       <Box
-        component="span"
+        aria-expanded={expanded}
+        component="button"
+        onClick={() => {
+          setExpanded((current) => !current);
+        }}
         sx={{
           '&::after': {
             backgroundImage:
               'linear-gradient(to right, currentColor 2px, transparent 2px)',
             backgroundRepeat: 'repeat-x',
-            backgroundSize: `4px 1px`,
+            backgroundSize: '4px 1px',
             bottom: 0,
             content: '""',
             height: '1px',
@@ -64,8 +61,22 @@ const Age = ({ fontSize, marginBottom, ...props }: Props) => {
             right: 0,
             transform: 'translateY(0.2em)',
           },
+          '&:focus-visible': {
+            borderRadius: 0.5,
+            outline: '2px solid',
+            outlineColor: 'primary.main',
+            outlineOffset: 3,
+          },
+          appearance: 'none',
+          background: 'none',
+          border: 0,
+          color: 'inherit',
+          cursor: 'pointer',
+          font: 'inherit',
+          padding: 0,
           position: 'relative',
         }}
+        type="button"
       >
         {integer}
         <Box
@@ -75,7 +86,7 @@ const Age = ({ fontSize, marginBottom, ...props }: Props) => {
               transition: 'none',
             },
             display: 'inline-block',
-            maxWidth: hovering ? '10em' : '0px',
+            maxWidth: expanded ? '10em' : '0px',
             overflow: 'hidden',
             transition: (theme) =>
               theme.transitions.create('max-width', {

@@ -76,17 +76,13 @@ const Portfolio = () => (
         component="h2"
         id="portfolio-heading"
         sx={(t) => ({
-          background:
-            t.palette.mode === 'dark'
-              ? 'linear-gradient(90deg, rgba(125, 255, 214, 0.9), rgba(106, 130, 251, 0.9))'
-              : `linear-gradient(90deg, ${t.palette.primary.main}, #006b8c)`,
-          backgroundClip: 'text',
-          color: 'transparent',
-          fontWeight: 700,
-          letterSpacing: 0.2,
-          marginBottom: 0.75,
+          color: t.palette.text.primary,
+          fontSize: 'clamp(28px, 4vw, 44px)',
+          fontWeight: 650,
+          letterSpacing: '-0.045em',
+          lineHeight: 1.08,
+          marginBottom: 1.5,
         })}
-        variant="h5"
       >
         Projects & skills
       </Typography>
@@ -94,8 +90,13 @@ const Portfolio = () => (
 
     <TextReveal delay={100}>
       <Typography
-        align="justify"
-        sx={{ color: 'text.secondary', fontSize: 14, marginBottom: 1 }}
+        sx={{
+          color: 'text.secondary',
+          fontSize: 16,
+          lineHeight: 1.75,
+          marginBottom: 1,
+          maxWidth: '62ch',
+        }}
       >
         Technologies I use regularly at work and in personal projects.
       </Typography>
@@ -119,8 +120,13 @@ const Portfolio = () => (
 
     <TextReveal delay={300}>
       <Typography
-        align="justify"
-        sx={{ color: 'text.secondary', fontSize: 14, marginBottom: 2 }}
+        sx={{
+          color: 'text.secondary',
+          fontSize: 16,
+          lineHeight: 1.75,
+          marginBottom: 3,
+          maxWidth: '62ch',
+        }}
       >
         A selection of personal and open-source projects I still maintain,
         mostly built to solve problems I had myself.
@@ -138,12 +144,19 @@ const Portfolio = () => (
       }}
     >
       {projects.map((p, index) => (
-        <TextReveal
-          delay={400 + index * 100}
+        <Box
+          component="article"
           key={p.title}
+          sx={{
+            '& > *': { flex: 1, height: '100%' },
+            display: 'flex',
+            height: '100%',
+          }}
         >
-          <ProjectCard {...p} />
-        </TextReveal>
+          <TextReveal delay={400 + index * 100}>
+            <ProjectCard {...p} />
+          </TextReveal>
+        </Box>
       ))}
     </Box>
   </Column>

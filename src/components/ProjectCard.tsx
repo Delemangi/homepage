@@ -1,5 +1,11 @@
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { Box, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  type BoxProps,
+  IconButton,
+  Stack,
+  Typography,
+} from '@mui/material';
 
 import SkillChip from '../page/SkillChip';
 import UnderlinedLink from './UnderlinedLink';
@@ -16,6 +22,27 @@ type Props = Readonly<Project>;
 
 const emptyTech: string[] = [];
 
+type ProjectCardPointerEvent = Parameters<
+  NonNullable<BoxProps['onPointerMove']>
+>[0];
+
+const clearHighlight = (event: ProjectCardPointerEvent) => {
+  event.currentTarget.style.removeProperty('--highlight-x');
+  event.currentTarget.style.removeProperty('--highlight-y');
+};
+
+const updateHighlight = (event: ProjectCardPointerEvent) => {
+  const rect = event.currentTarget.getBoundingClientRect();
+  event.currentTarget.style.setProperty(
+    '--highlight-x',
+    `${event.clientX - rect.left}px`,
+  );
+  event.currentTarget.style.setProperty(
+    '--highlight-y',
+    `${event.clientY - rect.top}px`,
+  );
+};
+
 const ProjectCard = ({
   description,
   hrefCode,
@@ -28,40 +55,66 @@ const ProjectCard = ({
 
   return (
     <Box
+      onPointerLeave={clearHighlight}
+      onPointerMove={updateHighlight}
       sx={(t) => ({
+        '&::before': {
+          background:
+            t.palette.mode === 'dark'
+              ? 'radial-gradient(circle at var(--highlight-x, 20%) var(--highlight-y, 0%), rgba(139,157,255,.18), transparent 42%)'
+              : 'radial-gradient(circle at var(--highlight-x, 20%) var(--highlight-y, 0%), rgba(181,25,77,.10), transparent 42%)',
+          content: "''",
+          inset: 0,
+          opacity: 0.5,
+          pointerEvents: 'none',
+          position: 'absolute',
+          transition: 'opacity 220ms ease-out',
+        },
+        '&:active': {
+          transform: 'translateY(-1px) scale(0.995)',
+        },
+        '&:has(a:focus-visible)': {
+          '&::before': { opacity: 1 },
+          outline: `2px solid ${t.palette.primary.main}`,
+          outlineOffset: 3,
+          transform: 'translateY(-2px)',
+        },
         '&:hover': {
+          '&::before': { opacity: 1 },
           boxShadow:
             t.palette.mode === 'dark'
-              ? '0 8px 26px rgba(106, 130, 251, 0.18)'
-              : '0 8px 26px rgba(238, 63, 113, 0.14)',
-          transform: 'translateY(-2px) scale(1.01)',
+              ? '0 28px 70px rgba(0, 0, 0, 0.30), 0 0 0 1px rgba(139,157,255,.12), inset 0 1px 0 rgba(255,255,255,.07)'
+              : '0 28px 70px rgba(61, 28, 43, 0.12), 0 0 0 1px rgba(181,25,77,.10), inset 0 1px 0 rgba(255,255,255,.9)',
+          transform: 'translateY(-4px)',
         },
         '@media (prefers-reduced-motion: reduce)': {
-          '&:hover': { transform: 'none' },
+          '&:active, &:has(a:focus-visible), &:hover': { transform: 'none' },
           transition: 'none',
         },
         backgroundColor:
           t.palette.mode === 'dark'
-            ? 'rgba(255, 255, 255, 0.09)'
-            : 'rgba(0, 0, 0, 0.09)',
+            ? 'rgba(17, 20, 28, 0.76)'
+            : 'rgba(255, 255, 255, 0.76)',
         border: `1px solid ${
           t.palette.mode === 'dark'
             ? 'rgba(255, 255, 255, 0.08)'
             : 'rgba(0, 0, 0, 0.08)'
         }`,
-        borderRadius: 2,
+        borderRadius: 3,
         boxShadow:
           t.palette.mode === 'dark'
-            ? '0 1px 0 rgba(255, 255, 255, 0.04)'
-            : '0 1px 0 rgba(0, 0, 0, 0.05)',
+            ? '0 20px 54px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255,255,255,.05)'
+            : '0 20px 54px rgba(61, 28, 43, 0.08), inset 0 1px 0 rgba(255,255,255,.85)',
         cursor: 'default',
         display: 'flex',
         flexDirection: 'column',
-        gap: 1,
+        gap: 1.5,
         height: '100%',
-        padding: 2,
+        overflow: 'hidden',
+        padding: { md: 3, xs: 2.5 },
+        position: 'relative',
         transition:
-          'transform 200ms cubic-bezier(.2,.8,.2,1), box-shadow 200ms ease, background-color 200ms ease, border-color 200ms ease',
+          'transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease, background-color 220ms ease, border-color 220ms ease',
       })}
     >
       <Box
@@ -77,13 +130,13 @@ const ProjectCard = ({
           sx={(t) => ({
             background:
               t.palette.mode === 'dark'
-                ? 'linear-gradient(90deg, #6a82fb 0%, #ff63e9 100%)'
-                : `linear-gradient(90deg, ${t.palette.primary.main} 0%, #9b2450 50%, ${t.palette.primary.main} 100%)`,
+                ? 'linear-gradient(90deg, #f4f6ff 0%, #8b9dff 100%)'
+                : `linear-gradient(90deg, ${t.palette.text.primary} 0%, ${t.palette.primary.main} 100%)`,
             backgroundClip: 'text',
             color: 'transparent',
             flex: 1,
             fontWeight: 700,
-            letterSpacing: 0.2,
+            letterSpacing: '-0.025em',
             minWidth: 0,
             mr: 1,
           })}
@@ -113,7 +166,15 @@ const ProjectCard = ({
         ) : null}
       </Box>
 
-      <Typography sx={{ color: 'text.secondary', fontSize: 14 }}>
+      <Typography
+        sx={{
+          color: 'text.secondary',
+          fontSize: 15,
+          lineHeight: 1.7,
+          maxWidth: '68ch',
+          position: 'relative',
+        }}
+      >
         {description}
       </Typography>
 
@@ -138,7 +199,15 @@ const ProjectCard = ({
       {(hrefCode ?? hrefLive) ? (
         <Stack
           direction="row"
-          sx={{ gap: 2, marginTop: 0.5 }}
+          sx={{
+            '& a': {
+              alignItems: 'center',
+              display: 'inline-flex',
+              minHeight: { sm: 'auto', xs: 44 },
+            },
+            gap: 2,
+            marginTop: 0.5,
+          }}
         >
           {hrefLive ? (
             <UnderlinedLink
