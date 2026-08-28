@@ -6,6 +6,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { useRef } from 'react';
 
 import SkillChip from '../page/SkillChip';
 import UnderlinedLink from './UnderlinedLink';
@@ -26,21 +27,30 @@ type ProjectCardPointerEvent = Parameters<
   NonNullable<BoxProps['onPointerMove']>
 >[0];
 
-const clearHighlight = (event: ProjectCardPointerEvent) => {
-  event.currentTarget.style.removeProperty('--highlight-x');
-  event.currentTarget.style.removeProperty('--highlight-y');
-};
+const useHighlightTracking = () => {
+  const highlightBoundsRef = useRef<DOMRect>(null);
 
-const updateHighlight = (event: ProjectCardPointerEvent) => {
-  const rect = event.currentTarget.getBoundingClientRect();
-  event.currentTarget.style.setProperty(
-    '--highlight-x',
-    `${event.clientX - rect.left}px`,
-  );
-  event.currentTarget.style.setProperty(
-    '--highlight-y',
-    `${event.clientY - rect.top}px`,
-  );
+  const clearHighlight = (event: ProjectCardPointerEvent) => {
+    highlightBoundsRef.current = null;
+    event.currentTarget.style.removeProperty('--highlight-x');
+    event.currentTarget.style.removeProperty('--highlight-y');
+  };
+
+  const updateHighlight = (event: ProjectCardPointerEvent) => {
+    const rect =
+      highlightBoundsRef.current ?? event.currentTarget.getBoundingClientRect();
+    highlightBoundsRef.current = rect;
+    event.currentTarget.style.setProperty(
+      '--highlight-x',
+      `${event.clientX - rect.left}px`,
+    );
+    event.currentTarget.style.setProperty(
+      '--highlight-y',
+      `${event.clientY - rect.top}px`,
+    );
+  };
+
+  return { clearHighlight, updateHighlight };
 };
 
 const ProjectCard = ({
@@ -50,11 +60,13 @@ const ProjectCard = ({
   tech = emptyTech,
   title,
 }: Props) => {
+  const { clearHighlight, updateHighlight } = useHighlightTracking();
   const primaryHref = hrefLive ?? hrefCode;
   const clickable = Boolean(primaryHref);
 
   return (
     <Box
+      onPointerEnter={updateHighlight}
       onPointerLeave={clearHighlight}
       onPointerMove={updateHighlight}
       sx={(t) => ({
