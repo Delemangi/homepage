@@ -21,5 +21,3 @@ jobs:
 
   test-build:
     uses: Delemangi/.github/.github/workflows/test-build.yaml@main
-    with:
-      node-version: "24"
