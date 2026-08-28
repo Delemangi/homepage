@@ -59,30 +59,30 @@ const TIMELINE_BG_COLORS = {
 
 const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
   <Box
-    sx={{
+    sx={(theme) => ({
       '&:last-child': {
         mb: 0,
       },
-      borderColor: (t) => {
-        const mode = t.palette.mode === 'dark' ? 'dark' : 'light';
-
-        return item.type === 'work'
-          ? t.palette.divider
-          : TIMELINE_COLORS[item.type][mode];
-      },
-      borderLeft: '3px solid',
+      backgroundColor:
+        theme.palette.mode === 'dark'
+          ? 'rgba(255, 255, 255, 0.025)'
+          : 'rgba(35, 25, 42, 0.025)',
+      border: '1px solid',
+      borderColor: 'divider',
+      borderRadius: 2,
       display: 'flex',
       flexDirection: 'column',
       gap: 0.75,
-      mb: 2,
-      pb: 2,
-      pl: 1.5,
-    }}
+      mb: 1.5,
+      padding: 2,
+    })}
   >
     <Box
       sx={{
         alignItems: 'flex-start',
         display: 'flex',
+        flexWrap: 'wrap',
+        gap: 1.5,
         justifyContent: 'space-between',
       }}
     >
@@ -127,7 +127,7 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
         color="textSecondary"
         sx={{
           fontSize: 13,
-          ml: 2,
+          marginLeft: 'auto',
           whiteSpace: 'nowrap',
         }}
       >
@@ -150,17 +150,13 @@ const Timeline = () => (
         component="h2"
         id="timeline-heading"
         sx={(t) => ({
-          background:
-            t.palette.mode === 'dark'
-              ? 'linear-gradient(120deg, rgb(255, 255, 255) 0%, rgb(148, 163, 184) 100%)'
-              : 'linear-gradient(120deg, rgb(30, 30, 46) 0%, rgb(80, 80, 100) 100%)',
-          backgroundClip: 'text',
+          color: t.palette.text.primary,
+          fontSize: 'clamp(28px, 4vw, 40px)',
           fontWeight: 700,
-          mb: 2,
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
+          letterSpacing: '-0.035em',
+          lineHeight: 1.12,
+          mb: 2.5,
         })}
-        variant="h5"
       >
         Experience & education
       </Typography>
