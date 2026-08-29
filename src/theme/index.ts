@@ -6,6 +6,10 @@ export const createAppTheme = (mode: PaletteMode) =>
       MuiIconButton: {
         styleOverrides: {
           root: {
+            '&.Mui-focusVisible': {
+              outline: `2px solid ${mode === 'dark' ? '#8b9dff' : '#b5194d'}`,
+              outlineOffset: 2,
+            },
             '&:active': {
               transform: 'translateY(0) scale(0.96)',
             },

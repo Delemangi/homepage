@@ -62,7 +62,7 @@ There is one page-level `h1`; sections follow with `h2`, and card titles use `h3
 
 - **Structure:** compact instrument surface with a hairline rim, inset highlight, and grouped icon buttons.
 - **States:** default, hover, focus-visible, active.
-- **Accessibility:** every icon button has an explicit accessible name and keyboard support.
+- **Accessibility:** every icon button has an explicit accessible name, keyboard support, and a 2px primary-accent focus-visible outline with a 2px offset.
 - **Motion:** transform/opacity feedback only; no transform under reduced motion.
 
 ### Project Card
