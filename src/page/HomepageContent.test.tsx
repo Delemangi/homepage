@@ -72,10 +72,12 @@ describe('homepage content hierarchy', () => {
     ).not.toBeInTheDocument();
     expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(4);
     expect(
-      screen.getByRole('link', { name: 'Open finki-hub' }),
+      screen.getByRole('link', { name: 'View finki-hub source code' }),
     ).toHaveAttribute('href', 'https://github.com/finki-hub');
     expect(
-      screen.getByRole('link', { name: 'Open asf-discord-bot' }),
+      screen.getByRole('link', {
+        name: 'View asf-discord-bot source code',
+      }),
     ).toHaveAttribute('href', 'https://github.com/Delemangi/asf-discord-bot');
     const projectArticles = screen.getAllByRole('article');
 

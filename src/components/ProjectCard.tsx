@@ -1,11 +1,5 @@
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import {
-  Box,
-  type BoxProps,
-  IconButton,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, type BoxProps, Stack, Typography } from '@mui/material';
 import { useRef } from 'react';
 
 import SkillChip from '../page/SkillChip';
@@ -62,7 +56,9 @@ const ProjectCard = ({
 }: Props) => {
   const { clearHighlight, updateHighlight } = useHighlightTracking();
   const primaryHref = hrefLive ?? hrefCode;
-  const clickable = Boolean(primaryHref);
+  const primaryLabel = hrefLive
+    ? `View ${title} live site`
+    : `View ${title} source code`;
 
   return (
     <Box
@@ -129,6 +125,26 @@ const ProjectCard = ({
           'transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease, background-color 220ms ease, border-color 220ms ease',
       })}
     >
+      {primaryHref ? (
+        <Box
+          aria-label={primaryLabel}
+          component="a"
+          href={primaryHref}
+          rel="noopener noreferrer"
+          sx={{
+            '&:focus-visible': {
+              outline: '2px solid',
+              outlineColor: 'primary.main',
+              outlineOffset: 2,
+            },
+            borderRadius: 3,
+            inset: 0,
+            position: 'absolute',
+            zIndex: 1,
+          }}
+          target="_blank"
+        />
+      ) : null}
       <Box
         sx={{
           alignItems: 'flex-start',
@@ -156,25 +172,12 @@ const ProjectCard = ({
         >
           {title}
         </Typography>
-        {clickable ? (
-          <IconButton
-            aria-label={`Open ${title}`}
-            component="a"
-            href={primaryHref ?? undefined}
-            onClickCapture={(e) => {
-              e.stopPropagation();
-            }}
-            rel="noopener noreferrer"
-            size="small"
-            sx={(t) => ({
-              '&:hover': { color: t.palette.text.primary },
-              alignSelf: 'flex-start',
-              color: 'text.secondary',
-            })}
-            target="_blank"
-          >
-            <OpenInNewIcon fontSize="small" />
-          </IconButton>
+        {primaryHref ? (
+          <OpenInNewIcon
+            aria-hidden="true"
+            fontSize="small"
+            sx={{ color: 'text.secondary', margin: 0.5 }}
+          />
         ) : null}
       </Box>
 
@@ -221,19 +224,19 @@ const ProjectCard = ({
             marginTop: 0.5,
           }}
         >
-          {hrefLive ? (
-            <UnderlinedLink
-              href={hrefLive}
-              rel="noopener noreferrer"
-              target="_blank"
+          {primaryHref ? (
+            <Typography
+              component="span"
+              sx={{ textDecoration: 'underline' }}
             >
-              Live site
-            </UnderlinedLink>
+              {hrefLive ? 'Live site' : 'Source code'}
+            </Typography>
           ) : null}
-          {hrefCode ? (
+          {hrefLive && hrefCode ? (
             <UnderlinedLink
               href={hrefCode}
               rel="noopener noreferrer"
+              sx={{ position: 'relative', zIndex: 2 }}
               target="_blank"
             >
               Source code

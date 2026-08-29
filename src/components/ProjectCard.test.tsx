@@ -18,14 +18,17 @@ const renderCard = () =>
   );
 
 describe('ProjectCard', () => {
-  it('does not activate the primary destination when a nested link handles Enter', () => {
-    const open = vi.spyOn(globalThis, 'open').mockImplementation(() => null);
+  it('exposes the primary destination and source as sibling anchors', () => {
     const { container } = renderCard();
 
+    const primaryLink = screen.getByRole('link', {
+      name: 'View Example project live site',
+    });
     const sourceLink = screen.getByRole('link', { name: 'Source code' });
-    fireEvent.keyDown(sourceLink, { key: 'Enter' });
 
-    expect(open).not.toHaveBeenCalled();
+    expect(primaryLink).toHaveAttribute('href', 'https://example.com/live');
+    expect(sourceLink).toHaveAttribute('href', 'https://example.com/source');
+    expect(primaryLink).not.toContainElement(sourceLink);
     expect(container.firstElementChild).not.toHaveAttribute('role', 'link');
     expect(container.firstElementChild).not.toHaveAttribute('tabindex');
   });
