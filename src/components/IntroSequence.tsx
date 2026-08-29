@@ -26,6 +26,18 @@ export const IntroSequence = ({ onComplete }: Props) => {
   const isDark = theme.palette.mode === 'dark';
 
   useEffect(() => {
+    const skipIntro = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onComplete();
+    };
+
+    document.addEventListener('keydown', skipIntro);
+
+    return () => {
+      document.removeEventListener('keydown', skipIntro);
+    };
+  }, [onComplete]);
+
+  useEffect(() => {
     if (reduceMotion) {
       setPhase('exiting');
       const reducedCompletionTimer = setTimeout(

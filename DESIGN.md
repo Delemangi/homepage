@@ -82,6 +82,7 @@ There is one page-level `h1`; sections follow with `h2`, and card titles use `h3
 ### Intro Sequence
 
 - **Structure:** fixed decorative overlay rendered above an already-mounted page; it is hidden from assistive technology.
+- **Accessibility:** the mounted page remains in the accessibility tree throughout, and Escape dismisses the decorative overlay immediately.
 - **Timing:** deterministic sequence on every page load and never coupled to network or module loading. The overlay enters, hands the wordmark to the real heading, then enters an explicit exit phase with a roughly 350ms eased opacity fade before unmounting.
 - **Handoff:** the illuminated wordmark stands alone, resolves, then uses a FLIP-style transform to meet the real page heading before the overlay fades as one surface.
 - **Reduced motion:** a brief opacity-only exit; no secondary status copy, scramble, scale, or spatial handoff.

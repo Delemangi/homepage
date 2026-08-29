@@ -9,11 +9,7 @@ const App = () => {
 
   return (
     <>
-      <div
-        aria-hidden={showIntro ? true : undefined}
-        data-testid="homepage-content"
-        inert={showIntro ? true : undefined}
-      >
+      <div data-testid="homepage-content">
         <RouterProvider router={router} />
       </div>
       {showIntro ? (

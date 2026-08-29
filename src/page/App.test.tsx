@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { IntroSequence } from '../components/IntroSequence';
@@ -64,10 +64,9 @@ describe('App startup experience', () => {
     );
 
     expect(screen.getByTestId(INTRO_OVERLAY_TEST_ID)).toBeInTheDocument();
-    expect(screen.getByTestId('homepage-content')).toHaveAttribute('inert');
-    expect(screen.getByTestId('homepage-content')).toHaveAttribute(
+    expect(screen.getByTestId('homepage-content')).not.toHaveAttribute('inert');
+    expect(screen.getByTestId('homepage-content')).not.toHaveAttribute(
       'aria-hidden',
-      'true',
     );
     expect(screen.getByTestId(INTRO_OVERLAY_TEST_ID)).toHaveAttribute(
       'data-phase',
@@ -114,5 +113,21 @@ describe('App startup experience', () => {
     );
 
     expect(screen.getByTestId(INTRO_OVERLAY_TEST_ID)).toBeInTheDocument();
+  });
+
+  it('lets keyboard users skip the decorative intro', () => {
+    vi.useFakeTimers();
+
+    render(
+      <ThemeModeProvider>
+        <App />
+      </ThemeModeProvider>,
+    );
+
+    expect(screen.getByTestId(INTRO_OVERLAY_TEST_ID)).toBeInTheDocument();
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    expect(screen.queryByTestId(INTRO_OVERLAY_TEST_ID)).not.toBeInTheDocument();
   });
 });
