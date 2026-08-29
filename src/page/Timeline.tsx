@@ -13,25 +13,27 @@ export type TimelineItem = {
 
 const timeline: TimelineItem[] = [
   {
+    endYear: 'Present',
+    organization: 'CodeChem',
+    position: 'Software Engineer',
+    startYear: '2022',
+    type: 'work',
+  },
+  {
     endYear: '2024',
-    organization: 'Faculty of Computer Science and Engineering',
+    organization:
+      'Faculty of Computer Science and Engineering, Ss. Cyril and Methodius University in Skopje',
     position: 'BSc in Computer Science',
     startYear: '2020',
     type: 'education',
   },
   {
     endYear: '2025',
-    organization: 'Faculty of Computer Science and Engineering',
+    organization:
+      'Faculty of Computer Science and Engineering, Ss. Cyril and Methodius University in Skopje',
     position: 'MSc in Computer Science',
     startYear: '2024',
     type: 'education',
-  },
-  {
-    endYear: 'Present',
-    organization: 'CodeChem',
-    position: 'Software Engineer',
-    startYear: '2022',
-    type: 'work',
   },
 ];
 
