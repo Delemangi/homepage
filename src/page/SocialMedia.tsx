@@ -1,13 +1,15 @@
+import { Box, Typography, useTheme } from '@mui/material';
 import {
-  Alert,
-  Box,
-  Portal,
-  Snackbar,
-  Typography,
-  useTheme,
-} from '@mui/material';
-import { type MouseEvent, useCallback, useRef, useState } from 'react';
+  type MouseEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
+import CopyFeedbackPopover, {
+  type CopyFeedback,
+} from '../components/CopyFeedbackPopover';
 import FloatingBar from '../components/FloatingBar';
 import RowContainer from '../components/RowContainer';
 import SocialMediaButton from '../components/SocialMediaButton';
@@ -30,6 +32,28 @@ const COPY_ICONS = [
     title: 'Copy Discord username',
   },
 ] as const;
+
+type CopyTarget = (typeof COPY_ICONS)[number]['onClick'];
+
+const COPY_DETAILS = {
+  discord: {
+    failureMessage: 'Couldn’t copy Discord username. Try again.',
+    successMessage: 'Discord username copied',
+    text: 'delemangi',
+  },
+  mail: {
+    failureMessage: 'Couldn’t copy email address. Try again.',
+    successMessage: 'Email address copied',
+    text: 'milev.stefan@gmail.com',
+  },
+} as const satisfies Record<
+  CopyTarget,
+  Readonly<{
+    failureMessage: string;
+    successMessage: string;
+    text: string;
+  }>
+>;
 
 const LINK_ICONS = [
   {
@@ -108,45 +132,77 @@ const getSectionLabelSx = (color: string) =>
     textTransform: 'uppercase',
   }) as const;
 
-type CopyFeedback = Readonly<{
-  id: number;
-  kind: 'error' | 'success';
-  message: string;
-}>;
-
 const SocialMedia = () => {
   const theme = useTheme();
   const [copyFeedback, setCopyFeedback] = useState<CopyFeedback>();
-  const feedbackIdRef = useRef(0);
+  const copyAttemptRef = useRef(0);
+  const feedbackTimeoutRef = useRef<null | ReturnType<
+    typeof globalThis.setTimeout
+  >>(null);
 
-  const handleCopyOnClick = useCallback(
-    (text: string) => async (event: MouseEvent<HTMLButtonElement>) => {
-      event.currentTarget.focus();
-      let kind: CopyFeedback['kind'];
-      let message: string;
+  useEffect(
+    () => () => {
+      copyAttemptRef.current += 1;
 
-      try {
-        await navigator.clipboard.writeText(text);
-        kind = 'success';
-        message = 'Copied to clipboard';
-      } catch {
-        kind = 'error';
-        message = 'Could not copy to clipboard';
+      if (feedbackTimeoutRef.current !== null) {
+        clearTimeout(feedbackTimeoutRef.current);
       }
-
-      feedbackIdRef.current += 1;
-      setCopyFeedback({ id: feedbackIdRef.current, kind, message });
     },
     [],
   );
 
-  const getCopyHandler = useCallback(
-    (type: 'discord' | 'mail') => {
-      const text = type === 'discord' ? 'delemangi' : 'milev.stefan@gmail.com';
+  const scheduleFeedbackReset = useCallback((attempt: number) => {
+    const timeout = setTimeout(() => {
+      if (attempt === copyAttemptRef.current) {
+        setCopyFeedback(undefined);
+      }
 
-      return handleCopyOnClick(text);
+      if (feedbackTimeoutRef.current === timeout) {
+        feedbackTimeoutRef.current = null;
+      }
+    }, 1_500);
+
+    feedbackTimeoutRef.current = timeout;
+  }, []);
+
+  const getCopyHandler = useCallback(
+    (type: CopyTarget) => async (event: MouseEvent<HTMLButtonElement>) => {
+      const anchorElement = event.currentTarget;
+      const details = COPY_DETAILS[type];
+      const attempt = copyAttemptRef.current + 1;
+
+      anchorElement.focus();
+      copyAttemptRef.current = attempt;
+      setCopyFeedback(undefined);
+
+      if (feedbackTimeoutRef.current !== null) {
+        clearTimeout(feedbackTimeoutRef.current);
+        feedbackTimeoutRef.current = null;
+      }
+
+      try {
+        await navigator.clipboard.writeText(details.text);
+
+        if (attempt !== copyAttemptRef.current) return;
+
+        setCopyFeedback({
+          anchorElement,
+          message: details.successMessage,
+          status: 'success',
+        });
+      } catch {
+        if (attempt !== copyAttemptRef.current) return;
+
+        setCopyFeedback({
+          anchorElement,
+          message: details.failureMessage,
+          status: 'error',
+        });
+      }
+
+      scheduleFeedbackReset(attempt);
     },
-    [handleCopyOnClick],
+    [scheduleFeedbackReset],
   );
 
   return (
@@ -199,29 +255,7 @@ const SocialMedia = () => {
         </FloatingBar>
       </Box>
 
-      <Portal>
-        <Snackbar
-          anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
-          autoHideDuration={1_500}
-          key={copyFeedback?.id}
-          onClose={(_, reason) => {
-            if (reason !== 'clickaway') setCopyFeedback(undefined);
-          }}
-          open={copyFeedback !== undefined}
-        >
-          <Alert
-            role="status"
-            severity={copyFeedback?.kind ?? 'success'}
-            sx={{
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.24)',
-              fontWeight: 600,
-            }}
-            variant="filled"
-          >
-            {copyFeedback?.message}
-          </Alert>
-        </Snackbar>
-      </Portal>
+      <CopyFeedbackPopover feedback={copyFeedback} />
     </RowContainer>
   );
 };

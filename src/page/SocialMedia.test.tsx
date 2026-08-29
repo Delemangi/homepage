@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@mui/material';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -29,7 +29,7 @@ describe('SocialMedia', () => {
 
     expect(writeText).toHaveBeenCalledWith('milev.stefan@gmail.com');
     expect(await screen.findByRole('status')).toHaveTextContent(
-      'Could not copy to clipboard',
+      'Couldn’t copy email address. Try again.',
     );
     expect(
       screen.getByRole('button', { name: 'Copy email address' }),
@@ -51,7 +51,43 @@ describe('SocialMedia', () => {
 
     expect(writeText).toHaveBeenCalledWith('delemangi');
     expect(await screen.findByRole('status')).toHaveTextContent(
-      'Copied to clipboard',
+      'Discord username copied',
+    );
+  });
+
+  it('keeps the newest clipboard result when an older attempt settles later', async () => {
+    let rejectFirstWrite: (() => void) | undefined;
+    const firstWrite = new Promise<void>((_resolve, reject) => {
+      rejectFirstWrite = () => {
+        reject(new Error('Denied'));
+      };
+    });
+    const writeText = vi
+      .fn()
+      .mockImplementationOnce(() => firstWrite)
+      .mockImplementationOnce(async () => {});
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText },
+    });
+    renderSocialMedia();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Copy email address' }));
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Copy Discord username' }),
+    );
+    expect(await screen.findByRole('status')).toHaveTextContent(
+      'Discord username copied',
+    );
+
+    if (rejectFirstWrite === undefined) {
+      throw new TypeError('Expected the first clipboard write to be pending');
+    }
+    rejectFirstWrite();
+    await expect(firstWrite).rejects.toThrow('Denied');
+
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'Discord username copied',
     );
   });
 
