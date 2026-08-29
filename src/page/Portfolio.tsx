@@ -8,7 +8,7 @@ import SkillChip from './SkillChip';
 const SKILLS = [
   'Node.js',
   'React',
-  'Solid',
+  'SolidJS',
   'Next.js',
   'Electron',
   'Material UI',
@@ -16,7 +16,7 @@ const SKILLS = [
   'FastAPI',
   'Django',
   'Spring Boot',
-  'MCP',
+  'Model Context Protocol (MCP)',
   'AWS',
   'Azure',
   'Cloudflare',
@@ -33,7 +33,7 @@ const SKILLS = [
 const projects: Project[] = [
   {
     description:
-      'Open-source tools for FCSE students, including scrapers, bots, web apps, and a RAG chatbot.',
+      'Tools for FCSE students, including web apps, bots, scrapers, and a RAG chatbot for finding course information.',
     hrefCode: 'https://github.com/finki-hub',
     tech: [
       'React',
@@ -49,13 +49,14 @@ const projects: Project[] = [
   },
   {
     description:
-      'A strict, modular ESLint configuration with composable presets for React, TypeScript, and Node.js.',
+      'Reusable ESLint presets for React, TypeScript, and Node.js projects.',
     hrefCode: 'https://github.com/Delemangi/eslint-config-imperium',
     tech: ['ESLint', 'TypeScript', 'Node.js'],
     title: 'eslint-config-imperium',
   },
   {
-    description: 'This website. You are currently using the live demo.',
+    description:
+      'This website, built with React, TypeScript, Vite, and Material UI.',
     hrefCode: 'https://github.com/Delemangi/homepage',
     tech: ['React', 'TypeScript', 'Vite', 'Material UI', 'Docker'],
     title: 'homepage',
@@ -98,7 +99,7 @@ const Portfolio = () => (
           maxWidth: '62ch',
         }}
       >
-        Technologies I use regularly at work and in personal projects.
+        Tools I use regularly.
       </Typography>
     </TextReveal>
 
@@ -128,8 +129,7 @@ const Portfolio = () => (
           maxWidth: '62ch',
         }}
       >
-        A selection of personal and open-source projects I still maintain,
-        mostly built to solve problems I had myself.
+        A few personal and open-source projects I maintain.
       </Typography>
     </TextReveal>
 

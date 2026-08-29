@@ -30,9 +30,9 @@ const Profile = () => (
           marginBottom: 2,
         }}
       >
-        I’m a software engineer building end-to-end products across frontend,
-        backend, infrastructure, and AI. My work spans web applications,
-        scalable services, and retrieval-augmented generation (RAG) systems.
+        I’m a software engineer based in Skopje. I work across the stack, from
+        user interfaces to backend services and infrastructure. I also build RAG
+        systems.
       </Typography>
     </TextReveal>
 
@@ -41,7 +41,7 @@ const Profile = () => (
         sx={{ color: 'text.secondary', fontSize: 16, lineHeight: 1.8 }}
       >
         Outside work, I build side projects, play video games, collect
-        mechanical keyboards, and occasionally break my homelab.
+        mechanical keyboards, and work on my homelab.
       </Typography>
     </TextReveal>
   </Column>
