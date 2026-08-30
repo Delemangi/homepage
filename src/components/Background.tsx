@@ -32,7 +32,7 @@ const StyledBackground = styled(Box)(({ theme }) => {
       content: "''",
       inset: 0,
       pointerEvents: 'none',
-      position: 'absolute',
+      position: 'fixed',
       zIndex: 0,
     },
     '&::before': {
@@ -42,7 +42,7 @@ const StyledBackground = styled(Box)(({ theme }) => {
       inset: 0,
       opacity: isDark ? 0.78 : 0.64,
       pointerEvents: 'none',
-      position: 'absolute',
+      position: 'fixed',
       zIndex: 0,
     },
     '@media (prefers-reduced-motion: reduce)': {
