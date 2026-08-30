@@ -1,10 +1,8 @@
 import { Box, Typography } from '@mui/material';
 
 import Column from '../components/Column';
-import UnderlinedLink from '../components/UnderlinedLink';
 import Name from './Name';
-
-const SECONDARY_TEXT = 'text.secondary';
+import SocialMedia from './SocialMedia';
 
 const HeroCopy = () => (
   <Box>
@@ -34,71 +32,16 @@ const HeroCopy = () => (
   </Box>
 );
 
-const WorkNote = () => (
-  <Box
-    component="aside"
-    sx={{
-      borderColor: 'primary.main',
-      borderLeft: '2px solid',
-      paddingLeft: { md: 4, xs: 3 },
-      paddingY: 1,
-    }}
-  >
-    <Typography
-      component="p"
-      sx={{
-        fontSize: { md: 26, xs: 22 },
-        fontWeight: 650,
-        letterSpacing: '-0.035em',
-        lineHeight: 1.25,
-        textWrap: 'balance',
-      }}
-    >
-      Software engineer at{' '}
-      <UnderlinedLink
-        href="https://codechem.com"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        CodeChem
-      </UnderlinedLink>
-      .
-    </Typography>
-    <Typography
-      sx={{
-        color: SECONDARY_TEXT,
-        fontSize: { md: 16, xs: 15 },
-        lineHeight: 1.75,
-        marginTop: 2,
-        maxWidth: '42ch',
-        textWrap: 'pretty',
-      }}
-    >
-      I build web apps, RAG tools, and the cloud infrastructure behind them.
-    </Typography>
-  </Box>
-);
-
 const Introduction = () => (
   <Column>
+    <HeroCopy />
     <Box
       sx={{
-        '@media (min-width: 768px)': {
-          gap: 4,
-          gridTemplateColumns: 'minmax(0, 1.25fr) minmax(296px, 0.75fr)',
-        },
-        '@media (min-width: 900px)': {
-          gap: 8,
-          gridTemplateColumns: 'minmax(0, 1.35fr) minmax(280px, 0.65fr)',
-        },
-        alignItems: 'center',
-        display: 'grid',
-        gap: 5,
-        gridTemplateColumns: '1fr',
+        marginTop: { md: 5, xs: 4 },
+        width: 'fit-content',
       }}
     >
-      <HeroCopy />
-      <WorkNote />
+      <SocialMedia />
     </Box>
   </Column>
 );

@@ -11,7 +11,7 @@ import ThemeToggle from '../components/ThemeToggle';
 import Introduction from './Introduction';
 import Portfolio from './Portfolio';
 import Profile from './Profile';
-import SocialMedia from './SocialMedia';
+import SiteFooter from './SiteFooter';
 import Timeline from './Timeline';
 
 const readingSurfaceSx = {
@@ -71,9 +71,6 @@ const Homepage = () => (
             <StaggeredReveal delay={0}>
               <Introduction />
             </StaggeredReveal>
-            <StaggeredReveal delay={150}>
-              <SocialMedia />
-            </StaggeredReveal>
           </Box>
           <Box
             sx={{
@@ -109,6 +106,9 @@ const Homepage = () => (
             >
               <Portfolio />
             </Box>
+          </StaggeredReveal>
+          <StaggeredReveal delay={750}>
+            <SiteFooter />
           </StaggeredReveal>
         </ColumnBox>
       </ColumnContainer>

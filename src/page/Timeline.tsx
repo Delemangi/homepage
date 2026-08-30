@@ -2,11 +2,13 @@ import { Box, Typography } from '@mui/material';
 
 import Column from '../components/Column';
 import TextReveal from '../components/TextReveal';
+import UnderlinedLink from '../components/UnderlinedLink';
 import { TIMELINE_BADGE_COLORS } from './timelineBadgeColors';
 
 type TimelineItem = {
   readonly endYear: string;
   readonly organization: string;
+  readonly organizationHref: string;
   readonly position: string;
   readonly startYear: string;
   readonly type: 'education' | 'work';
@@ -16,22 +18,23 @@ const timeline: TimelineItem[] = [
   {
     endYear: 'Present',
     organization: 'CodeChem',
+    organizationHref: 'https://codechem.com',
     position: 'Software Engineer',
     startYear: '2022',
     type: 'work',
   },
   {
     endYear: '2024',
-    organization:
-      'Faculty of Computer Science and Engineering, Ss. Cyril and Methodius University in Skopje',
+    organization: 'Faculty of Computer Science and Engineering',
+    organizationHref: 'https://www.finki.ukim.mk/en',
     position: 'BSc in Computer Science',
     startYear: '2020',
     type: 'education',
   },
   {
     endYear: '2025',
-    organization:
-      'Faculty of Computer Science and Engineering, Ss. Cyril and Methodius University in Skopje',
+    organization: 'Faculty of Computer Science and Engineering',
+    organizationHref: 'https://www.finki.ukim.mk/en',
     position: 'MSc in Computer Science',
     startYear: '2024',
     type: 'education',
@@ -119,7 +122,13 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
       color="textSecondary"
       sx={{ fontSize: 14 }}
     >
-      {item.organization}
+      <UnderlinedLink
+        href={item.organizationHref}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {item.organization}
+      </UnderlinedLink>
     </Typography>
   </Box>
 );
