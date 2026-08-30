@@ -39,7 +39,13 @@ describe('homepage content hierarchy', () => {
       expect(segment).toHaveStyle({ whiteSpace: 'nowrap' });
     }
     expect(identitySegments[2]).toHaveTextContent(LOCATION_SEGMENT);
-    expect(screen.getByText('Current state')).toBeInTheDocument();
+    const currentStatePanel = screen.getByRole('complementary');
+
+    expect(currentStatePanel).toHaveAttribute(
+      'aria-labelledby',
+      'current-state-heading',
+    );
+    expect(document.querySelector('#current-state-heading')).not.toBeNull();
     expect(screen.getByText('Software Engineer')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'CodeChem' })).toHaveAttribute(
       'href',
