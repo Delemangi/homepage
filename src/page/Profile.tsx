@@ -2,6 +2,7 @@ import { Typography } from '@mui/material';
 
 import Column from '../components/Column';
 import TextReveal from '../components/TextReveal';
+import UnderlinedLink from '../components/UnderlinedLink';
 
 const Profile = () => (
   <Column>
@@ -32,6 +33,27 @@ const Profile = () => (
       >
         I’m a software engineer based in Skopje. I work on web apps, backend
         services, cloud infrastructure, and RAG systems.
+      </Typography>
+      <Typography
+        sx={{ color: 'text.secondary', fontSize: 16, lineHeight: 1.8 }}
+      >
+        I founded{' '}
+        <UnderlinedLink
+          href="https://finki-hub.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          finki-hub
+        </UnderlinedLink>{' '}
+        and co-founded{' '}
+        <UnderlinedLink
+          href="https://learnify.mk"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          learnify.mk
+        </UnderlinedLink>
+        .
       </Typography>
     </TextReveal>
 
