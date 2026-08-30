@@ -22,7 +22,14 @@ const HeroCopy = () => (
         textWrap: 'balance',
       }}
     >
-      I build software for the web, from the interface to the infrastructure.
+      I build software, from{' '}
+      <Box
+        component="span"
+        sx={{ whiteSpace: 'nowrap' }}
+      >
+        web apps
+      </Box>{' '}
+      to cloud infrastructure.
     </Typography>
     <Typography
       sx={{
@@ -33,8 +40,7 @@ const HeroCopy = () => (
         maxWidth: '60ch',
       }}
     >
-      I’m happiest when I can follow a problem all the way from the screen to
-      the server.
+      I’m happiest when I can follow a problem through every layer of a system.
     </Typography>
   </Box>
 );
