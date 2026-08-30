@@ -1,5 +1,4 @@
 import { Box, type Theme } from '@mui/material';
-import { createRoute } from '@tanstack/react-router';
 
 import Background from '../components/Background';
 import ColumnBox from '../components/ColumnBox';
@@ -9,12 +8,11 @@ import GlobalStyle from '../components/GlobalStyle';
 import SourceLinkButton from '../components/SourceLinkButton';
 import StaggeredReveal from '../components/StaggeredReveal';
 import ThemeToggle from '../components/ThemeToggle';
-import Introduction from '../page/Introduction';
-import Portfolio from '../page/Portfolio';
-import Profile from '../page/Profile';
-import SocialMedia from '../page/SocialMedia';
-import Timeline from '../page/Timeline';
-import { Route as RootRoute } from './__root';
+import Introduction from './Introduction';
+import Portfolio from './Portfolio';
+import Profile from './Profile';
+import SiteFooter from './SiteFooter';
+import Timeline from './Timeline';
 
 const readingSurfaceSx = {
   backdropFilter: 'blur(20px) saturate(125%)',
@@ -33,7 +31,7 @@ const readingSurfaceSx = {
   padding: { md: 4, xs: 3 },
 } as const;
 
-const IndexPage = () => (
+const Homepage = () => (
   <Background>
     <nav aria-label="Site controls">
       <FloatingBar
@@ -73,9 +71,6 @@ const IndexPage = () => (
             <StaggeredReveal delay={0}>
               <Introduction />
             </StaggeredReveal>
-            <StaggeredReveal delay={150}>
-              <SocialMedia />
-            </StaggeredReveal>
           </Box>
           <Box
             sx={{
@@ -112,16 +107,13 @@ const IndexPage = () => (
               <Portfolio />
             </Box>
           </StaggeredReveal>
+          <StaggeredReveal delay={750}>
+            <SiteFooter />
+          </StaggeredReveal>
         </ColumnBox>
       </ColumnContainer>
     </Box>
   </Background>
 );
 
-const route = createRoute({
-  component: IndexPage,
-  getParentRoute: () => RootRoute,
-  path: '/',
-});
-
-export { route as Route };
+export default Homepage;

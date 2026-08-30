@@ -9,10 +9,51 @@ import Name from './Name';
 const INTRO_OVERLAY_TEST_ID = 'intro-overlay';
 
 afterEach(() => {
+  history.replaceState(null, '', '/');
   vi.useRealTimers();
 });
 
 describe('App startup experience', () => {
+  it('renders the homepage at the root path', () => {
+    // Given
+    vi.useFakeTimers();
+    history.replaceState(null, '', '/');
+
+    // When
+    render(
+      <ThemeModeProvider>
+        <App />
+      </ThemeModeProvider>,
+    );
+
+    // Then
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Delemangi' }),
+    ).toBeInTheDocument();
+  });
+
+  it('renders the themed not-found page for an unknown path', () => {
+    // Given
+    vi.useFakeTimers();
+    history.replaceState(null, '', '/missing');
+
+    // When
+    render(
+      <ThemeModeProvider>
+        <App />
+      </ThemeModeProvider>,
+    );
+
+    // Then
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Page not found' }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Return home' })).toHaveAttribute(
+      'href',
+      '/',
+    );
+  });
+
   it('keeps proportional metrics on the measured title elements', () => {
     // Given
     vi.useFakeTimers();

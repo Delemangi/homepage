@@ -1,14 +1,16 @@
 import { ThemeProvider } from '@mui/material';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { createAppTheme } from '../theme';
 import Introduction from './Introduction';
 import Portfolio from './Portfolio';
+import Profile from './Profile';
+import SiteFooter from './SiteFooter';
+import Timeline from './Timeline';
 
-const HERO_IDENTITY =
-  'STEFAN MILEV · SOFTWARE ENGINEER · SKOPJE, NORTH MACEDONIA';
-const LOCATION_SEGMENT = /^SKOPJE, NORTH MACEDONIA$/u;
+const PROFILE_ENGINEERING_PATTERN =
+  /frontend, backend, infrastructure, and AI/u;
 
 const renderWithTheme = (content: Parameters<typeof render>[0]) =>
   render(
@@ -20,38 +22,32 @@ afterEach(() => {
 });
 
 describe('homepage content hierarchy', () => {
-  it('presents the full identity and current work state', () => {
+  it('opens with the wordmark instead of a resume-style identity line', () => {
     renderWithTheme(<Introduction />);
 
-    const accessibleIdentity = screen.getByText(HERO_IDENTITY);
-    const visualIdentity = accessibleIdentity.parentElement?.querySelector(
-      '[aria-hidden="true"]',
-    );
-    const identitySegments = Array.from(
-      visualIdentity?.querySelectorAll(':scope > span') ?? [],
-    );
+    expect(
+      screen.queryByText(
+        'STEFAN MILEV · SOFTWARE ENGINEER · SKOPJE, NORTH MACEDONIA',
+      ),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Delemangi' }),
+    ).toBeInTheDocument();
+  });
 
-    expect(accessibleIdentity).toHaveStyle({ position: 'absolute' });
-    expect(visualIdentity).not.toBeNull();
-    expect(identitySegments).toHaveLength(3);
-    expect(visualIdentity?.querySelectorAll('wbr')).toHaveLength(2);
-    for (const segment of identitySegments) {
-      expect(segment).toHaveStyle({ whiteSpace: 'nowrap' });
-    }
-    expect(identitySegments[2]).toHaveTextContent(LOCATION_SEGMENT);
-    const currentStatePanel = screen.getByRole('complementary');
+  it('presents a concise identity without dashboard metadata', () => {
+    renderWithTheme(<Introduction />);
 
-    expect(currentStatePanel).toHaveAttribute(
-      'aria-labelledby',
-      'current-state-heading',
+    expect(screen.queryByRole('complementary')).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: 'CodeChem' }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText('web apps').closest('p')).toHaveTextContent(
+      'I build software, from web apps to cloud infrastructure.',
     );
-    expect(document.querySelector('#current-state-heading')).not.toBeNull();
-    expect(screen.getByText('Software Engineer')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'CodeChem' })).toHaveAttribute(
-      'href',
-      'https://codechem.com',
-    );
-    expect(screen.getByText('AGE')).toBeInTheDocument();
+    expect(screen.queryByText('Now')).not.toBeInTheDocument();
+    expect(screen.queryByText('LOCAL TIME')).not.toBeInTheDocument();
+    expect(screen.queryByText('AGE')).not.toBeInTheDocument();
     expect(screen.queryByText('CURRENT FOCUS')).not.toBeInTheDocument();
     expect(screen.queryByText('Product systems + AI')).not.toBeInTheDocument();
     expect(
@@ -66,25 +62,37 @@ describe('homepage content hierarchy', () => {
       screen.queryByRole('link', { name: 'Experience' }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('link', { name: 'GitHub profile' }),
-    ).not.toBeInTheDocument();
+      screen.getByRole('link', { name: 'Open GitHub profile' }),
+    ).toHaveAttribute('href', 'https://github.com/Delemangi/');
   });
 
   it('presents one curated grid of maintained projects', () => {
     renderWithTheme(<Portfolio />);
 
     expect(
+      screen.queryByText('Tools I use regularly.'),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText('SolidJS')).not.toBeInTheDocument();
+    expect(
       screen.queryByRole('heading', { level: 3, name: 'More open source' }),
     ).not.toBeInTheDocument();
     expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(4);
     expect(
-      screen.getByRole('link', { name: 'View finki-hub source code' }),
-    ).toHaveAttribute('href', 'https://github.com/finki-hub');
+      screen.getByRole('link', { name: 'View finki-hub live site' }),
+    ).toHaveAttribute('href', 'https://finki-hub.com');
     expect(
       screen.getByRole('link', {
         name: 'View asf-discord-bot source code',
       }),
     ).toHaveAttribute('href', 'https://github.com/Delemangi/asf-discord-bot');
+    expect(
+      screen.getByRole('link', {
+        name: 'View eslint-config-imperium package',
+      }),
+    ).toHaveAttribute(
+      'href',
+      'https://www.npmjs.com/package/eslint-config-imperium',
+    );
     const projectArticles = screen.getAllByRole('article');
 
     expect(projectArticles).toHaveLength(4);
@@ -100,7 +108,7 @@ describe('homepage content hierarchy', () => {
 
     const target = screen.getByRole('heading', {
       level: 2,
-      name: 'Projects & skills',
+      name: 'Selected work',
     });
     const revealWrapper = target.parentElement;
 
@@ -119,5 +127,62 @@ describe('homepage content hierarchy', () => {
 
     expect(chip).not.toBeNull();
     expect(chip).toHaveStyle({ transform: 'none', transition: 'none' });
+  });
+});
+
+describe('supporting homepage content', () => {
+  it('covers the approved engineering and community interests', () => {
+    renderWithTheme(<Profile />);
+
+    expect(screen.getByText(PROFILE_ENGINEERING_PATTERN)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'finki-hub' })).toHaveAttribute(
+      'href',
+      'https://finki-hub.com',
+    );
+    expect(screen.getByRole('link', { name: 'learnify.mk' })).toHaveAttribute(
+      'href',
+      'https://learnify.mk',
+    );
+  });
+
+  it('links timeline organizations and every footer destination', () => {
+    renderWithTheme(
+      <>
+        <Timeline />
+        <SiteFooter />
+      </>,
+    );
+
+    expect(screen.getByRole('link', { name: 'CodeChem' })).toHaveAttribute(
+      'href',
+      'https://codechem.com',
+    );
+    expect(
+      screen.getAllByRole('link', {
+        name: 'Faculty of Computer Science and Engineering',
+      }),
+    ).toHaveLength(2);
+
+    const footer = within(screen.getByRole('contentinfo'));
+    expect(footer.getByRole('link', { name: 'Email' })).toHaveAttribute(
+      'href',
+      'mailto:milev.stefan@gmail.com',
+    );
+    expect(footer.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
+      'href',
+      'https://github.com/Delemangi',
+    );
+    expect(footer.getByRole('link', { name: 'Discord' })).toHaveAttribute(
+      'href',
+      'https://discord.gg/7Fw53MdbUP',
+    );
+    expect(footer.getByRole('link', { name: 'Steam' })).toHaveAttribute(
+      'href',
+      'https://steamcommunity.com/id/delemangi/',
+    );
+    expect(footer.getByRole('link', { name: 'Source' })).toHaveAttribute(
+      'href',
+      'https://github.com/Delemangi/homepage',
+    );
   });
 });

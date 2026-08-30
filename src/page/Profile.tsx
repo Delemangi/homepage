@@ -31,13 +31,15 @@ const Profile = () => (
           marginBottom: 2,
         }}
       >
-        I’m a software engineer based in Skopje. I work on web apps, backend
-        services, cloud infrastructure, and RAG systems.
+        I’m Stefan, a software engineer based in Skopje. I work across frontend,
+        backend, infrastructure, and AI, usually with TypeScript or Python. I
+        like tinkering with frontier AI and figuring out what it is actually
+        useful for.
       </Typography>
       <Typography
         sx={{ color: 'text.secondary', fontSize: 16, lineHeight: 1.8 }}
       >
-        I founded{' '}
+        I run{' '}
         <UnderlinedLink
           href="https://finki-hub.com"
           rel="noopener noreferrer"
@@ -45,7 +47,7 @@ const Profile = () => (
         >
           finki-hub
         </UnderlinedLink>{' '}
-        and co-founded{' '}
+        and{' '}
         <UnderlinedLink
           href="https://learnify.mk"
           rel="noopener noreferrer"
@@ -53,7 +55,7 @@ const Profile = () => (
         >
           learnify.mk
         </UnderlinedLink>
-        .
+        , along with a few other communities.
       </Typography>
     </TextReveal>
 
@@ -66,11 +68,9 @@ const Profile = () => (
           textWrap: 'pretty',
         }}
       >
-        Outside work, I build side projects, play video games, collect
-        mechanical keyboards, and work on my homelab. Most of those projects
-        start because I want to understand how something works. The homelab
-        gives me somewhere to test ideas without worrying about breaking
-        anything important.
+        In my free time, I play video games, collect mechanical keyboards, and
+        use my homelab to experiment with networking, Linux server
+        administration, and running AI models locally.
       </Typography>
     </TextReveal>
   </Column>

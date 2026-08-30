@@ -1,40 +1,15 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import Column from '../components/Column';
 import ProjectCard, { type Project } from '../components/ProjectCard';
 import TextReveal from '../components/TextReveal';
-import SkillChip from './SkillChip';
 
-const SKILLS = [
-  'Node.js',
-  'React',
-  'SolidJS',
-  'Next.js',
-  'Electron',
-  'Material UI',
-  'Chakra UI',
-  'FastAPI',
-  'Django',
-  'Spring Boot',
-  'Model Context Protocol (MCP)',
-  'AWS',
-  'Azure',
-  'Cloudflare',
-  'discord.js',
-  'PostgreSQL',
-  'MongoDB',
-  'Milvus',
-  'Elasticsearch',
-  'LangChain',
-  'Docker',
-  'Kubernetes',
-] as const;
-
-const projects: Project[] = [
+const projects: readonly Project[] = [
   {
     description:
-      'Tools for FCSE students, including web apps, bots, scrapers, and a RAG chatbot for finding course information.',
+      'A community platform of apps, bots, and scrapers that helps FCSE students find course information and automate routine tasks.',
     hrefCode: 'https://github.com/finki-hub',
+    hrefLive: 'https://finki-hub.com',
     tech: [
       'React',
       'Node.js',
@@ -49,21 +24,24 @@ const projects: Project[] = [
   },
   {
     description:
-      'Reusable ESLint presets for React, TypeScript, and Node.js projects.',
+      'A shareable ruleset that keeps my React, TypeScript, and Node.js projects consistent without repeating configuration.',
     hrefCode: 'https://github.com/Delemangi/eslint-config-imperium',
+    hrefLive: 'https://www.npmjs.com/package/eslint-config-imperium',
+    liveLabel: 'Package',
     tech: ['ESLint', 'TypeScript', 'Node.js'],
     title: 'eslint-config-imperium',
   },
   {
     description:
-      'This website, built with React, TypeScript, Vite, and Material UI.',
+      'My personal site and design playground, built around a custom Material UI system, responsive motion, and Docker deployment.',
     hrefCode: 'https://github.com/Delemangi/homepage',
+    hrefLive: 'https://delemangi.com',
     tech: ['React', 'TypeScript', 'Vite', 'Material UI', 'Docker'],
     title: 'homepage',
   },
   {
     description:
-      'A Discord bot for managing multiple Steam accounts through ArchiSteamFarm.',
+      'A Discord control plane for managing several Steam accounts through ArchiSteamFarm without touching each client.',
     hrefCode: 'https://github.com/Delemangi/asf-discord-bot',
     tech: ['TypeScript', 'discord.js', 'ArchiSteamFarm', 'Docker'],
     title: 'asf-discord-bot',
@@ -85,7 +63,7 @@ const Portfolio = () => (
           marginBottom: 1.5,
         })}
       >
-        Projects & skills
+        Selected work
       </Typography>
     </TextReveal>
 
@@ -99,37 +77,7 @@ const Portfolio = () => (
           maxWidth: '62ch',
         }}
       >
-        Tools I use regularly.
-      </Typography>
-    </TextReveal>
-
-    <TextReveal delay={200}>
-      <Stack
-        direction="row"
-        spacing={1}
-        sx={{ flexWrap: 'wrap', marginBottom: 3 }}
-        useFlexGap
-      >
-        {SKILLS.map((label) => (
-          <SkillChip
-            key={label}
-            label={label}
-          />
-        ))}
-      </Stack>
-    </TextReveal>
-
-    <TextReveal delay={300}>
-      <Typography
-        sx={{
-          color: 'text.secondary',
-          fontSize: 16,
-          lineHeight: 1.75,
-          marginBottom: 3,
-          maxWidth: '62ch',
-        }}
-      >
-        A few personal and open-source projects I maintain.
+        A few things I’ve built and still maintain.
       </Typography>
     </TextReveal>
 
@@ -153,7 +101,7 @@ const Portfolio = () => (
             height: '100%',
           }}
         >
-          <TextReveal delay={400 + index * 100}>
+          <TextReveal delay={200 + index * 100}>
             <ProjectCard {...p} />
           </TextReveal>
         </Box>

@@ -2,7 +2,7 @@
 
 ## 1. Atmosphere & Identity
 
-The homepage is a personal, technical profile presented as an **Aurora Command Deck**: a precise, developer-native interface with a cinematic edge. Its signature is an illuminated wordmark that resolves into the hero on every load, surrounded by a localized aurora, restrained grid, and instrument-like surfaces that feel physical without competing with the work.
+The homepage is a personal, technical profile led by an illuminated wordmark, direct first-person writing, and a restrained aurora. The interface should feel authored and precise without turning personal information into dashboard statistics or decorating factual content with system-status language.
 
 ## 2. Color
 
@@ -24,7 +24,7 @@ Rules:
 - Accent gradients may combine the established primary and secondary colors, but remain localized to the hero, headings, and interactive highlights.
 - Body copy uses neutral text roles; accent colors never carry entire paragraphs.
 - The grid remains below `0.05` opacity in dark mode and `0.04` in light mode, fading further behind reading surfaces.
-- Status feedback must distinguish success from failure through both text and color.
+- Status feedback must distinguish success from failure through both text and color. In dark mode, accent colors form a restrained rim around an elevated surface rather than filling the entire overlay.
 
 ## 3. Typography
 
@@ -45,39 +45,46 @@ There is one page-level `h1`; sections follow with `h2`, and card titles use `h3
 - Base unit: 4px, inherited from the Material UI spacing system.
 - Common steps: 4, 8, 12, 16, 20, 24, 32, and 48px.
 - Page content uses a centered `min(1180px, calc(100% - 32px))` shell.
-- The desktop hero uses an asymmetric two-column composition; content collapses to one left-aligned column below 768px.
+- The desktop hero uses one full-width editorial identity block followed by a compact, left-aligned social row.
 - Major sections use 80–120px vertical spacing on desktop and 56–80px on mobile.
 - Card layouts collapse to a readable single column at 375px and must not create horizontal scrolling.
 - Floating controls account for safe-area insets and scroll with content on small screens.
-- The hero identity overline reads `STEFAN MILEV · SOFTWARE ENGINEER · SKOPJE, NORTH MACEDONIA`; the real name is explicit while `Delemangi` remains the primary wordmark.
-- Identity metadata wraps only between complete segments; the location drops to a clean line without a leading separator below the desktop breakpoint.
+- The hero opens with the `Delemangi` wordmark and a short first-person statement; name, location, and work details appear naturally in the page copy instead of a resume-style overline.
 - The hero relies on the page's natural reading flow rather than duplicating nearby section navigation with call-to-action buttons.
-- Personal metadata is visually subordinate to the professional role and concise work-focus statement; labels must describe their values literally.
+- Employment details live in the experience section rather than being repeated in the hero.
 - Project presentation uses one curated grid of dimensional cards. Only active, substantive work earns a card; narrow utilities and repositories already represented by an organization card are omitted.
+- Technologies appear on the project cards that use them. The page does not include a separate skills inventory.
 - Project cards sharing a desktop grid row stretch to the same visual height while retaining their independent hover translation.
+- Aurora and tonal overlay layers stay fixed to the viewport while the background container owns vertical scrolling, so no layer edge can appear between sections.
 
 ## 5. Components
 
 ### Floating Bar
 
-- **Structure:** compact instrument surface with a hairline rim, inset highlight, and grouped icon buttons.
+- **Structure:** compact translucent control group with a hairline rim, inset highlight, and grouped icon buttons.
 - **States:** default, hover, focus-visible, active.
 - **Accessibility:** every icon button has an explicit accessible name, keyboard support, and a 2px primary-accent focus-visible outline with a 2px offset.
 - **Motion:** transform/opacity feedback only; no transform under reduced motion.
 
 ### Project Card
 
-- **Structure:** elevated command-deck panel with title, description, technology chips, and explicit destination links.
+- **Structure:** elevated project panel with title, description, and technology chips. The card itself owns one primary destination; redundant text actions are omitted.
 - **States:** default, hover, focus-visible, active.
 - **Accessibility:** destinations are semantic anchors; nested links must never trigger a second destination.
 - **Motion:** cursor-local highlight, short elevation, and spring-like press affordance; all transforms are disabled under reduced motion.
 
-### Current State Panel
+### Hero Social Row
 
-- **Structure:** elevated hero-side panel containing the current role, linked employer, a concise work-focus statement, and literally labeled local time and age metadata.
-- **Hierarchy:** the role is the dominant line, while the linked employer forms a quieter secondary line; professional focus follows before subordinate personal metadata.
-- **States:** external employer link uses the standard underlined-link states; the status light is decorative.
-- **Accessibility:** metadata uses visible labels and values; color never carries meaning alone.
+- **Structure:** one uncontained icon row with a subtle vertical separator between copy actions and external profiles; no category labels, glass panels, or horizontal filler rule.
+- **Behavior:** remains left-aligned beneath the statement and wraps only when the viewport requires it.
+- **Accessibility:** every control retains its explicit accessible name, tooltip, and focus-visible treatment.
+- **Feedback:** hover help uses the current elevated surface, while copy success or failure temporarily suppresses hover help and appears on its own tonal surface.
+
+### Site Footer
+
+- **Structure:** a single quiet divider, a two-line name and role/location signature on the left, and compact text links for contact, selected personal profiles, and source on the right.
+- **Behavior:** aligns in one row on desktop and stacks into a readable wrap on narrow screens.
+- **Accessibility:** links remain descriptive without relying on icons or tooltips.
 
 ### Intro Sequence
 

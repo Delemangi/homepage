@@ -1,10 +1,24 @@
 import { ThemeProvider } from '@mui/material';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { createAppTheme } from '../theme';
 import SocialMedia from './SocialMedia';
+
+const originalClipboardDescriptor = Object.getOwnPropertyDescriptor(
+  navigator,
+  'clipboard',
+);
+
+afterEach(() => {
+  if (originalClipboardDescriptor === undefined) {
+    Reflect.deleteProperty(navigator, 'clipboard');
+    return;
+  }
+
+  Object.defineProperty(navigator, 'clipboard', originalClipboardDescriptor);
+});
 
 const renderSocialMedia = () =>
   render(
@@ -22,15 +36,16 @@ describe('SocialMedia', () => {
       value: { writeText },
     });
     renderSocialMedia();
+    const status = screen.getByRole('status');
+
+    expect(status).toBeEmptyDOMElement();
 
     await user.click(
       screen.getByRole('button', { name: 'Copy email address' }),
     );
 
     expect(writeText).toHaveBeenCalledWith('milev.stefan@gmail.com');
-    expect(await screen.findByRole('status')).toHaveTextContent(
-      'Couldn’t copy email address. Try again.',
-    );
+    expect(status).toHaveTextContent('Couldn’t copy email address. Try again.');
     expect(
       screen.getByRole('button', { name: 'Copy email address' }),
     ).toHaveFocus();
@@ -91,14 +106,26 @@ describe('SocialMedia', () => {
     );
   });
 
-  it('uses the Aurora contact and navigation accents in dark mode', () => {
+  it('renders the compact social controls in dark mode', () => {
     render(
       <ThemeProvider theme={createAppTheme('dark')}>
         <SocialMedia />
       </ThemeProvider>,
     );
 
-    expect(screen.getByText('Contact')).toHaveStyle({ color: '#53e6c3' });
-    expect(screen.getByText('Elsewhere')).toHaveStyle({ color: '#8b9dff' });
+    expect(
+      screen.getByRole('button', { name: 'Copy email address' }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole('button', { name: 'Copy Discord username' }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole('link', { name: 'Open GitHub profile' }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole('link', { name: 'Open LinkedIn profile' }),
+    ).toBeVisible();
+    expect(screen.queryByText('Contact')).not.toBeInTheDocument();
+    expect(screen.queryByText('Elsewhere')).not.toBeInTheDocument();
   });
 });

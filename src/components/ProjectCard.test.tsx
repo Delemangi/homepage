@@ -17,18 +17,40 @@ const renderCard = () =>
     </ThemeProvider>,
   );
 
+const renderSourceOnlyCard = () =>
+  render(
+    <ThemeProvider theme={createAppTheme('light')}>
+      <ProjectCard
+        description="A project hosted in a source repository."
+        hrefCode="https://example.com/source"
+        title="Source project"
+      />
+    </ThemeProvider>,
+  );
+
 describe('ProjectCard', () => {
-  it('exposes the primary destination and source as sibling anchors', () => {
+  it('uses the card as the only source destination when no live site exists', () => {
+    renderSourceOnlyCard();
+
+    expect(
+      screen.getByRole('link', {
+        name: 'View Source project source code',
+      }),
+    ).toHaveAttribute('href', 'https://example.com/source');
+    expect(screen.getAllByRole('link')).toHaveLength(1);
+    expect(screen.queryByText('Source code')).not.toBeInTheDocument();
+  });
+
+  it('uses the live site as the card’s only destination when available', () => {
     const { container } = renderCard();
 
     const primaryLink = screen.getByRole('link', {
       name: 'View Example project live site',
     });
-    const sourceLink = screen.getByRole('link', { name: 'Source code' });
 
     expect(primaryLink).toHaveAttribute('href', 'https://example.com/live');
-    expect(sourceLink).toHaveAttribute('href', 'https://example.com/source');
-    expect(primaryLink).not.toContainElement(sourceLink);
+    expect(screen.getAllByRole('link')).toHaveLength(1);
+    expect(screen.queryByText('Source code')).not.toBeInTheDocument();
     expect(container.firstElementChild).not.toHaveAttribute('role', 'link');
     expect(container.firstElementChild).not.toHaveAttribute('tabindex');
   });
@@ -44,11 +66,13 @@ describe('ProjectCard', () => {
     const getBounds = vi
       .spyOn(card, 'getBoundingClientRect')
       .mockReturnValue(new DOMRect(100, 50, 400, 300));
-    const sourceLink = screen.getByRole('link', { name: 'Source code' });
+    const nestedContent = screen.getByRole('heading', {
+      name: 'Example project',
+    });
 
     fireEvent.pointerEnter(card, { clientX: 120, clientY: 80 });
-    fireEvent.pointerMove(sourceLink, { clientX: 140, clientY: 90 });
-    fireEvent.pointerMove(sourceLink, { clientX: 150, clientY: 100 });
+    fireEvent.pointerMove(nestedContent, { clientX: 140, clientY: 90 });
+    fireEvent.pointerMove(nestedContent, { clientX: 150, clientY: 100 });
 
     expect(getBounds).toHaveBeenCalledTimes(1);
     expect(card.style.getPropertyValue('--highlight-x')).toBe('50px');
