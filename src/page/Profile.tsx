@@ -30,17 +30,25 @@ const Profile = () => (
           marginBottom: 2,
         }}
       >
-        I’m a software engineer based in Skopje. I work on user interfaces,
-        backend services, cloud infrastructure, and RAG systems.
+        I’m a software engineer based in Skopje. I work on web apps, backend
+        services, cloud infrastructure, and RAG systems.
       </Typography>
     </TextReveal>
 
     <TextReveal delay={200}>
       <Typography
-        sx={{ color: 'text.secondary', fontSize: 16, lineHeight: 1.8 }}
+        sx={{
+          color: 'text.secondary',
+          fontSize: 16,
+          lineHeight: 1.8,
+          textWrap: 'pretty',
+        }}
       >
         Outside work, I build side projects, play video games, collect
-        mechanical keyboards, and work on my homelab.
+        mechanical keyboards, and work on my homelab. Most of those projects
+        start because I want to understand how something works. The homelab
+        gives me somewhere to test ideas without worrying about breaking
+        anything important.
       </Typography>
     </TextReveal>
   </Column>

@@ -191,10 +191,11 @@ const StatusPanel = () => (
         fontSize: 14,
         lineHeight: 1.75,
         marginTop: 2,
+        textWrap: 'balance',
       }}
     >
-      At CodeChem, I build interfaces and RAG systems, and work on the cloud
-      infrastructure behind them.
+      At CodeChem, I develop enterprise web applications and RAG systems, and
+      work on the cloud infrastructure they run on.
     </Typography>
     <Box
       sx={{
