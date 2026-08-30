@@ -2,41 +2,75 @@ import { Typography } from '@mui/material';
 
 import Column from '../components/Column';
 import TextReveal from '../components/TextReveal';
+import UnderlinedLink from '../components/UnderlinedLink';
 
 const Profile = () => (
   <Column>
     <TextReveal>
       <Typography
+        component="h2"
+        id="about-heading"
         sx={(t) => ({
-          background:
-            t.palette.mode === 'dark'
-              ? 'linear-gradient(90deg, rgba(255, 125, 125, 0.9), rgba(106, 130, 251, 0.9))'
-              : 'linear-gradient(90deg, rgba(238, 63, 113, 0.95), rgba(244, 184, 96, 0.95))',
-          backgroundClip: 'text',
-          color: 'transparent',
-          fontWeight: 700,
-          letterSpacing: 0.2,
-          marginBottom: 1.5,
+          color: t.palette.text.primary,
+          fontSize: 'clamp(28px, 4vw, 40px)',
+          fontWeight: 650,
+          letterSpacing: '-0.035em',
+          lineHeight: 1.12,
+          marginBottom: 2.5,
         })}
-        variant="h5"
       >
         About
       </Typography>
     </TextReveal>
     <TextReveal delay={100}>
       <Typography
-        sx={{ color: 'text.secondary', fontSize: 15, marginBottom: 1.5 }}
+        sx={{
+          color: 'text.secondary',
+          fontSize: 16,
+          lineHeight: 1.8,
+          marginBottom: 2,
+        }}
       >
-        I’m a software engineer building end-to-end products across frontend,
-        backend, infrastructure, and AI. My work spans web applications,
-        scalable services, and retrieval-augmented generation (RAG) systems.
+        I’m a software engineer based in Skopje. I work on web apps, backend
+        services, cloud infrastructure, and RAG systems.
+      </Typography>
+      <Typography
+        sx={{ color: 'text.secondary', fontSize: 16, lineHeight: 1.8 }}
+      >
+        I founded{' '}
+        <UnderlinedLink
+          href="https://finki-hub.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          finki-hub
+        </UnderlinedLink>{' '}
+        and co-founded{' '}
+        <UnderlinedLink
+          href="https://learnify.mk"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          learnify.mk
+        </UnderlinedLink>
+        .
       </Typography>
     </TextReveal>
 
     <TextReveal delay={200}>
-      <Typography sx={{ color: 'text.secondary', fontSize: 15 }}>
+      <Typography
+        sx={{
+          color: 'text.secondary',
+          fontSize: 16,
+          lineHeight: 1.8,
+          textWrap: 'pretty',
+        }}
+      >
         Outside work, I build side projects, play video games, collect
-        mechanical keyboards, and occasionally break my homelab.
+        mechanical keyboards, and work on my homelab. Most of those projects
+        start because I want to understand how something works. The homelab
+        gives me somewhere to test ideas without worrying about breaking
+        anything important.
       </Typography>
     </TextReveal>
   </Column>

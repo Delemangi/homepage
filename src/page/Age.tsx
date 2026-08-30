@@ -1,22 +1,10 @@
 import { Box, Typography, type TypographyProps } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import { BIRTHDAY } from '../constants';
+import { BIRTH_INSTANT } from '../constants';
 
 const getAge = (decimals = 9) => {
-  const [year, month, day] = BIRTHDAY.split('-').map(Number);
-
-  if (year === undefined || month === undefined || day === undefined) {
-    throw new Error('Invalid birthday format');
-  }
-
-  const birthDate = new Date(Date.UTC(year, month - 1, day - 1, 23, 0, 0, 0));
-
-  const now = new Date();
-  const utcTime = now.getTime() + now.getTimezoneOffset() * 60 * 1_000;
-  const currentDate = new Date(utcTime + 60 * 60 * 1_000);
-
-  const diff = currentDate.getTime() - birthDate.getTime();
+  const diff = Date.now() - BIRTH_INSTANT;
   const age = diff / (1_000 * 60 * 60 * 24 * 365.25);
 
   return age.toFixed(decimals);
@@ -29,7 +17,7 @@ type Props = Omit<TypographyProps, 'fontSize' | 'marginBottom'> & {
 
 const Age = ({ fontSize, marginBottom, ...props }: Props) => {
   const [age, setAge] = useState(() => getAge());
-  const [hovering, setHovering] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,26 +35,23 @@ const Age = ({ fontSize, marginBottom, ...props }: Props) => {
   return (
     <Typography
       {...props}
-      onMouseEnter={() => {
-        setHovering(true);
-      }}
-      onMouseLeave={() => {
-        setHovering(false);
-      }}
       sx={{
-        cursor: 'default',
         ...(fontSize !== undefined && { fontSize }),
         ...(marginBottom !== undefined && { marginBottom }),
       }}
     >
       <Box
-        component="span"
+        aria-expanded={expanded}
+        component="button"
+        onClick={() => {
+          setExpanded((current) => !current);
+        }}
         sx={{
           '&::after': {
             backgroundImage:
               'linear-gradient(to right, currentColor 2px, transparent 2px)',
             backgroundRepeat: 'repeat-x',
-            backgroundSize: `4px 1px`,
+            backgroundSize: '4px 1px',
             bottom: 0,
             content: '""',
             height: '1px',
@@ -76,15 +61,32 @@ const Age = ({ fontSize, marginBottom, ...props }: Props) => {
             right: 0,
             transform: 'translateY(0.2em)',
           },
+          '&:focus-visible': {
+            borderRadius: 0.5,
+            outline: '2px solid',
+            outlineColor: 'primary.main',
+            outlineOffset: 3,
+          },
+          appearance: 'none',
+          background: 'none',
+          border: 0,
+          color: 'inherit',
+          cursor: 'pointer',
+          font: 'inherit',
+          padding: 0,
           position: 'relative',
         }}
+        type="button"
       >
         {integer}
         <Box
           component="span"
           sx={{
+            '@media (prefers-reduced-motion: reduce)': {
+              transition: 'none',
+            },
             display: 'inline-block',
-            maxWidth: hovering ? '10em' : '0px',
+            maxWidth: expanded ? '10em' : '0px',
             overflow: 'hidden',
             transition: (theme) =>
               theme.transitions.create('max-width', {

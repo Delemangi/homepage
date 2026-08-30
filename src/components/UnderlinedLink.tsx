@@ -17,6 +17,9 @@ const UnderlinedLink = styled(Link)(({ theme }) => ({
         ? theme.palette.info.main
         : theme.palette.secondary.main,
   },
+  '@media (prefers-reduced-motion: reduce)': {
+    transition: 'none',
+  },
   backgroundImage: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.main})`,
   backgroundPosition: '0 100%',
   backgroundRepeat: 'no-repeat',

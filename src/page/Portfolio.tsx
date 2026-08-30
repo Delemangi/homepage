@@ -8,7 +8,7 @@ import SkillChip from './SkillChip';
 const SKILLS = [
   'Node.js',
   'React',
-  'Solid',
+  'SolidJS',
   'Next.js',
   'Electron',
   'Material UI',
@@ -16,7 +16,7 @@ const SKILLS = [
   'FastAPI',
   'Django',
   'Spring Boot',
-  'MCP',
+  'Model Context Protocol (MCP)',
   'AWS',
   'Azure',
   'Cloudflare',
@@ -33,7 +33,7 @@ const SKILLS = [
 const projects: Project[] = [
   {
     description:
-      'Open-source tools for FCSE students, including scrapers, bots, web apps, and a RAG chatbot.',
+      'Tools for FCSE students, including web apps, bots, scrapers, and a RAG chatbot for finding course information.',
     hrefCode: 'https://github.com/finki-hub',
     tech: [
       'React',
@@ -49,13 +49,14 @@ const projects: Project[] = [
   },
   {
     description:
-      'A strict, modular ESLint configuration with composable presets for React, TypeScript, and Node.js.',
+      'Reusable ESLint presets for React, TypeScript, and Node.js projects.',
     hrefCode: 'https://github.com/Delemangi/eslint-config-imperium',
     tech: ['ESLint', 'TypeScript', 'Node.js'],
     title: 'eslint-config-imperium',
   },
   {
-    description: 'This website. You are currently using the live demo.',
+    description:
+      'This website, built with React, TypeScript, Vite, and Material UI.',
     hrefCode: 'https://github.com/Delemangi/homepage',
     tech: ['React', 'TypeScript', 'Vite', 'Material UI', 'Docker'],
     title: 'homepage',
@@ -73,18 +74,16 @@ const Portfolio = () => (
   <Column>
     <TextReveal>
       <Typography
+        component="h2"
+        id="portfolio-heading"
         sx={(t) => ({
-          background:
-            t.palette.mode === 'dark'
-              ? 'linear-gradient(90deg, rgba(125, 255, 214, 0.9), rgba(106, 130, 251, 0.9))'
-              : 'linear-gradient(90deg, rgba(238, 63, 113, 0.95), rgba(96, 211, 244, 0.95))',
-          backgroundClip: 'text',
-          color: 'transparent',
-          fontWeight: 700,
-          letterSpacing: 0.2,
-          marginBottom: 0.75,
+          color: t.palette.text.primary,
+          fontSize: 'clamp(28px, 4vw, 44px)',
+          fontWeight: 650,
+          letterSpacing: '-0.045em',
+          lineHeight: 1.08,
+          marginBottom: 1.5,
         })}
-        variant="h5"
       >
         Projects & skills
       </Typography>
@@ -92,10 +91,15 @@ const Portfolio = () => (
 
     <TextReveal delay={100}>
       <Typography
-        align="justify"
-        sx={{ color: 'text.secondary', fontSize: 14, marginBottom: 1 }}
+        sx={{
+          color: 'text.secondary',
+          fontSize: 16,
+          lineHeight: 1.75,
+          marginBottom: 1,
+          maxWidth: '62ch',
+        }}
       >
-        Technologies I use regularly at work and in personal projects.
+        Tools I use regularly.
       </Typography>
     </TextReveal>
 
@@ -117,11 +121,15 @@ const Portfolio = () => (
 
     <TextReveal delay={300}>
       <Typography
-        align="justify"
-        sx={{ color: 'text.secondary', fontSize: 14, marginBottom: 2 }}
+        sx={{
+          color: 'text.secondary',
+          fontSize: 16,
+          lineHeight: 1.75,
+          marginBottom: 3,
+          maxWidth: '62ch',
+        }}
       >
-        A selection of personal and open-source projects I still maintain,
-        mostly built to solve problems I had myself.
+        A few personal and open-source projects I maintain.
       </Typography>
     </TextReveal>
 
@@ -136,12 +144,19 @@ const Portfolio = () => (
       }}
     >
       {projects.map((p, index) => (
-        <TextReveal
-          delay={400 + index * 100}
+        <Box
+          component="article"
           key={p.title}
+          sx={{
+            '& > *': { flex: 1, height: '100%' },
+            display: 'flex',
+            height: '100%',
+          }}
         >
-          <ProjectCard {...p} />
-        </TextReveal>
+          <TextReveal delay={400 + index * 100}>
+            <ProjectCard {...p} />
+          </TextReveal>
+        </Box>
       ))}
     </Box>
   </Column>

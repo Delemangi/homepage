@@ -1,6 +1,15 @@
-import { Box, Popover, Typography, useTheme } from '@mui/material';
-import { type MouseEvent, useCallback, useState } from 'react';
+import { Box, Typography, useTheme } from '@mui/material';
+import {
+  type MouseEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
+import CopyFeedbackPopover, {
+  type CopyFeedback,
+} from '../components/CopyFeedbackPopover';
 import FloatingBar from '../components/FloatingBar';
 import RowContainer from '../components/RowContainer';
 import SocialMediaButton from '../components/SocialMediaButton';
@@ -23,6 +32,28 @@ const COPY_ICONS = [
     title: 'Copy Discord username',
   },
 ] as const;
+
+type CopyTarget = (typeof COPY_ICONS)[number]['onClick'];
+
+const COPY_DETAILS = {
+  discord: {
+    failureMessage: 'Couldn’t copy Discord username. Try again.',
+    successMessage: 'Discord username copied',
+    text: 'delemangi',
+  },
+  mail: {
+    failureMessage: 'Couldn’t copy email address. Try again.',
+    successMessage: 'Email address copied',
+    text: 'milev.stefan@gmail.com',
+  },
+} as const satisfies Record<
+  CopyTarget,
+  Readonly<{
+    failureMessage: string;
+    successMessage: string;
+    text: string;
+  }>
+>;
 
 const LINK_ICONS = [
   {
@@ -97,52 +128,93 @@ const getSectionLabelSx = (color: string) =>
     fontSize: 12,
     fontWeight: 600,
     letterSpacing: 1.5,
-    opacity: 0.6,
     textAlign: 'center',
     textTransform: 'uppercase',
   }) as const;
 
 const SocialMedia = () => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
-  const [anchorElement, setAnchorElement] = useState<HTMLElement>();
+  const [copyFeedback, setCopyFeedback] = useState<CopyFeedback>();
+  const copyAttemptRef = useRef(0);
+  const feedbackTimeoutRef = useRef<null | ReturnType<
+    typeof globalThis.setTimeout
+  >>(null);
 
-  const handleCopyOnClick = useCallback(
-    (text: string) => async (event: MouseEvent<HTMLButtonElement>) => {
-      setAnchorElement(event.currentTarget);
+  useEffect(
+    () => () => {
+      copyAttemptRef.current += 1;
 
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch {
-        /* clipboard write may fail when permission is denied */
+      if (feedbackTimeoutRef.current !== null) {
+        clearTimeout(feedbackTimeoutRef.current);
       }
-
-      setTimeout(() => {
-        setAnchorElement(undefined);
-      }, 1_500);
     },
     [],
   );
 
-  const getCopyHandler = useCallback(
-    (type: 'discord' | 'mail') => {
-      const text = type === 'discord' ? 'delemangi' : 'milev.stefan@gmail.com';
+  const scheduleFeedbackReset = useCallback((attempt: number) => {
+    const timeout = setTimeout(() => {
+      if (attempt === copyAttemptRef.current) {
+        setCopyFeedback(undefined);
+      }
 
-      return handleCopyOnClick(text);
+      if (feedbackTimeoutRef.current === timeout) {
+        feedbackTimeoutRef.current = null;
+      }
+    }, 1_500);
+
+    feedbackTimeoutRef.current = timeout;
+  }, []);
+
+  const getCopyHandler = useCallback(
+    (type: CopyTarget) => async (event: MouseEvent<HTMLButtonElement>) => {
+      const anchorElement = event.currentTarget;
+      const details = COPY_DETAILS[type];
+      const attempt = copyAttemptRef.current + 1;
+
+      anchorElement.focus();
+      copyAttemptRef.current = attempt;
+      setCopyFeedback(undefined);
+
+      if (feedbackTimeoutRef.current !== null) {
+        clearTimeout(feedbackTimeoutRef.current);
+        feedbackTimeoutRef.current = null;
+      }
+
+      try {
+        await navigator.clipboard.writeText(details.text);
+
+        if (attempt !== copyAttemptRef.current) return;
+
+        setCopyFeedback({
+          anchorElement,
+          message: details.successMessage,
+          status: 'success',
+        });
+      } catch {
+        if (attempt !== copyAttemptRef.current) return;
+
+        setCopyFeedback({
+          anchorElement,
+          message: details.failureMessage,
+          status: 'error',
+        });
+      }
+
+      scheduleFeedbackReset(attempt);
     },
-    [handleCopyOnClick],
+    [scheduleFeedbackReset],
   );
 
   return (
-    <RowContainer sx={{ gap: 2, marginBottom: 2 }}>
+    <RowContainer sx={{ gap: 2, marginBottom: 2, marginTop: 2 }}>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 0.5,
+          gap: 1,
         }}
       >
-        <Typography sx={getSectionLabelSx(isDark ? '#00ffd0' : '#f4b860')}>
+        <Typography sx={getSectionLabelSx(theme.palette.info.main)}>
           Contact
         </Typography>
         <FloatingBar sx={FLOATING_BAR_SX}>
@@ -163,10 +235,10 @@ const SocialMedia = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 0.5,
+          gap: 1,
         }}
       >
-        <Typography sx={getSectionLabelSx(isDark ? '#6a82fb' : '#ee3f71')}>
+        <Typography sx={getSectionLabelSx(theme.palette.primary.main)}>
           Elsewhere
         </Typography>
         <FloatingBar sx={FLOATING_BAR_SX}>
@@ -183,42 +255,7 @@ const SocialMedia = () => {
         </FloatingBar>
       </Box>
 
-      <Popover
-        anchorEl={anchorElement}
-        anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
-        disableRestoreFocus
-        onClose={() => {
-          setAnchorElement(undefined);
-        }}
-        open={Boolean(anchorElement)}
-        slotProps={{
-          paper: () => ({
-            backgroundColor: 'rgba(106, 130, 251, 0.12)',
-            borderRadius: 1,
-            boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
-            color: 'inherit',
-            px: 2,
-            py: 0.5,
-          }),
-        }}
-        transformOrigin={{ horizontal: 'center', vertical: 'top' }}
-      >
-        <Box
-          sx={{
-            backgroundColor: 'rgba(0, 255, 208, 0.12)',
-            borderRadius: 1,
-            boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
-            color: 'white',
-            fontSize: 14,
-            fontWeight: 600,
-            letterSpacing: 1,
-            px: 2,
-            py: 0.5,
-          }}
-        >
-          <Typography component="span">Copied to clipboard</Typography>
-        </Box>
-      </Popover>
+      <CopyFeedbackPopover feedback={copyFeedback} />
     </RowContainer>
   );
 };

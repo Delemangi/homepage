@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 
 import Column from '../components/Column';
 import TextReveal from '../components/TextReveal';
+import { TIMELINE_BADGE_COLORS } from './timelineBadgeColors';
 
 export type TimelineItem = {
   readonly endYear: string;
@@ -13,76 +14,56 @@ export type TimelineItem = {
 
 const timeline: TimelineItem[] = [
   {
-    endYear: '2024',
-    organization: 'Faculty of Computer Science and Engineering',
-    position: 'BSc in Computer Science',
-    startYear: '2020',
-    type: 'education',
-  },
-  {
-    endYear: '2025',
-    organization: 'Faculty of Computer Science and Engineering',
-    position: 'MSc in Computer Science',
-    startYear: '2024',
-    type: 'education',
-  },
-  {
     endYear: 'Present',
     organization: 'CodeChem',
     position: 'Software Engineer',
     startYear: '2022',
     type: 'work',
   },
+  {
+    endYear: '2024',
+    organization:
+      'Faculty of Computer Science and Engineering, Ss. Cyril and Methodius University in Skopje',
+    position: 'BSc in Computer Science',
+    startYear: '2020',
+    type: 'education',
+  },
+  {
+    endYear: '2025',
+    organization:
+      'Faculty of Computer Science and Engineering, Ss. Cyril and Methodius University in Skopje',
+    position: 'MSc in Computer Science',
+    startYear: '2024',
+    type: 'education',
+  },
 ];
-
-const TIMELINE_COLORS = {
-  education: {
-    dark: 'rgb(94, 234, 212)',
-    light: 'rgb(20, 184, 166)',
-  },
-  work: {
-    dark: 'rgb(106, 130, 251)',
-    light: 'rgb(238, 63, 113)',
-  },
-} as const;
-
-const TIMELINE_BG_COLORS = {
-  education: {
-    dark: 'rgba(94, 234, 212, 0.15)',
-    light: 'rgba(20, 184, 166, 0.15)',
-  },
-  work: {
-    dark: 'rgba(106, 130, 251, 0.2)',
-    light: 'rgba(238, 63, 113, 0.15)',
-  },
-} as const;
 
 const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
   <Box
-    sx={{
+    sx={(theme) => ({
       '&:last-child': {
         mb: 0,
       },
-      borderColor: (t) => {
-        const mode = t.palette.mode === 'dark' ? 'dark' : 'light';
-
-        return item.type === 'work'
-          ? t.palette.divider
-          : TIMELINE_COLORS[item.type][mode];
-      },
-      borderLeft: '3px solid',
+      backgroundColor:
+        theme.palette.mode === 'dark'
+          ? 'rgba(255, 255, 255, 0.025)'
+          : 'rgba(35, 25, 42, 0.025)',
+      border: '1px solid',
+      borderColor: 'divider',
+      borderRadius: 2,
       display: 'flex',
       flexDirection: 'column',
       gap: 0.75,
-      mb: 2,
-      pb: 2,
-      pl: 1.5,
-    }}
+      mb: 1.5,
+      padding: 2,
+    })}
   >
     <Box
       sx={{
         alignItems: 'flex-start',
         display: 'flex',
+        flexWrap: 'wrap',
+        gap: 1.5,
         justifyContent: 'space-between',
       }}
     >
@@ -107,13 +88,13 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
             backgroundColor: (t) => {
               const mode = t.palette.mode === 'dark' ? 'dark' : 'light';
 
-              return TIMELINE_BG_COLORS[item.type][mode];
+              return TIMELINE_BADGE_COLORS[item.type][mode].background;
             },
             borderRadius: 1,
             color: (t) => {
               const mode = t.palette.mode === 'dark' ? 'dark' : 'light';
 
-              return TIMELINE_COLORS[item.type][mode];
+              return TIMELINE_BADGE_COLORS[item.type][mode].foreground;
             },
             fontSize: 12,
             px: 1.25,
@@ -127,7 +108,7 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
         color="textSecondary"
         sx={{
           fontSize: 13,
-          ml: 2,
+          marginLeft: 'auto',
           whiteSpace: 'nowrap',
         }}
       >
@@ -147,18 +128,16 @@ const Timeline = () => (
   <Column>
     <TextReveal>
       <Typography
+        component="h2"
+        id="timeline-heading"
         sx={(t) => ({
-          background:
-            t.palette.mode === 'dark'
-              ? 'linear-gradient(120deg, rgb(255, 255, 255) 0%, rgb(148, 163, 184) 100%)'
-              : 'linear-gradient(120deg, rgb(30, 30, 46) 0%, rgb(80, 80, 100) 100%)',
-          backgroundClip: 'text',
+          color: t.palette.text.primary,
+          fontSize: 'clamp(28px, 4vw, 40px)',
           fontWeight: 700,
-          mb: 2,
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
+          letterSpacing: '-0.035em',
+          lineHeight: 1.12,
+          mb: 2.5,
         })}
-        variant="h5"
       >
         Experience & education
       </Typography>

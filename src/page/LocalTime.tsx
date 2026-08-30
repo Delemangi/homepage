@@ -3,14 +3,15 @@ import { useEffect, useState } from 'react';
 
 const TZ = 'Europe/Skopje';
 
-const formatLocalTime = () =>
-  new Intl.DateTimeFormat(undefined, {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    timeZone: TZ,
-    timeZoneName: 'short',
-  }).format(new Date());
+const localTimeFormatter = new Intl.DateTimeFormat(undefined, {
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  timeZone: TZ,
+  timeZoneName: 'short',
+});
+
+const formatLocalTime = () => localTimeFormatter.format(Date.now());
 
 type Props = Omit<TypographyProps, 'fontSize'> & {
   readonly fontSize?: number;

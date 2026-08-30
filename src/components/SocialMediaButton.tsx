@@ -1,10 +1,11 @@
+import type { ComponentType, MouseEventHandler } from 'react';
+
 import {
   type SxProps,
   Tooltip,
   type TooltipProps,
   useTheme,
 } from '@mui/material';
-import { type ComponentType, type MouseEventHandler } from 'react';
 
 import MediaButton from './MediaButton';
 
@@ -26,11 +27,10 @@ const SocialMediaButton = ({
   type,
 }: SocialMediaButtonProps) => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
 
   const accentColors = {
-    copy: isDark ? '#00ffd0' : '#f4b860',
-    link: isDark ? '#6a82fb' : '#ee3f71',
+    copy: theme.palette.info.main,
+    link: theme.palette.primary.main,
   };
   const accentColor = accentColors[type];
 
@@ -46,7 +46,8 @@ const SocialMediaButton = ({
       opacity: 0,
       position: 'absolute',
       transform: 'translateX(-50%) scale(0)',
-      transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+      transition:
+        'opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
       width: 4,
     },
     '&:hover': {
@@ -57,8 +58,14 @@ const SocialMediaButton = ({
       opacity: 1,
       transform: 'translateX(-50%) scale(1)',
     },
+    '@media (prefers-reduced-motion: reduce)': {
+      '&::after': { transition: 'none' },
+      '&:hover': { scale: 1 },
+      transition: 'none',
+    },
     position: 'relative',
-    transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+    transition:
+      'filter 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   };
 
   return (

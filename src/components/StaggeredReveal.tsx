@@ -1,7 +1,8 @@
 import { Box } from '@mui/material';
-import { type ReactNode, useContext, useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 
-import { PreloaderContext } from '../context/PreloaderContext';
+import { useHashNavigation } from '../hooks/useHashNavigation';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 type Props = Readonly<{
   children: ReactNode;
@@ -9,13 +10,17 @@ type Props = Readonly<{
 }>;
 
 const StaggeredReveal = ({ children, delay = 0 }: Props) => {
-  const { preloaderDone } = useContext(PreloaderContext);
-  const [isVisible, setIsVisible] = useState(false);
+  const isHashNavigation = useHashNavigation();
+  const reduceMotion = useReducedMotion();
+  const [isVisible, setIsVisible] = useState(reduceMotion);
+  const showContent = isHashNavigation || reduceMotion || isVisible;
 
   useEffect(() => {
     let timeout: number | undefined;
 
-    if (preloaderDone) {
+    if (reduceMotion) {
+      setIsVisible(true);
+    } else {
       timeout = setTimeout(() => {
         setIsVisible(true);
       }, delay);
@@ -26,16 +31,27 @@ const StaggeredReveal = ({ children, delay = 0 }: Props) => {
         clearTimeout(timeout);
       }
     };
-  }, [delay, preloaderDone]);
+  }, [delay, reduceMotion]);
 
   return (
     <Box
       sx={{
-        opacity: isVisible ? 1 : 0,
+        '&:has(:target)': {
+          filter: 'blur(0)',
+          opacity: 1,
+          transform: 'translate3d(0, 0, 0)',
+          transition: 'none',
+        },
+        filter: showContent ? 'blur(0)' : 'blur(6px)',
+        opacity: showContent ? 1 : 0,
         scrollSnapAlign: 'start',
-        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+        transform: showContent
+          ? 'translate3d(0, 0, 0)'
+          : 'translate3d(0, 16px, 0)',
         transition:
-          'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+          reduceMotion || isHashNavigation
+            ? 'none'
+            : 'opacity 560ms cubic-bezier(.16,1,.3,1), transform 560ms cubic-bezier(.16,1,.3,1), filter 620ms cubic-bezier(.16,1,.3,1)',
       }}
     >
       {children}
