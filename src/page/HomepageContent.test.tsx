@@ -21,6 +21,9 @@ const renderWithTheme = (content: Parameters<typeof render>[0]) =>
 
 afterEach(() => {
   history.replaceState(null, '', '/');
+  localStorage.removeItem('themePreference');
+  Reflect.deleteProperty(document.documentElement.dataset, 'theme');
+  Reflect.deleteProperty(document.documentElement.dataset, 'themePreference');
 });
 
 describe('homepage content hierarchy', () => {
