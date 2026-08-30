@@ -31,8 +31,8 @@ const Profile = () => (
           marginBottom: 2,
         }}
       >
-        I’m a software engineer based in Skopje. I work on web apps, backend
-        services, cloud infrastructure, and RAG systems.
+        I’m Stefan, a software engineer based in Skopje. I work across frontend,
+        backend, and infrastructure, usually with TypeScript or Python.
       </Typography>
       <Typography
         sx={{ color: 'text.secondary', fontSize: 16, lineHeight: 1.8 }}
