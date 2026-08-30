@@ -4,11 +4,12 @@ import Column from '../components/Column';
 import ProjectCard, { type Project } from '../components/ProjectCard';
 import TextReveal from '../components/TextReveal';
 
-const projects: Project[] = [
+const projects: readonly Project[] = [
   {
     description:
-      'Apps, bots, and scrapers that help FCSE students find course information and get routine tasks out of the way.',
+      'A community platform of apps, bots, and scrapers that helps FCSE students find course information and automate routine tasks.',
     hrefCode: 'https://github.com/finki-hub',
+    hrefLive: 'https://finki-hub.com',
     tech: [
       'React',
       'Node.js',
@@ -23,21 +24,24 @@ const projects: Project[] = [
   },
   {
     description:
-      'The ESLint rules I reuse across my React, TypeScript, and Node.js projects.',
+      'A shareable ruleset that keeps my React, TypeScript, and Node.js projects consistent without repeating configuration.',
     hrefCode: 'https://github.com/Delemangi/eslint-config-imperium',
+    hrefLive: 'https://www.npmjs.com/package/eslint-config-imperium',
+    liveLabel: 'Package',
     tech: ['ESLint', 'TypeScript', 'Node.js'],
     title: 'eslint-config-imperium',
   },
   {
     description:
-      'The site you’re looking at, built with React, TypeScript, Vite, and Material UI.',
+      'My personal site and design playground, built around a custom Material UI system, responsive motion, and Docker deployment.',
     hrefCode: 'https://github.com/Delemangi/homepage',
+    hrefLive: 'https://delemangi.com',
     tech: ['React', 'TypeScript', 'Vite', 'Material UI', 'Docker'],
     title: 'homepage',
   },
   {
     description:
-      'A Discord bot I use to manage several Steam accounts through ArchiSteamFarm.',
+      'A Discord control plane for managing several Steam accounts through ArchiSteamFarm without touching each client.',
     hrefCode: 'https://github.com/Delemangi/asf-discord-bot',
     tech: ['TypeScript', 'discord.js', 'ArchiSteamFarm', 'Docker'],
     title: 'asf-discord-bot',

@@ -3,19 +3,19 @@ import { Box, type BoxProps, Stack, Typography } from '@mui/material';
 import { useRef } from 'react';
 
 import SkillChip from '../page/SkillChip';
-import UnderlinedLink from './UnderlinedLink';
 
 export type Project = {
   readonly description: string;
   readonly hrefCode?: string;
   readonly hrefLive?: string;
-  readonly tech?: string[];
+  readonly liveLabel?: string;
+  readonly tech?: readonly string[];
   readonly title: string;
 };
 
 type Props = Readonly<Project>;
 
-const emptyTech: string[] = [];
+const emptyTech: readonly string[] = [];
 
 type ProjectCardPointerEvent = Parameters<
   NonNullable<BoxProps['onPointerMove']>
@@ -51,13 +51,14 @@ const ProjectCard = ({
   description,
   hrefCode,
   hrefLive,
+  liveLabel = 'Live site',
   tech = emptyTech,
   title,
 }: Props) => {
   const { clearHighlight, updateHighlight } = useHighlightTracking();
   const primaryHref = hrefLive ?? hrefCode;
   const primaryLabel = hrefLive
-    ? `View ${title} live site`
+    ? `View ${title} ${liveLabel.toLowerCase()}`
     : `View ${title} source code`;
 
   return (
@@ -208,38 +209,6 @@ const ProjectCard = ({
               label={label}
             />
           ))}
-        </Stack>
-      ) : null}
-
-      {hrefLive ? (
-        <Stack
-          direction="row"
-          sx={{
-            '& a': {
-              alignItems: 'center',
-              display: 'inline-flex',
-              minHeight: { sm: 'auto', xs: 44 },
-            },
-            gap: 2,
-            marginTop: 0.5,
-          }}
-        >
-          <Typography
-            component="span"
-            sx={{ textDecoration: 'underline' }}
-          >
-            Live site
-          </Typography>
-          {hrefCode ? (
-            <UnderlinedLink
-              href={hrefCode}
-              rel="noopener noreferrer"
-              sx={{ position: 'relative', zIndex: 2 }}
-              target="_blank"
-            >
-              Source code
-            </UnderlinedLink>
-          ) : null}
         </Stack>
       ) : null}
     </Box>
