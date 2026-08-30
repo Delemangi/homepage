@@ -33,7 +33,7 @@ const SiteFooter = () => (
       <Typography
         sx={{ color: 'text.secondary', fontSize: 13, marginTop: 0.5 }}
       >
-        Software engineer based in Skopje
+        Software engineer based in Skopje, North Macedonia
       </Typography>
     </Box>
     <Box

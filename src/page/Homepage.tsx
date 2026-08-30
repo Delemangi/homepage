@@ -93,7 +93,7 @@ const Homepage = () => (
               <Box
                 aria-labelledby="timeline-heading"
                 component="section"
-                sx={readingSurfaceSx}
+                sx={{ ...readingSurfaceSx, height: 'auto' }}
               >
                 <Timeline />
               </Box>

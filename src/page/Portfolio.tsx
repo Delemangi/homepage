@@ -7,7 +7,7 @@ import TextReveal from '../components/TextReveal';
 const projects: readonly Project[] = [
   {
     description:
-      'A community platform of apps, bots, and scrapers that helps FCSE students find course information and automate routine tasks.',
+      'A community platform of apps, bots, and scrapers that helps FCSE students find the university information they need and automate routine tasks.',
     hrefCode: 'https://github.com/finki-hub',
     hrefLive: 'https://finki-hub.com',
     tech: [
@@ -32,8 +32,7 @@ const projects: readonly Project[] = [
     title: 'eslint-config-imperium',
   },
   {
-    description:
-      'My personal site and design playground, built around a custom Material UI system, responsive motion, and Docker deployment.',
+    description: 'My personal homepage. You are currently here.',
     hrefCode: 'https://github.com/Delemangi/homepage',
     hrefLive: 'https://delemangi.com',
     tech: ['React', 'TypeScript', 'Vite', 'Material UI', 'Docker'],
