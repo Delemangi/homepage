@@ -4,7 +4,7 @@ import Column from '../components/Column';
 import TextReveal from '../components/TextReveal';
 import { TIMELINE_BADGE_COLORS } from './timelineBadgeColors';
 
-export type TimelineItem = {
+type TimelineItem = {
   readonly endYear: string;
   readonly organization: string;
   readonly position: string;

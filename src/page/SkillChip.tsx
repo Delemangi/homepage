@@ -1,6 +1,6 @@
 import { Chip } from '@mui/material';
 
-export type SkillChipProps = {
+type SkillChipProps = {
   readonly label: string;
 };
 
