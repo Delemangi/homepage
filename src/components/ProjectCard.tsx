@@ -211,7 +211,7 @@ const ProjectCard = ({
         </Stack>
       ) : null}
 
-      {(hrefCode ?? hrefLive) ? (
+      {hrefLive ? (
         <Stack
           direction="row"
           sx={{
@@ -224,15 +224,13 @@ const ProjectCard = ({
             marginTop: 0.5,
           }}
         >
-          {primaryHref ? (
-            <Typography
-              component="span"
-              sx={{ textDecoration: 'underline' }}
-            >
-              {hrefLive ? 'Live site' : 'Source code'}
-            </Typography>
-          ) : null}
-          {hrefLive && hrefCode ? (
+          <Typography
+            component="span"
+            sx={{ textDecoration: 'underline' }}
+          >
+            Live site
+          </Typography>
+          {hrefCode ? (
             <UnderlinedLink
               href={hrefCode}
               rel="noopener noreferrer"

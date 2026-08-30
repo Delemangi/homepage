@@ -17,7 +17,30 @@ const renderCard = () =>
     </ThemeProvider>,
   );
 
+const renderSourceOnlyCard = () =>
+  render(
+    <ThemeProvider theme={createAppTheme('light')}>
+      <ProjectCard
+        description="A project hosted in a source repository."
+        hrefCode="https://example.com/source"
+        title="Source project"
+      />
+    </ThemeProvider>,
+  );
+
 describe('ProjectCard', () => {
+  it('uses the card as the only source destination when no live site exists', () => {
+    renderSourceOnlyCard();
+
+    expect(
+      screen.getByRole('link', {
+        name: 'View Source project source code',
+      }),
+    ).toHaveAttribute('href', 'https://example.com/source');
+    expect(screen.getAllByRole('link')).toHaveLength(1);
+    expect(screen.queryByText('Source code')).not.toBeInTheDocument();
+  });
+
   it('exposes the primary destination and source as sibling anchors', () => {
     const { container } = renderCard();
 
