@@ -31,17 +31,6 @@ const HeroCopy = () => (
       </Box>{' '}
       to cloud infrastructure.
     </Typography>
-    <Typography
-      sx={{
-        color: SECONDARY_TEXT,
-        fontSize: { md: 17, xs: 16 },
-        lineHeight: 1.75,
-        marginTop: 2.5,
-        maxWidth: '60ch',
-      }}
-    >
-      I’m happiest when I can follow a problem through every layer of a system.
-    </Typography>
   </Box>
 );
 
