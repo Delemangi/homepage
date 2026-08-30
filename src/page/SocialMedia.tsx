@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box } from '@mui/material';
 import {
   type MouseEvent,
   useCallback,
@@ -10,15 +10,11 @@ import {
 import CopyFeedbackPopover, {
   type CopyFeedback,
 } from '../components/CopyFeedbackPopover';
-import FloatingBar from '../components/FloatingBar';
-import RowContainer from '../components/RowContainer';
 import SocialMediaButton from '../components/SocialMediaButton';
 import DiscordIcon from '../icons/DiscordIcon';
 import GitHubIcon from '../icons/GitHubIcon';
 import LinkedInIcon from '../icons/LinkedInIcon';
 import MailIcon from '../icons/MailIcon';
-import MonkeyTypeIcon from '../icons/MonkeyTypeIcon';
-import SteamIcon from '../icons/SteamIcon';
 
 const COPY_ICONS = [
   {
@@ -57,29 +53,14 @@ const COPY_DETAILS = {
 
 const LINK_ICONS = [
   {
-    href: 'https://discord.gg/7Fw53MdbUP',
-    icon: DiscordIcon,
-    title: 'Open Discord server',
-  },
-  {
     href: 'https://github.com/Delemangi/',
     icon: GitHubIcon,
     title: 'Open GitHub profile',
   },
   {
-    href: 'https://steamcommunity.com/id/delemangi/',
-    icon: SteamIcon,
-    title: 'Open Steam profile',
-  },
-  {
     href: 'https://www.linkedin.com/in/stefan-milev/',
     icon: LinkedInIcon,
     title: 'Open LinkedIn profile',
-  },
-  {
-    href: 'https://monkeytype.com/profile/Delemangi',
-    icon: MonkeyTypeIcon,
-    title: 'Open Monkeytype profile',
   },
 ] as const;
 
@@ -87,7 +68,10 @@ const getTooltipSlotProps = () => ({
   arrow: {
     sx: {
       '&:before': { transform: 'rotate(45deg) scale(0.66)' },
-      color: 'rgba(106, 130, 251, 0.12)',
+      color: (theme: { palette: { mode: string } }) =>
+        theme.palette.mode === 'dark'
+          ? 'rgba(23, 27, 37, 0.96)'
+          : 'rgba(255, 255, 255, 0.96)',
       height: 8,
       width: 8,
     },
@@ -97,10 +81,18 @@ const getTooltipSlotProps = () => ({
   },
   tooltip: () => ({
     sx: (t: { palette: { mode: string; text: { primary: string } } }) => ({
-      backgroundColor: 'rgba(106, 130, 251, 0.12)',
+      backgroundColor:
+        t.palette.mode === 'dark'
+          ? 'rgba(23, 27, 37, 0.96)'
+          : 'rgba(255, 255, 255, 0.96)',
+      border: '1px solid',
+      borderColor: 'divider',
       borderRadius: 1,
-      boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
-      color: t.palette.mode === 'dark' ? 'white' : t.palette.text.primary,
+      boxShadow:
+        t.palette.mode === 'dark'
+          ? '0 8px 24px rgba(0, 0, 0, 0.32)'
+          : '0 8px 24px rgba(61, 28, 43, 0.12)',
+      color: t.palette.text.primary,
       fontSize: 14,
       fontWeight: 600,
       letterSpacing: 1,
@@ -111,29 +103,7 @@ const getTooltipSlotProps = () => ({
   }),
 });
 
-const FLOATING_BAR_SX = {
-  flexWrap: 'wrap',
-  gap: 1,
-  justifyContent: 'center',
-  padding: '6px 10px',
-  position: 'static',
-  right: 'auto',
-  top: 'auto',
-  zIndex: 'auto',
-} as const;
-
-const getSectionLabelSx = (color: string) =>
-  ({
-    color,
-    fontSize: 12,
-    fontWeight: 600,
-    letterSpacing: 1.5,
-    textAlign: 'center',
-    textTransform: 'uppercase',
-  }) as const;
-
 const SocialMedia = () => {
-  const theme = useTheme();
   const [copyFeedback, setCopyFeedback] = useState<CopyFeedback>();
   const copyAttemptRef = useRef(0);
   const feedbackTimeoutRef = useRef<null | ReturnType<
@@ -206,57 +176,80 @@ const SocialMedia = () => {
   );
 
   return (
-    <RowContainer sx={{ gap: 2, marginBottom: 2, marginTop: 2 }}>
+    <Box
+      sx={{
+        alignItems: 'center',
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 0.5,
+      }}
+    >
       <Box
         sx={{
+          alignItems: 'center',
           display: 'flex',
-          flexDirection: 'column',
-          gap: 1,
+          gap: 0.25,
         }}
       >
-        <Typography sx={getSectionLabelSx(theme.palette.info.main)}>
-          Contact
-        </Typography>
-        <FloatingBar sx={FLOATING_BAR_SX}>
-          {COPY_ICONS.map((item) => (
-            <SocialMediaButton
-              icon={item.icon}
-              key={item.title}
-              onClick={getCopyHandler(item.onClick)}
-              title={item.title}
-              tooltipSlotProps={getTooltipSlotProps()}
-              type="copy"
-            />
-          ))}
-        </FloatingBar>
+        {COPY_ICONS.map((item) => (
+          <SocialMediaButton
+            icon={item.icon}
+            key={item.title}
+            onClick={getCopyHandler(item.onClick)}
+            title={item.title}
+            tooltipSlotProps={getTooltipSlotProps()}
+            tooltipTitle={copyFeedback === undefined ? item.title : ''}
+            type="copy"
+          />
+        ))}
       </Box>
-
+      <Box
+        aria-hidden="true"
+        sx={{
+          backgroundColor: 'divider',
+          height: 20,
+          marginX: 1,
+          width: '1px',
+        }}
+      />
       <Box
         sx={{
+          alignItems: 'center',
           display: 'flex',
-          flexDirection: 'column',
-          gap: 1,
+          flexWrap: 'wrap',
+          gap: 0.25,
         }}
       >
-        <Typography sx={getSectionLabelSx(theme.palette.primary.main)}>
-          Elsewhere
-        </Typography>
-        <FloatingBar sx={FLOATING_BAR_SX}>
-          {LINK_ICONS.map((item) => (
-            <SocialMediaButton
-              href={item.href}
-              icon={item.icon}
-              key={item.title}
-              title={item.title}
-              tooltipSlotProps={getTooltipSlotProps()}
-              type="link"
-            />
-          ))}
-        </FloatingBar>
+        {LINK_ICONS.map((item) => (
+          <SocialMediaButton
+            href={item.href}
+            icon={item.icon}
+            key={item.title}
+            title={item.title}
+            tooltipSlotProps={getTooltipSlotProps()}
+            type="link"
+          />
+        ))}
       </Box>
-
       <CopyFeedbackPopover feedback={copyFeedback} />
-    </RowContainer>
+      <Box
+        aria-live="polite"
+        role="status"
+        sx={{
+          border: 0,
+          clip: 'rect(0 0 0 0)',
+          height: '1px',
+          margin: '-1px',
+          overflow: 'hidden',
+          padding: 0,
+          position: 'absolute',
+          whiteSpace: 'nowrap',
+          width: '1px',
+        }}
+      >
+        {copyFeedback?.message}
+      </Box>
+    </Box>
   );
 };
 

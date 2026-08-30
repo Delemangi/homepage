@@ -1,4 +1,4 @@
-import { Box, Popper, Typography } from '@mui/material';
+import { alpha, Box, Popper, Typography } from '@mui/material';
 
 export type CopyFeedback = Readonly<{
   anchorElement: HTMLElement;
@@ -7,11 +7,6 @@ export type CopyFeedback = Readonly<{
 }>;
 
 type Props = Readonly<{ feedback?: CopyFeedback }>;
-
-const FEEDBACK_COLORS = {
-  error: { dark: '#fb7185', light: '#b3261e' },
-  success: { dark: '#5eead4', light: '#006b5b' },
-} as const;
 
 const CopyFeedbackPopover = ({ feedback }: Props) => (
   <Popper
@@ -22,26 +17,40 @@ const CopyFeedbackPopover = ({ feedback }: Props) => (
     sx={{ zIndex: 'tooltip' }}
   >
     <Box
-      sx={(theme) => ({
-        backgroundColor:
-          FEEDBACK_COLORS[feedback?.status ?? 'success'][theme.palette.mode],
-        borderRadius: 1,
-        boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.18)',
-        color: theme.palette.mode === 'dark' ? '#0f172a' : '#fff',
-        fontSize: 14,
-        fontWeight: 600,
-        letterSpacing: 1,
-        px: 2,
-        py: 0.5,
-      })}
+      aria-hidden="true"
+      sx={(theme) => {
+        const accentColor =
+          feedback?.status === 'error'
+            ? theme.palette.error.main
+            : theme.palette.info.main;
+
+        return {
+          backdropFilter: 'blur(18px) saturate(130%)',
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? 'rgba(23, 27, 37, 0.96)'
+              : 'rgba(255, 255, 255, 0.96)',
+          border: '1px solid',
+          borderColor: alpha(
+            accentColor,
+            theme.palette.mode === 'dark' ? 0.38 : 0.26,
+          ),
+          borderRadius: 1,
+          boxShadow:
+            theme.palette.mode === 'dark'
+              ? '0 8px 24px rgba(0, 0, 0, 0.32)'
+              : '0 8px 24px rgba(61, 28, 43, 0.12)',
+          color: theme.palette.text.primary,
+          fontSize: 14,
+          fontWeight: 600,
+          letterSpacing: 1,
+          px: 2,
+          py: 0.5,
+          WebkitBackdropFilter: 'blur(18px) saturate(130%)',
+        };
+      }}
     >
-      <Typography
-        aria-live="polite"
-        component="span"
-        role="status"
-      >
-        {feedback?.message}
-      </Typography>
+      <Typography component="span">{feedback?.message}</Typography>
     </Box>
   </Popper>
 );

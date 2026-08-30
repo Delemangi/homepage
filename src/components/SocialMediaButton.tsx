@@ -15,6 +15,7 @@ type SocialMediaButtonProps = {
   readonly onClick?: MouseEventHandler<HTMLButtonElement>;
   readonly title: string;
   readonly tooltipSlotProps?: TooltipProps['slotProps'];
+  readonly tooltipTitle?: string;
   readonly type: 'copy' | 'link';
 };
 
@@ -24,6 +25,7 @@ const SocialMediaButton = ({
   onClick,
   title,
   tooltipSlotProps,
+  tooltipTitle,
   type,
 }: SocialMediaButtonProps) => {
   const theme = useTheme();
@@ -73,7 +75,7 @@ const SocialMediaButton = ({
       arrow
       placement="bottom"
       slotProps={tooltipSlotProps}
-      title={title}
+      title={tooltipTitle ?? title}
     >
       <MediaButton
         aria-label={title}
