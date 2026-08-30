@@ -1,25 +1,27 @@
-import { RouterProvider } from '@tanstack/react-router';
 import { useState } from 'react';
 
+import { AppErrorBoundary } from '../components/AppErrorBoundary';
 import { IntroSequence } from '../components/IntroSequence';
-import { router } from '../router';
+import { NotFoundFallback } from '../components/RouteFallback';
+import Homepage from './Homepage';
 
 const App = () => {
   const [showIntro, setShowIntro] = useState(true);
+  const isHomepage = location.pathname === '/';
 
   return (
-    <>
+    <AppErrorBoundary>
       <div data-testid="homepage-content">
-        <RouterProvider router={router} />
+        {isHomepage ? <Homepage /> : <NotFoundFallback />}
       </div>
-      {showIntro ? (
+      {isHomepage && showIntro ? (
         <IntroSequence
           onComplete={() => {
             setShowIntro(false);
           }}
         />
       ) : null}
-    </>
+    </AppErrorBoundary>
   );
 };
 
