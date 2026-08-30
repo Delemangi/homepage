@@ -30,9 +30,8 @@ const Profile = () => (
           marginBottom: 2,
         }}
       >
-        I’m a software engineer based in Skopje. I work across the stack, from
-        user interfaces to backend services and infrastructure. I also build RAG
-        systems.
+        I’m a software engineer based in Skopje. I work on user interfaces,
+        backend services, cloud infrastructure, and RAG systems.
       </Typography>
     </TextReveal>
 

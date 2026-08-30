@@ -84,7 +84,7 @@ const HeroCopy = () => (
         textWrap: 'balance',
       }}
     >
-      I build dependable products across web, infrastructure, and AI.
+      I build web apps, cloud systems, and AI tools.
     </Typography>
     <Typography
       sx={{
@@ -95,8 +95,7 @@ const HeroCopy = () => (
         maxWidth: '60ch',
       }}
     >
-      From polished interfaces to scalable services and retrieval systems, I
-      enjoy turning complicated engineering into products people can trust.
+      I like working across the stack and seeing how the pieces fit.
     </Typography>
   </Box>
 );
@@ -150,7 +149,7 @@ const StatusPanel = () => (
           textTransform: 'uppercase',
         }}
       >
-        Current state
+        Now
       </Typography>
     </Box>
     <Box sx={{ marginBottom: 2 }}>
@@ -194,8 +193,8 @@ const StatusPanel = () => (
         marginTop: 2,
       }}
     >
-      Building production interfaces, AI retrieval systems, and the platform
-      work that keeps them dependable.
+      At CodeChem, I build interfaces and RAG systems, and work on the cloud
+      infrastructure behind them.
     </Typography>
     <Box
       sx={{
