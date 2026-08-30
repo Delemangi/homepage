@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 
 import Column from '../components/Column';
 import TextReveal from '../components/TextReveal';
+import { TIMELINE_BADGE_COLORS } from './timelineBadgeColors';
 
 export type TimelineItem = {
   readonly endYear: string;
@@ -36,28 +37,6 @@ const timeline: TimelineItem[] = [
     type: 'education',
   },
 ];
-
-const TIMELINE_COLORS = {
-  education: {
-    dark: 'rgb(94, 234, 212)',
-    light: 'rgb(20, 184, 166)',
-  },
-  work: {
-    dark: 'rgb(106, 130, 251)',
-    light: 'rgb(238, 63, 113)',
-  },
-} as const;
-
-const TIMELINE_BG_COLORS = {
-  education: {
-    dark: 'rgba(94, 234, 212, 0.15)',
-    light: 'rgba(20, 184, 166, 0.15)',
-  },
-  work: {
-    dark: 'rgba(106, 130, 251, 0.2)',
-    light: 'rgba(238, 63, 113, 0.15)',
-  },
-} as const;
 
 const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
   <Box
@@ -109,13 +88,13 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
             backgroundColor: (t) => {
               const mode = t.palette.mode === 'dark' ? 'dark' : 'light';
 
-              return TIMELINE_BG_COLORS[item.type][mode];
+              return TIMELINE_BADGE_COLORS[item.type][mode].background;
             },
             borderRadius: 1,
             color: (t) => {
               const mode = t.palette.mode === 'dark' ? 'dark' : 'light';
 
-              return TIMELINE_COLORS[item.type][mode];
+              return TIMELINE_BADGE_COLORS[item.type][mode].foreground;
             },
             fontSize: 12,
             px: 1.25,
