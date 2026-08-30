@@ -2,7 +2,7 @@
 
 ## 1. Atmosphere & Identity
 
-The homepage is a personal, technical profile presented as an **Aurora Command Deck**: a precise, developer-native interface with a cinematic edge. Its signature is an illuminated wordmark that resolves into the hero on every load, surrounded by a localized aurora, restrained grid, and instrument-like surfaces that feel physical without competing with the work.
+The homepage is a personal, technical profile led by an illuminated wordmark, direct first-person writing, and a restrained aurora. The interface should feel authored and precise without turning personal information into dashboard statistics or decorating factual content with system-status language.
 
 ## 2. Color
 
@@ -49,35 +49,36 @@ There is one page-level `h1`; sections follow with `h2`, and card titles use `h3
 - Major sections use 80–120px vertical spacing on desktop and 56–80px on mobile.
 - Card layouts collapse to a readable single column at 375px and must not create horizontal scrolling.
 - Floating controls account for safe-area insets and scroll with content on small screens.
-- The hero identity overline reads `STEFAN MILEV · SOFTWARE ENGINEER · SKOPJE, NORTH MACEDONIA`; the real name is explicit while `Delemangi` remains the primary wordmark.
-- Identity metadata wraps only between complete segments; the location drops to a clean line without a leading separator below the desktop breakpoint.
+- The hero opens with the `Delemangi` wordmark and a short first-person statement; name, location, and work details appear naturally in the page copy instead of a resume-style overline.
 - The hero relies on the page's natural reading flow rather than duplicating nearby section navigation with call-to-action buttons.
-- Personal metadata is visually subordinate to the professional role and concise work-focus statement; labels must describe their values literally.
+- The work note is visually subordinate to the hero and contains only the current role, employer, and a concise description of the work.
 - Project presentation uses one curated grid of dimensional cards. Only active, substantive work earns a card; narrow utilities and repositories already represented by an organization card are omitted.
+- Technologies appear on the project cards that use them. The page does not include a separate skills inventory.
 - Project cards sharing a desktop grid row stretch to the same visual height while retaining their independent hover translation.
+- Aurora and tonal overlay layers stay fixed to the viewport while the background container owns vertical scrolling, so no layer edge can appear between sections.
 
 ## 5. Components
 
 ### Floating Bar
 
-- **Structure:** compact instrument surface with a hairline rim, inset highlight, and grouped icon buttons.
+- **Structure:** compact translucent control group with a hairline rim, inset highlight, and grouped icon buttons.
 - **States:** default, hover, focus-visible, active.
 - **Accessibility:** every icon button has an explicit accessible name, keyboard support, and a 2px primary-accent focus-visible outline with a 2px offset.
 - **Motion:** transform/opacity feedback only; no transform under reduced motion.
 
 ### Project Card
 
-- **Structure:** elevated command-deck panel with title, description, technology chips, and explicit destination links.
+- **Structure:** elevated project panel with title, description, technology chips, and explicit destination links.
 - **States:** default, hover, focus-visible, active.
 - **Accessibility:** destinations are semantic anchors; nested links must never trigger a second destination.
 - **Motion:** cursor-local highlight, short elevation, and spring-like press affordance; all transforms are disabled under reduced motion.
 
-### Current State Panel
+### Work Note
 
-- **Structure:** elevated hero-side panel containing the current role, linked employer, a concise work-focus statement, and literally labeled local time and age metadata.
-- **Hierarchy:** the role is the dominant line, while the linked employer forms a quieter secondary line; professional focus follows before subordinate personal metadata.
-- **States:** external employer link uses the standard underlined-link states; the status light is decorative.
-- **Accessibility:** metadata uses visible labels and values; color never carries meaning alone.
+- **Structure:** a quiet hero-side aside with one accent rule, the current role, linked employer, and one plain-language sentence about the work.
+- **Hierarchy:** the role and employer share the dominant line; the supporting sentence remains secondary.
+- **States:** the external employer link uses the standard underlined-link states.
+- **Accessibility:** the aside remains a semantic complementary landmark and does not rely on decorative status indicators.
 
 ### Intro Sequence
 
