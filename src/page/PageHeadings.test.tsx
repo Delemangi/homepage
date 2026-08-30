@@ -27,7 +27,7 @@ describe('page heading hierarchy', () => {
   it.each([
     ['About', <Profile key="profile" />],
     ['Experience & education', <Timeline key="timeline" />],
-    ['Projects & skills', <Portfolio key="portfolio" />],
+    ['Selected work', <Portfolio key="portfolio" />],
   ])('uses an h2 for the %s section', (name, section) => {
     renderWithTheme(section);
 

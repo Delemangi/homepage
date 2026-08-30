@@ -6,9 +6,7 @@ import { createAppTheme } from '../theme';
 import Introduction from './Introduction';
 import Portfolio from './Portfolio';
 
-const HERO_IDENTITY =
-  'STEFAN MILEV · SOFTWARE ENGINEER · SKOPJE, NORTH MACEDONIA';
-const LOCATION_SEGMENT = /^SKOPJE, NORTH MACEDONIA$/u;
+const CURRENT_WORK_PATTERN = /Software engineer at CodeChem/u;
 
 const renderWithTheme = (content: Parameters<typeof render>[0]) =>
   render(
@@ -20,38 +18,32 @@ afterEach(() => {
 });
 
 describe('homepage content hierarchy', () => {
-  it('presents the full identity and current work state', () => {
+  it('opens with the wordmark instead of a resume-style identity line', () => {
     renderWithTheme(<Introduction />);
 
-    const accessibleIdentity = screen.getByText(HERO_IDENTITY);
-    const visualIdentity = accessibleIdentity.parentElement?.querySelector(
-      '[aria-hidden="true"]',
-    );
-    const identitySegments = Array.from(
-      visualIdentity?.querySelectorAll(':scope > span') ?? [],
-    );
+    expect(
+      screen.queryByText(
+        'STEFAN MILEV · SOFTWARE ENGINEER · SKOPJE, NORTH MACEDONIA',
+      ),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Delemangi' }),
+    ).toBeInTheDocument();
+  });
 
-    expect(accessibleIdentity).toHaveStyle({ position: 'absolute' });
-    expect(visualIdentity).not.toBeNull();
-    expect(identitySegments).toHaveLength(3);
-    expect(visualIdentity?.querySelectorAll('wbr')).toHaveLength(2);
-    for (const segment of identitySegments) {
-      expect(segment).toHaveStyle({ whiteSpace: 'nowrap' });
-    }
-    expect(identitySegments[2]).toHaveTextContent(LOCATION_SEGMENT);
-    const currentStatePanel = screen.getByRole('complementary');
+  it('presents current work without dashboard metadata', () => {
+    renderWithTheme(<Introduction />);
 
-    expect(currentStatePanel).toHaveAttribute(
-      'aria-labelledby',
-      'current-state-heading',
+    expect(screen.getByRole('complementary')).toHaveTextContent(
+      CURRENT_WORK_PATTERN,
     );
-    expect(document.querySelector('#current-state-heading')).not.toBeNull();
-    expect(screen.getByText('Software Engineer')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'CodeChem' })).toHaveAttribute(
       'href',
       'https://codechem.com',
     );
-    expect(screen.getByText('AGE')).toBeInTheDocument();
+    expect(screen.queryByText('Now')).not.toBeInTheDocument();
+    expect(screen.queryByText('LOCAL TIME')).not.toBeInTheDocument();
+    expect(screen.queryByText('AGE')).not.toBeInTheDocument();
     expect(screen.queryByText('CURRENT FOCUS')).not.toBeInTheDocument();
     expect(screen.queryByText('Product systems + AI')).not.toBeInTheDocument();
     expect(
@@ -73,6 +65,10 @@ describe('homepage content hierarchy', () => {
   it('presents one curated grid of maintained projects', () => {
     renderWithTheme(<Portfolio />);
 
+    expect(
+      screen.queryByText('Tools I use regularly.'),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText('SolidJS')).not.toBeInTheDocument();
     expect(
       screen.queryByRole('heading', { level: 3, name: 'More open source' }),
     ).not.toBeInTheDocument();
@@ -100,7 +96,7 @@ describe('homepage content hierarchy', () => {
 
     const target = screen.getByRole('heading', {
       level: 2,
-      name: 'Projects & skills',
+      name: 'Selected work',
     });
     const revealWrapper = target.parentElement;
 
