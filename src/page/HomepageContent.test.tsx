@@ -2,6 +2,7 @@ import { ThemeProvider } from '@mui/material';
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { BIRTH_INSTANT } from '../constants';
 import { ThemeModeProvider } from '../context/ThemeModeProvider';
 import { createAppTheme } from '../theme';
 import Homepage from './Homepage';
@@ -250,6 +251,20 @@ describe('supporting homepage content', () => {
     expect(age).toHaveAccessibleName(WHOLE_AGE);
   });
 
+  it('keeps the expanded precision dotted-underlined', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(1_767_225_600_000);
+    renderWithTheme(<SiteFooter />);
+
+    const age = screen.getByRole('button', { name: WHOLE_AGE });
+    const precision = within(age).getByText(DECIMAL_AGE_PATTERN);
+
+    fireEvent.pointerEnter(age, { pointerType: 'mouse' });
+
+    expect(precision.style.textDecoration).toBe('inherit');
+    expect(precision.style.textUnderlineOffset).toBe('inherit');
+  });
+
   it('does not keep precision open after a pointer click', () => {
     vi.useFakeTimers();
     vi.setSystemTime(1_767_225_600_000);
@@ -313,5 +328,26 @@ describe('supporting homepage content', () => {
       vi.advanceTimersByTime(1_000);
     });
     expect(screen.getByRole('button', { name: '25 years old' })).toBeVisible();
+  });
+
+  it('shows zero completed years before the birth instant', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(BIRTH_INSTANT - 1_000);
+    renderWithTheme(<SiteFooter />);
+
+    expect(screen.getByRole('button', { name: '0 years old' })).toBeVisible();
+  });
+
+  it('does not round up before the exact UTC anniversary', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(1_796_684_399_990);
+    renderWithTheme(<SiteFooter />);
+
+    const age = screen.getByRole('button', { name: WHOLE_AGE });
+    expect(age).toBeVisible();
+
+    fireEvent.pointerEnter(age, { pointerType: 'mouse' });
+
+    expect(age).toHaveAccessibleName('24.999999999 years old');
   });
 });

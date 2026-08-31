@@ -3,7 +3,13 @@ import { useEffect, useRef, useState } from 'react';
 
 import { BIRTH_INSTANT } from '../constants';
 
-const BIRTH_YEAR = 2_001;
+const BIRTH_YEAR = Number(
+  new Intl.DateTimeFormat('en-u-nu-latn', {
+    timeZone: 'UTC',
+    year: 'numeric',
+  }).format(BIRTH_INSTANT),
+);
+const AGE_PRECISION_FACTOR = 1_000_000_000;
 const MILLISECONDS_PER_DAY = 86_400_000;
 
 const isLeapYear = (year: number) =>
@@ -11,6 +17,8 @@ const isLeapYear = (year: number) =>
 
 const getAge = () => {
   const now = Date.now();
+  if (now < BIRTH_INSTANT) return 0;
+
   let completedYears = 0;
   let previousAnniversary = BIRTH_INSTANT;
   let nextAnniversary = previousAnniversary;
@@ -47,10 +55,11 @@ const Age = () => {
   }, []);
 
   const showPrecision = focused || hovered || pointerPressed;
-  const preciseAge = age.toFixed(9);
-  const decimalIndex = preciseAge.indexOf('.');
-  const integerAge = preciseAge.slice(0, decimalIndex);
-  const decimalAge = preciseAge.slice(decimalIndex);
+  const preciseAge = (
+    Math.floor(age * AGE_PRECISION_FACTOR) / AGE_PRECISION_FACTOR
+  ).toFixed(9);
+  const integerAge = Math.floor(age).toString();
+  const decimalAge = preciseAge.slice(preciseAge.indexOf('.'));
   const accessibleAge = showPrecision ? preciseAge : integerAge;
 
   return (
@@ -119,6 +128,10 @@ const Age = () => {
       <Box
         aria-hidden="true"
         component="span"
+        style={{
+          textDecoration: 'inherit',
+          textUnderlineOffset: 'inherit',
+        }}
         sx={{
           '@media (prefers-reduced-motion: reduce)': {
             transition: 'none',
