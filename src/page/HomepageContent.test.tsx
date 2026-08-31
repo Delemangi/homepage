@@ -2,7 +2,9 @@ import { ThemeProvider } from '@mui/material';
 import { render, screen, within } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 
+import { ThemeModeProvider } from '../context/ThemeModeProvider';
 import { createAppTheme } from '../theme';
+import Homepage from './Homepage';
 import Introduction from './Introduction';
 import Portfolio from './Portfolio';
 import Profile from './Profile';
@@ -19,6 +21,9 @@ const renderWithTheme = (content: Parameters<typeof render>[0]) =>
 
 afterEach(() => {
   history.replaceState(null, '', '/');
+  localStorage.removeItem('themePreference');
+  Reflect.deleteProperty(document.documentElement.dataset, 'theme');
+  Reflect.deleteProperty(document.documentElement.dataset, 'themePreference');
 });
 
 describe('homepage content hierarchy', () => {
@@ -81,6 +86,14 @@ describe('homepage content hierarchy', () => {
       screen.getByRole('link', { name: 'View finki-hub live site' }),
     ).toHaveAttribute('href', 'https://finki-hub.com');
     expect(
+      screen.getByText(
+        'A community platform of apps, bots, and scrapers that helps FCSE students find the university information they need and automate routine tasks.',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('My personal homepage. You are currently here.'),
+    ).toBeInTheDocument();
+    expect(
       screen.getByRole('link', {
         name: 'View asf-discord-bot source code',
       }),
@@ -128,6 +141,18 @@ describe('homepage content hierarchy', () => {
     expect(chip).not.toBeNull();
     expect(chip).toHaveStyle({ transform: 'none', transition: 'none' });
   });
+
+  it('sizes the timeline surface to its content', () => {
+    render(
+      <ThemeModeProvider>
+        <Homepage />
+      </ThemeModeProvider>,
+    );
+
+    expect(
+      screen.getByRole('region', { name: 'Experience & education' }),
+    ).toHaveStyle({ height: 'auto' });
+  });
 });
 
 describe('supporting homepage content', () => {
@@ -164,6 +189,9 @@ describe('supporting homepage content', () => {
     ).toHaveLength(2);
 
     const footer = within(screen.getByRole('contentinfo'));
+    expect(
+      footer.getByText('Software engineer based in Skopje, North Macedonia'),
+    ).toBeInTheDocument();
     expect(footer.getByRole('link', { name: 'Email' })).toHaveAttribute(
       'href',
       'mailto:milev.stefan@gmail.com',
