@@ -14,6 +14,8 @@ import Timeline from './Timeline';
 const PROFILE_ENGINEERING_PATTERN =
   /frontend, backend, infrastructure, and AI/u;
 const PRECISE_AGE_PATTERN = /^24\.\d{9} years old$/u;
+const DECIMAL_AGE_PATTERN = /^\.\d{9}$/u;
+const WHOLE_AGE = '24 years old';
 
 const renderWithTheme = (content: Parameters<typeof render>[0]) =>
   render(
@@ -216,32 +218,83 @@ describe('supporting homepage content', () => {
     );
   });
 
-  it('discloses a live precise age through pointer, keyboard, and touch input', () => {
+  it('animates live precision for pointer and keyboard input', () => {
     vi.useFakeTimers();
     vi.setSystemTime(1_767_225_600_000);
     renderWithTheme(<SiteFooter />);
 
-    const age = screen.getByRole('button', { name: '24 years old' });
+    const age = screen.getByRole('button', { name: WHOLE_AGE });
+    const precision = within(age).getByText(DECIMAL_AGE_PATTERN);
+    const collapsedClass = precision.className;
 
-    fireEvent.mouseEnter(age);
-    expect(age).toHaveTextContent(PRECISE_AGE_PATTERN);
+    expect(precision).toHaveStyle({ maxWidth: '0px' });
+    expect(getComputedStyle(precision).transition).toContain('max-width');
 
-    const preciseAge = age.textContent;
+    fireEvent.pointerEnter(age, { pointerType: 'mouse' });
+    expect(age).toHaveAccessibleName(PRECISE_AGE_PATTERN);
+    expect(precision.className).not.toBe(collapsedClass);
+
+    const preciseAge = age.getAttribute('aria-label');
     act(() => {
       vi.advanceTimersByTime(1_000);
     });
-    expect(age).not.toHaveTextContent(preciseAge);
+    expect(age).not.toHaveAccessibleName(preciseAge ?? '');
 
-    fireEvent.mouseLeave(age);
-    expect(age).toHaveTextContent('24 years old');
+    fireEvent.pointerLeave(age, { pointerType: 'mouse' });
+    expect(age).toHaveAccessibleName(WHOLE_AGE);
+    expect(precision.className).toBe(collapsedClass);
 
     fireEvent.focus(age);
-    expect(age).toHaveTextContent(PRECISE_AGE_PATTERN);
+    expect(age).toHaveAccessibleName(PRECISE_AGE_PATTERN);
     fireEvent.blur(age);
-    expect(age).toHaveTextContent('24 years old');
+    expect(age).toHaveAccessibleName(WHOLE_AGE);
+  });
 
+  it('does not keep precision open after a pointer click', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(1_767_225_600_000);
+    renderWithTheme(<SiteFooter />);
+
+    const age = screen.getByRole('button', { name: WHOLE_AGE });
+
+    fireEvent.pointerEnter(age, { pointerType: 'mouse' });
+    fireEvent.pointerDown(age, { pointerType: 'mouse' });
+    fireEvent.focus(age);
     fireEvent.click(age);
-    expect(age).toHaveTextContent(PRECISE_AGE_PATTERN);
+    fireEvent.pointerUp(age, { pointerType: 'mouse' });
+    fireEvent.pointerLeave(age, { pointerType: 'mouse' });
+
+    expect(age).toHaveAccessibleName(WHOLE_AGE);
+  });
+
+  it('shows precision only while a pointer is held', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(1_767_225_600_000);
+    renderWithTheme(<SiteFooter />);
+
+    const age = screen.getByRole('button', { name: WHOLE_AGE });
+
+    fireEvent.pointerDown(age, { pointerType: 'touch' });
+    expect(age).toHaveAccessibleName(PRECISE_AGE_PATTERN);
+
+    fireEvent.pointerUp(age, { pointerType: 'touch' });
+    expect(age).toHaveAccessibleName(WHOLE_AGE);
+  });
+
+  it('closes after touch compatibility events complete', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(1_767_225_600_000);
+    renderWithTheme(<SiteFooter />);
+
+    const age = screen.getByRole('button', { name: WHOLE_AGE });
+
+    fireEvent.pointerDown(age, { pointerType: 'touch' });
+    fireEvent.pointerUp(age, { pointerType: 'touch' });
+    fireEvent.pointerEnter(age, { pointerType: 'mouse' });
+    fireEvent.focus(age);
+    fireEvent.click(age, { detail: 1 });
+
+    expect(age).toHaveAccessibleName(WHOLE_AGE);
   });
 
   it('increments completed years at the exact UTC anniversary', () => {
@@ -249,7 +302,7 @@ describe('supporting homepage content', () => {
     vi.setSystemTime(1_796_684_399_000);
     renderWithTheme(<SiteFooter />);
 
-    expect(screen.getByRole('button', { name: '24 years old' })).toBeVisible();
+    expect(screen.getByRole('button', { name: WHOLE_AGE })).toBeVisible();
 
     act(() => {
       vi.advanceTimersByTime(1_000);

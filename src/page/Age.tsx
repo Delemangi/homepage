@@ -1,5 +1,5 @@
-import { Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Box, Typography } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
 
 import { BIRTH_INSTANT } from '../constants';
 
@@ -33,7 +33,8 @@ const Age = () => {
   const [age, setAge] = useState(getAge);
   const [focused, setFocused] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const [pressed, setPressed] = useState(false);
+  const [pointerPressed, setPointerPressed] = useState(false);
+  const pointerFocusRef = useRef(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -45,30 +46,48 @@ const Age = () => {
     };
   }, []);
 
-  const showPrecision = focused || hovered || pressed;
-  const displayedAge = showPrecision
-    ? age.toFixed(9)
-    : Math.floor(age).toString();
+  const showPrecision = focused || hovered || pointerPressed;
+  const preciseAge = age.toFixed(9);
+  const decimalIndex = preciseAge.indexOf('.');
+  const integerAge = preciseAge.slice(0, decimalIndex);
+  const decimalAge = preciseAge.slice(decimalIndex);
+  const accessibleAge = showPrecision ? preciseAge : integerAge;
 
   return (
     <Typography
-      aria-label={`${displayedAge} years old`}
+      aria-label={`${accessibleAge} years old`}
       component="button"
       onBlur={() => {
         setFocused(false);
-        setPressed(false);
       }}
-      onClick={() => {
-        setPressed(true);
+      onClick={(event) => {
+        if (event.detail === 0) return;
+        setFocused(false);
+        setHovered(false);
+        event.currentTarget.blur();
       }}
       onFocus={() => {
-        setFocused(true);
+        if (!pointerFocusRef.current) setFocused(true);
       }}
-      onMouseEnter={() => {
-        setHovered(true);
+      onPointerCancel={() => {
+        setPointerPressed(false);
+        pointerFocusRef.current = false;
       }}
-      onMouseLeave={() => {
-        setHovered(false);
+      onPointerDown={() => {
+        setPointerPressed(true);
+        pointerFocusRef.current = true;
+      }}
+      onPointerEnter={(event) => {
+        if (event.pointerType === 'mouse') setHovered(true);
+      }}
+      onPointerLeave={(event) => {
+        setPointerPressed(false);
+        pointerFocusRef.current = false;
+        if (event.pointerType === 'mouse') setHovered(false);
+      }}
+      onPointerUp={() => {
+        setPointerPressed(false);
+        pointerFocusRef.current = false;
       }}
       sx={{
         '&:focus-visible': {
@@ -96,7 +115,29 @@ const Age = () => {
       }}
       type="button"
     >
-      {displayedAge} years old
+      {integerAge}
+      <Box
+        aria-hidden="true"
+        component="span"
+        sx={{
+          '@media (prefers-reduced-motion: reduce)': {
+            transition: 'none',
+          },
+          display: 'inline-block',
+          maxWidth: showPrecision ? '10em' : '0px',
+          overflow: 'hidden',
+          transition: (theme) =>
+            theme.transitions.create('max-width', {
+              duration: theme.transitions.duration.short,
+              easing: theme.transitions.easing.easeInOut,
+            }),
+          verticalAlign: 'bottom',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {decimalAge}
+      </Box>{' '}
+      years old
     </Typography>
   );
 };
