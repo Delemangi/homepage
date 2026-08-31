@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/material';
-import { render, screen, within } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { ThemeModeProvider } from '../context/ThemeModeProvider';
 import { createAppTheme } from '../theme';
@@ -13,6 +13,7 @@ import Timeline from './Timeline';
 
 const PROFILE_ENGINEERING_PATTERN =
   /frontend, backend, infrastructure, and AI/u;
+const PRECISE_AGE_PATTERN = /^24\.\d{9} years old$/u;
 
 const renderWithTheme = (content: Parameters<typeof render>[0]) =>
   render(
@@ -20,6 +21,7 @@ const renderWithTheme = (content: Parameters<typeof render>[0]) =>
   );
 
 afterEach(() => {
+  vi.useRealTimers();
   history.replaceState(null, '', '/');
   localStorage.removeItem('themePreference');
   Reflect.deleteProperty(document.documentElement.dataset, 'theme');
@@ -212,5 +214,51 @@ describe('supporting homepage content', () => {
       'href',
       'https://github.com/Delemangi/homepage',
     );
+  });
+
+  it('discloses a live precise age through pointer, keyboard, and touch input', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(1_767_225_600_000);
+    renderWithTheme(<SiteFooter />);
+
+    const age = screen.getByRole('button', { name: '24 years old' });
+
+    fireEvent.mouseEnter(age);
+    expect(age).toHaveTextContent(PRECISE_AGE_PATTERN);
+
+    const preciseAge = age.textContent;
+    act(() => {
+      vi.advanceTimersByTime(1_000);
+    });
+    expect(age).not.toHaveTextContent(preciseAge);
+
+    fireEvent.mouseLeave(age);
+    expect(age).toHaveTextContent('24 years old');
+
+    fireEvent.focus(age);
+    expect(age).toHaveTextContent(PRECISE_AGE_PATTERN);
+    fireEvent.blur(age);
+    expect(age).toHaveTextContent('24 years old');
+
+    fireEvent.click(age);
+    expect(age).toHaveTextContent(PRECISE_AGE_PATTERN);
+  });
+
+  it('increments completed years at the exact UTC anniversary', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(1_796_684_399_000);
+    renderWithTheme(<SiteFooter />);
+
+    expect(screen.getByRole('button', { name: '24 years old' })).toBeVisible();
+
+    act(() => {
+      vi.advanceTimersByTime(1_000);
+    });
+    expect(screen.getByRole('button', { name: '25 years old' })).toBeVisible();
+
+    act(() => {
+      vi.advanceTimersByTime(1_000);
+    });
+    expect(screen.getByRole('button', { name: '25 years old' })).toBeVisible();
   });
 });

@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 
 import UnderlinedLink from '../components/UnderlinedLink';
+import Age from './Age';
 
 const FOOTER_LINKS = [
   { href: 'mailto:milev.stefan@gmail.com', label: 'Email' },
@@ -35,6 +36,7 @@ const SiteFooter = () => (
       >
         Software engineer based in Skopje, North Macedonia
       </Typography>
+      <Age />
     </Box>
     <Box
       aria-label="Footer links"
