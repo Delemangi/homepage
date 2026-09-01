@@ -55,6 +55,7 @@ There is one page-level `h1`; sections follow with `h2`, and card titles use `h3
 - Project presentation uses one curated grid of dimensional cards. Only active, substantive work earns a card; narrow utilities and repositories already represented by an organization card are omitted.
 - Technologies appear on the project cards that use them. The page does not include a separate skills inventory.
 - Project cards sharing a desktop grid row stretch to the same visual height while retaining their independent hover translation.
+- The About and experience reading surfaces share one stretched desktop row. Timeline entries divide the available body height evenly, while narrow layouts return to natural card heights.
 - Aurora and tonal overlay layers stay fixed to the viewport while the background container owns vertical scrolling, so no layer edge can appear between sections.
 
 ## 5. Components
