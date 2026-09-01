@@ -57,7 +57,9 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
       display: 'flex',
       flexDirection: 'column',
       gap: 0.75,
-      mb: 1.5,
+      height: { md: '100%', xs: 'auto' },
+      justifyContent: { md: 'center', xs: 'flex-start' },
+      mb: { md: 0, xs: 1.5 },
       padding: 2,
     })}
   >
@@ -134,7 +136,7 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
 );
 
 const Timeline = () => (
-  <Column>
+  <Column sx={{ height: '100%' }}>
     <TextReveal>
       <Typography
         component="h2"
@@ -151,7 +153,15 @@ const Timeline = () => (
         Experience & education
       </Typography>
     </TextReveal>
-    <Box sx={{ width: '100%' }}>
+    <Box
+      sx={{
+        display: { md: 'grid', xs: 'block' },
+        flexGrow: { md: 1, xs: 0 },
+        gap: { md: 1.5, xs: 0 },
+        gridTemplateRows: { md: 'repeat(3, minmax(0, 1fr))' },
+        width: '100%',
+      }}
+    >
       {timeline.map((item) => (
         <TimelineItemComponent
           item={item}

@@ -74,6 +74,9 @@ const Homepage = () => (
           </Box>
           <Box
             sx={{
+              '& > *': {
+                height: { md: '100%', xs: 'auto' },
+              },
               alignItems: 'stretch',
               display: 'grid',
               gap: 3,
@@ -93,7 +96,7 @@ const Homepage = () => (
               <Box
                 aria-labelledby="timeline-heading"
                 component="section"
-                sx={{ ...readingSurfaceSx, height: 'auto' }}
+                sx={readingSurfaceSx}
               >
                 <Timeline />
               </Box>
