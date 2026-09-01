@@ -265,7 +265,7 @@ describe('supporting homepage content', () => {
     expect(precision.style.textUnderlineOffset).toBe('inherit');
   });
 
-  it('does not keep precision open after a pointer click', () => {
+  it('keeps precision open after a mouse click until the pointer leaves', () => {
     vi.useFakeTimers();
     vi.setSystemTime(1_767_225_600_000);
     renderWithTheme(<SiteFooter />);
@@ -275,8 +275,11 @@ describe('supporting homepage content', () => {
     fireEvent.pointerEnter(age, { pointerType: 'mouse' });
     fireEvent.pointerDown(age, { pointerType: 'mouse' });
     fireEvent.focus(age);
-    fireEvent.click(age);
+    fireEvent.click(age, { detail: 1 });
     fireEvent.pointerUp(age, { pointerType: 'mouse' });
+
+    expect(age).toHaveAccessibleName(PRECISE_AGE_PATTERN);
+
     fireEvent.pointerLeave(age, { pointerType: 'mouse' });
 
     expect(age).toHaveAccessibleName(WHOLE_AGE);

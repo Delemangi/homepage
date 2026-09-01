@@ -42,6 +42,7 @@ const Age = () => {
   const [focused, setFocused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [pointerPressed, setPointerPressed] = useState(false);
+  const lastPointerTypeRef = useRef('');
   const pointerFocusRef = useRef(false);
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const Age = () => {
       onClick={(event) => {
         if (event.detail === 0) return;
         setFocused(false);
-        setHovered(false);
+        if (lastPointerTypeRef.current !== 'mouse') setHovered(false);
         event.currentTarget.blur();
       }}
       onFocus={() => {
@@ -82,7 +83,8 @@ const Age = () => {
         setPointerPressed(false);
         pointerFocusRef.current = false;
       }}
-      onPointerDown={() => {
+      onPointerDown={(event) => {
+        lastPointerTypeRef.current = event.pointerType;
         setPointerPressed(true);
         pointerFocusRef.current = true;
       }}
