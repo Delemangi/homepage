@@ -147,16 +147,18 @@ describe('homepage content hierarchy', () => {
     expect(chip).toHaveStyle({ transform: 'none', transition: 'none' });
   });
 
-  it('sizes the timeline surface to its content', () => {
+  it('stretches the paired reading surfaces to the same row height', () => {
     render(
       <ThemeModeProvider>
         <Homepage />
       </ThemeModeProvider>,
     );
 
-    expect(
-      screen.getByRole('region', { name: 'Experience & education' }),
-    ).toHaveStyle({ height: 'auto' });
+    for (const name of ['About', 'Experience & education']) {
+      expect(screen.getByRole('region', { name })).toHaveStyle({
+        height: '100%',
+      });
+    }
   });
 });
 
