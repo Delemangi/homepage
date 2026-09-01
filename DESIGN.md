@@ -83,7 +83,7 @@ There is one page-level `h1`; sections follow with `h2`, and card titles use `h3
 ### Site Footer
 
 - **Structure:** a single quiet divider, a three-line name, role/location, and age signature on the left, and compact text links for contact, selected personal profiles, and source on the right. The age uses the technical typeface and remains visually subordinate.
-- **Behavior:** aligns in one row on desktop and stacks into a readable wrap on narrow screens. The age shows completed years at rest; hover, pointer hold, and keyboard focus reveal nine-decimal progress between UTC anniversary instants, updated once per second within a fixed footprint so the footer never shifts. Pointer release never pins the disclosure open.
+- **Behavior:** aligns in one row on desktop and stacks into a readable wrap on narrow screens. The age shows completed years at rest; hover, pointer hold, and keyboard focus reveal nine-decimal progress between UTC anniversary instants, updated once per second within a fixed footprint so the footer never shifts. Mouse clicks preserve disclosure for the full hover and pointer exit collapses it; touch release never pins the disclosure open.
 - **Accessibility:** links remain descriptive without relying on icons or tooltips. The age disclosure is a native button with a visible focus indicator and an accessible name that follows the displayed value.
 - **Motion:** the decimal portion expands and collapses through the standard short transition; reduced motion makes the state change immediate.
 
