@@ -16,7 +16,7 @@ const StaggeredReveal = ({ children, delay = 0 }: Props) => {
   const showContent = isHashNavigation || reduceMotion || isVisible;
 
   useEffect(() => {
-    let timeout: number | undefined;
+    let timeout: ReturnType<typeof setTimeout> | undefined;
 
     if (reduceMotion) {
       setIsVisible(true);
