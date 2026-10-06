@@ -5,7 +5,7 @@ import { IntroSequence } from '../components/IntroSequence';
 import { NotFoundFallback } from '../components/RouteFallback';
 import Homepage from './Homepage';
 
-const App = () => {
+export default function App() {
   const [showIntro, setShowIntro] = useState(true);
   const isHomepage = location.pathname === '/';
 
@@ -23,6 +23,4 @@ const App = () => {
       ) : null}
     </AppErrorBoundary>
   );
-};
-
-export default App;
+}

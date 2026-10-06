@@ -71,7 +71,7 @@ describe('App startup experience', () => {
     const targetTitle =
       document.querySelector<HTMLElement>('#site-title-target');
 
-    if (!(introTitle instanceof HTMLElement) || targetTitle === null) {
+    if (targetTitle === null || !(introTitle instanceof HTMLElement)) {
       throw new TypeError('Expected both measured title elements to render');
     }
 

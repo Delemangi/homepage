@@ -32,18 +32,18 @@ const HeroCopy = () => (
   </Box>
 );
 
-const Introduction = () => (
-  <Column>
-    <HeroCopy />
-    <Box
-      sx={{
-        marginTop: { md: 5, xs: 4 },
-        width: 'fit-content',
-      }}
-    >
-      <SocialMedia />
-    </Box>
-  </Column>
-);
-
-export default Introduction;
+export default function Introduction() {
+  return (
+    <Column>
+      <HeroCopy />
+      <Box
+        sx={{
+          marginTop: { md: 5, xs: 4 },
+          width: 'fit-content',
+        }}
+      >
+        <SocialMedia />
+      </Box>
+    </Column>
+  );
+}

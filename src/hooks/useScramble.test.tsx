@@ -13,18 +13,16 @@ describe('useTextScramble', () => {
     vi.stubGlobal('requestAnimationFrame', requestAnimationFrame);
     vi.stubGlobal(
       'matchMedia',
-      vi.fn(
-        (query: string): MediaQueryList => ({
-          addEventListener: () => {},
-          addListener: () => {},
-          dispatchEvent: () => false,
-          matches: query === '(prefers-reduced-motion: reduce)',
-          media: query,
-          onchange: null,
-          removeEventListener: () => {},
-          removeListener: () => {},
-        }),
-      ),
+      vi.fn((query: string): MediaQueryList => ({
+        addEventListener: () => {},
+        addListener: () => {},
+        dispatchEvent: () => false,
+        matches: query === '(prefers-reduced-motion: reduce)',
+        media: query,
+        onchange: null,
+        removeEventListener: () => {},
+        removeListener: () => {},
+      })),
     );
     const { result } = renderHook(() => useTextScramble('Delemangi'));
 

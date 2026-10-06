@@ -16,7 +16,7 @@ const supportsViewTransition = (
 ): documentValue is ViewTransitionDocument =>
   'startViewTransition' in documentValue;
 
-const ThemeToggle = () => {
+export default function ThemeToggle() {
   const { mode, toggleMode } = useThemeMode();
   const reduceMotion = useReducedMotion();
   const isDark = mode === 'dark';
@@ -76,6 +76,4 @@ const ThemeToggle = () => {
       </IconButton>
     </Tooltip>
   );
-};
-
-export default ThemeToggle;
+}
