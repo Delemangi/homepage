@@ -3,7 +3,7 @@ import { Link, Typography } from '@mui/material';
 import { AURORA_ANIMATION, SITE_TITLE } from '../constants';
 import { useTextScramble } from '../hooks/useScramble';
 
-const Name = () => {
+export default function Name() {
   const { start, text } = useTextScramble(SITE_TITLE, 700);
 
   return (
@@ -75,6 +75,4 @@ const Name = () => {
       </Link>
     </Typography>
   );
-};
-
-export default Name;
+}

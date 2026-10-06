@@ -112,7 +112,7 @@ const keyFrames = css`
   }
 `;
 
-const GlobalStyle = () => {
+export default function GlobalStyle() {
   const theme = useTheme();
 
   return (
@@ -128,6 +128,4 @@ const GlobalStyle = () => {
       ]}
     />
   );
-};
-
-export default GlobalStyle;
+}

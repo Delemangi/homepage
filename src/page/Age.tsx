@@ -37,7 +37,7 @@ const getAge = () => {
   return completedYears + anniversaryProgress;
 };
 
-const Age = () => {
+export default function Age() {
   const [age, setAge] = useState(getAge);
   const [focused, setFocused] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -155,6 +155,4 @@ const Age = () => {
       years old
     </Typography>
   );
-};
-
-export default Age;
+}

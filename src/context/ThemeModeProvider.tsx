@@ -26,11 +26,7 @@ const isThemePreference = (value: null | string): value is ThemePreference =>
 const getInitialPreference = (): ThemePreference => {
   const raw = localStorage.getItem(PREF_KEY);
 
-  if (isThemePreference(raw)) {
-    return raw;
-  }
-
-  return 'system';
+  return isThemePreference(raw) ? raw : 'system';
 };
 
 const getSystemMode = (): PaletteMode =>

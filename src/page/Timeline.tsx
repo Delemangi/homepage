@@ -135,41 +135,41 @@ const TimelineItemComponent = ({ item }: { readonly item: TimelineItem }) => (
   </Box>
 );
 
-const Timeline = () => (
-  <Column sx={{ height: '100%' }}>
-    <TextReveal>
-      <Typography
-        component="h2"
-        id="timeline-heading"
-        sx={(t) => ({
-          color: t.palette.text.primary,
-          fontSize: 'clamp(28px, 4vw, 40px)',
-          fontWeight: 700,
-          letterSpacing: '-0.035em',
-          lineHeight: 1.12,
-          mb: 2.5,
-        })}
+export default function Timeline() {
+  return (
+    <Column sx={{ height: '100%' }}>
+      <TextReveal>
+        <Typography
+          component="h2"
+          id="timeline-heading"
+          sx={(t) => ({
+            color: t.palette.text.primary,
+            fontSize: 'clamp(28px, 4vw, 40px)',
+            fontWeight: 700,
+            letterSpacing: '-0.035em',
+            lineHeight: 1.12,
+            mb: 2.5,
+          })}
+        >
+          Experience & education
+        </Typography>
+      </TextReveal>
+      <Box
+        sx={{
+          display: { md: 'grid', xs: 'block' },
+          flexGrow: { md: 1, xs: 0 },
+          gap: { md: 1.5, xs: 0 },
+          gridTemplateRows: { md: 'repeat(3, minmax(0, 1fr))' },
+          width: '100%',
+        }}
       >
-        Experience & education
-      </Typography>
-    </TextReveal>
-    <Box
-      sx={{
-        display: { md: 'grid', xs: 'block' },
-        flexGrow: { md: 1, xs: 0 },
-        gap: { md: 1.5, xs: 0 },
-        gridTemplateRows: { md: 'repeat(3, minmax(0, 1fr))' },
-        width: '100%',
-      }}
-    >
-      {timeline.map((item) => (
-        <TimelineItemComponent
-          item={item}
-          key={`${item.type}-${item.position}-${item.startYear}`}
-        />
-      ))}
-    </Box>
-  </Column>
-);
-
-export default Timeline;
+        {timeline.map((item) => (
+          <TimelineItemComponent
+            item={item}
+            key={`${item.type}-${item.position}-${item.startYear}`}
+          />
+        ))}
+      </Box>
+    </Column>
+  );
+}

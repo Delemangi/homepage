@@ -40,12 +40,12 @@ const TextReveal = ({ children, delay = 0, direction = 'up' }: Props) => {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        if (entry?.isIntersecting) {
-          timeoutRef.current = setTimeout(() => {
-            setIsVisible(true);
-          }, delay);
-          observer.unobserve(element);
-        }
+        if (!entry?.isIntersecting) return;
+
+        timeoutRef.current = setTimeout(() => {
+          setIsVisible(true);
+        }, delay);
+        observer.unobserve(element);
       },
       {
         rootMargin: '50px 0px',
