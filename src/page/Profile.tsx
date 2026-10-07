@@ -47,14 +47,6 @@ export default function Profile() {
             target="_blank"
           >
             finki-hub
-          </UnderlinedLink>{' '}
-          and{' '}
-          <UnderlinedLink
-            href="https://learnify.mk"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            learnify.mk
           </UnderlinedLink>
           , along with a few other communities.
         </Typography>

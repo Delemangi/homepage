@@ -171,10 +171,9 @@ describe('supporting homepage content', () => {
       'href',
       'https://finki-hub.com',
     );
-    expect(screen.getByRole('link', { name: 'learnify.mk' })).toHaveAttribute(
-      'href',
-      'https://learnify.mk',
-    );
+    expect(
+      screen.getByRole('link', { name: 'finki-hub' }).closest('p'),
+    ).toHaveTextContent('I run finki-hub, along with a few other communities.');
   });
 
   it('links timeline organizations and every footer destination', () => {
