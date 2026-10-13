@@ -20,14 +20,7 @@ const HeroCopy = () => (
         textWrap: 'balance',
       }}
     >
-      I build software, from{' '}
-      <Box
-        component="span"
-        sx={{ whiteSpace: 'nowrap' }}
-      >
-        web apps
-      </Box>{' '}
-      to cloud infrastructure.
+      I build enterprise software and AI-powered products.
     </Typography>
   </Box>
 );
