@@ -32,23 +32,25 @@ export default function Profile() {
             marginBottom: 2,
           }}
         >
-          I’m Stefan, a software engineer based in Skopje. I work across
-          frontend, backend, infrastructure, and AI, usually with TypeScript or
-          Python. I like tinkering with frontier AI and figuring out what it is
-          actually useful for.
+          I’m Stefan, a software engineer based in Skopje. At CodeChem, I build
+          enterprise applications across industrial software, education, and
+          AI—connecting user-facing products with the services and cloud
+          infrastructure behind them.
         </Typography>
         <Typography
           sx={{ color: 'text.secondary', fontSize: 16, lineHeight: 1.8 }}
         >
-          I run{' '}
+          My work spans full-stack delivery, system integrations, and production
+          AI, with a focus on reliability, maintainability, and automated
+          testing. Outside client work, I run{' '}
           <UnderlinedLink
             href="https://finki-hub.com"
             rel="noopener noreferrer"
             target="_blank"
           >
             finki-hub
-          </UnderlinedLink>
-          , along with a few other communities.
+          </UnderlinedLink>{' '}
+          and contribute to community and open-source projects.
         </Typography>
       </TextReveal>
 

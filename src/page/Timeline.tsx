@@ -35,7 +35,7 @@ const timeline: TimelineItem[] = [
     endYear: '2025',
     organization: 'Faculty of Computer Science and Engineering',
     organizationHref: 'https://www.finki.ukim.mk/en',
-    position: 'MSc in Computer Science',
+    position: 'MSc in Data Science',
     startYear: '2024',
     type: 'education',
   },

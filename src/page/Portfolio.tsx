@@ -7,7 +7,7 @@ import TextReveal from '../components/TextReveal';
 const projects: readonly Project[] = [
   {
     description:
-      'A community platform of apps, bots, and scrapers that helps FCSE students find the university information they need and automate routine tasks.',
+      'A student platform combining university information, workflow automation, and an AI assistant backed by retrieval-augmented generation.',
     hrefCode: 'https://github.com/finki-hub',
     hrefLive: 'https://finki-hub.com',
     tech: [
@@ -24,7 +24,7 @@ const projects: readonly Project[] = [
   },
   {
     description:
-      'A shareable ruleset that keeps my React, TypeScript, and Node.js projects consistent without repeating configuration.',
+      'A shared ESLint configuration for consistent code quality across React, TypeScript, and Node.js projects.',
     hrefCode: 'https://github.com/Delemangi/eslint-config-imperium',
     hrefLive: 'https://www.npmjs.com/package/eslint-config-imperium',
     liveLabel: 'Package',
@@ -32,7 +32,8 @@ const projects: readonly Project[] = [
     title: 'eslint-config-imperium',
   },
   {
-    description: 'My personal homepage. You are currently here.',
+    description:
+      'A personal portfolio built with React and TypeScript, with responsive layouts and accessible interactions.',
     hrefCode: 'https://github.com/Delemangi/homepage',
     hrefLive: 'https://delemangi.com',
     tech: ['React', 'TypeScript', 'Vite', 'Material UI', 'Docker'],
@@ -40,7 +41,7 @@ const projects: readonly Project[] = [
   },
   {
     description:
-      'A Discord control plane for managing several Steam accounts through ArchiSteamFarm without touching each client.',
+      'A Discord integration for managing multiple Steam accounts through ArchiSteamFarm.',
     hrefCode: 'https://github.com/Delemangi/asf-discord-bot',
     tech: ['TypeScript', 'discord.js', 'ArchiSteamFarm', 'Docker'],
     title: 'asf-discord-bot',
@@ -63,7 +64,7 @@ export default function Portfolio() {
             marginBottom: 1.5,
           })}
         >
-          Selected work
+          Open source & community
         </Typography>
       </TextReveal>
 
@@ -77,7 +78,8 @@ export default function Portfolio() {
             maxWidth: '62ch',
           }}
         >
-          A few things I’ve built and still maintain.
+          Alongside enterprise work, I build and maintain these independent
+          projects.
         </Typography>
       </TextReveal>
 

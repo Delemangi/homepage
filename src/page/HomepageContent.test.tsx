@@ -12,8 +12,6 @@ import Profile from './Profile';
 import SiteFooter from './SiteFooter';
 import Timeline from './Timeline';
 
-const PROFILE_ENGINEERING_PATTERN =
-  /frontend, backend, infrastructure, and AI/u;
 const PRECISE_AGE_PATTERN = /^24\.\d{9} years old$/u;
 const DECIMAL_AGE_PATTERN = /^\.\d{9}$/u;
 const WHOLE_AGE = '24 years old';
@@ -52,9 +50,9 @@ describe('homepage content hierarchy', () => {
     expect(
       screen.queryByRole('link', { name: 'CodeChem' }),
     ).not.toBeInTheDocument();
-    expect(screen.getByText('web apps').closest('p')).toHaveTextContent(
-      'I build software, from web apps to cloud infrastructure.',
-    );
+    expect(
+      screen.getByText('I build enterprise software and AI-powered products.'),
+    ).toBeInTheDocument();
     expect(screen.queryByText('Now')).not.toBeInTheDocument();
     expect(screen.queryByText('LOCAL TIME')).not.toBeInTheDocument();
     expect(screen.queryByText('AGE')).not.toBeInTheDocument();
@@ -92,11 +90,13 @@ describe('homepage content hierarchy', () => {
     ).toHaveAttribute('href', 'https://finki-hub.com');
     expect(
       screen.getByText(
-        'A community platform of apps, bots, and scrapers that helps FCSE students find the university information they need and automate routine tasks.',
+        'A student platform combining university information, workflow automation, and an AI assistant backed by retrieval-augmented generation.',
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('My personal homepage. You are currently here.'),
+      screen.getByText(
+        'A personal portfolio built with React and TypeScript, with responsive layouts and accessible interactions.',
+      ),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('link', {
@@ -126,7 +126,7 @@ describe('homepage content hierarchy', () => {
 
     const target = screen.getByRole('heading', {
       level: 2,
-      name: 'Selected work',
+      name: 'Open source & community',
     });
     const revealWrapper = target.parentElement;
 
@@ -166,14 +166,20 @@ describe('supporting homepage content', () => {
   it('covers the approved engineering and community interests', () => {
     renderWithTheme(<Profile />);
 
-    expect(screen.getByText(PROFILE_ENGINEERING_PATTERN)).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'I’m Stefan, a software engineer based in Skopje. At CodeChem, I build enterprise applications across industrial software, education, and AI—connecting user-facing products with the services and cloud infrastructure behind them.',
+      ),
+    ).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'finki-hub' })).toHaveAttribute(
       'href',
       'https://finki-hub.com',
     );
     expect(
       screen.getByRole('link', { name: 'finki-hub' }).closest('p'),
-    ).toHaveTextContent('I run finki-hub, along with a few other communities.');
+    ).toHaveTextContent(
+      'Outside client work, I run finki-hub and contribute to community and open-source projects.',
+    );
   });
 
   it('links timeline organizations and every footer destination', () => {
@@ -353,5 +359,16 @@ describe('supporting homepage content', () => {
     fireEvent.pointerEnter(age, { pointerType: 'mouse' });
 
     expect(age).toHaveAccessibleName('24.999999999 years old');
+  });
+});
+
+describe('education timeline content', () => {
+  it('uses the correct master’s degree wording', () => {
+    renderWithTheme(<Timeline />);
+
+    expect(screen.getByText('MSc in Data Science')).toBeInTheDocument();
+    expect(
+      screen.queryByText('MSc in Computer Science'),
+    ).not.toBeInTheDocument();
   });
 });
