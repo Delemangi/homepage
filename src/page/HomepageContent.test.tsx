@@ -147,18 +147,26 @@ describe('homepage content hierarchy', () => {
     expect(chip).toHaveStyle({ transform: 'none', transition: 'none' });
   });
 
-  it('stretches the paired reading surfaces to the same row height', () => {
+  it('groups the About and Experience regions in one shared reading surface', () => {
     render(
       <ThemeModeProvider>
         <Homepage />
       </ThemeModeProvider>,
     );
 
-    for (const name of ['About', 'Experience & education']) {
-      expect(screen.getByRole('region', { name })).toHaveStyle({
-        height: '100%',
-      });
-    }
+    const about = screen.getByRole('region', { name: 'About' });
+    const experience = screen.getByRole('region', {
+      name: 'Experience & education',
+    });
+    const aboutSurface = about.closest('section:not([aria-labelledby])');
+    const experienceSurface = experience.closest(
+      'section:not([aria-labelledby])',
+    );
+
+    expect(aboutSurface).not.toBeNull();
+    expect(experienceSurface).toBe(aboutSurface);
+    expect(aboutSurface).toContainElement(about);
+    expect(aboutSurface).toContainElement(experience);
   });
 });
 

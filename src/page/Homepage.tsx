@@ -27,7 +27,6 @@ const readingSurfaceSx = {
     theme.palette.mode === 'dark'
       ? '0 24px 72px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
       : '0 24px 72px rgba(61, 28, 43, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.88)',
-  height: '100%',
   padding: { md: 4, xs: 3 },
 } as const;
 
@@ -74,34 +73,47 @@ export default function Homepage() {
               </StaggeredReveal>
             </Box>
             <Box
-              sx={{
-                '& > *': {
-                  height: { md: '100%', xs: 'auto' },
-                },
-                alignItems: 'stretch',
-                display: 'grid',
-                gap: 3,
-                gridTemplateColumns: { md: '0.82fr 1.18fr', xs: '1fr' },
-              }}
+              component="section"
+              sx={readingSurfaceSx}
             >
-              <StaggeredReveal delay={300}>
-                <Box
-                  aria-labelledby="about-heading"
-                  component="section"
-                  sx={readingSurfaceSx}
-                >
-                  <Profile />
-                </Box>
-              </StaggeredReveal>
-              <StaggeredReveal delay={450}>
-                <Box
-                  aria-labelledby="timeline-heading"
-                  component="section"
-                  sx={readingSurfaceSx}
-                >
-                  <Timeline />
-                </Box>
-              </StaggeredReveal>
+              <Box
+                sx={{
+                  display: 'grid',
+                  gap: { md: 5, xs: 4 },
+                  gridTemplateColumns: { md: '1.12fr 0.88fr', xs: '1fr' },
+                }}
+              >
+                <StaggeredReveal delay={300}>
+                  <Box
+                    aria-labelledby="about-heading"
+                    component="section"
+                    sx={{ minWidth: 0 }}
+                  >
+                    <Profile />
+                  </Box>
+                </StaggeredReveal>
+                <StaggeredReveal delay={450}>
+                  <Box
+                    aria-labelledby="timeline-heading"
+                    component="section"
+                    sx={(theme) => ({
+                      borderLeft: {
+                        md: `1px solid ${theme.palette.divider}`,
+                        xs: 0,
+                      },
+                      borderTop: {
+                        md: 0,
+                        xs: `1px solid ${theme.palette.divider}`,
+                      },
+                      minWidth: 0,
+                      pl: { md: 5, xs: 0 },
+                      pt: { md: 0, xs: 4 },
+                    })}
+                  >
+                    <Timeline />
+                  </Box>
+                </StaggeredReveal>
+              </Box>
             </Box>
             <StaggeredReveal delay={600}>
               <Box
