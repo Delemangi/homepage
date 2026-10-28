@@ -33,15 +33,15 @@ Object.defineProperties(globalThis, {
   },
   matchMedia: {
     configurable: true,
-    value: (query: string): MediaQueryList => ({
+    value: (
+      query: string,
+    ): Omit<MediaQueryList, 'addListener' | 'removeListener'> => ({
       addEventListener: () => {},
-      addListener: () => {},
       dispatchEvent: () => false,
       matches: false,
       media: query,
       onchange: null,
       removeEventListener: () => {},
-      removeListener: () => {},
     }),
   },
 });

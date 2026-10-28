@@ -14,7 +14,7 @@ const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
 export const useTextScramble = (target: string, duration = 700) => {
   const reduceMotion = useReducedMotion();
   const [text, setText] = useState(target);
-  const [, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
   const rafRef = useRef<null | number>(null);
   const isRunningRef = useRef(false);
 
@@ -73,6 +73,7 @@ export const useTextScramble = (target: string, duration = 700) => {
     }
 
     isRunningRef.current = false;
+    setIsRunning(false);
   }, [reduceMotion]);
 
   useEffect(
@@ -86,8 +87,8 @@ export const useTextScramble = (target: string, duration = 700) => {
   );
 
   return {
-    isRunning: !reduceMotion && isRunningRef.current,
+    isRunning: !reduceMotion && isRunning,
     start,
-    text: !reduceMotion && isRunningRef.current ? text : target,
+    text: !reduceMotion && isRunning ? text : target,
   } as const;
 };

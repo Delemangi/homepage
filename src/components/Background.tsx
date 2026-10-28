@@ -74,13 +74,13 @@ const StyledBackground = styled(Box)(({ theme }) => {
 
 type Props = Pick<BoxProps, 'children'>;
 
-type RipplePosition = Readonly<{
-  id: number;
-  x: number;
-  y: number;
-}>;
-
 const Background = ({ children }: Props) => {
+  type RipplePosition = Readonly<{
+    id: number;
+    x: number;
+    y: number;
+  }>;
+
   const reduceMotion = useReducedMotion();
   const [ripples, setRipples] = useState<readonly RipplePosition[]>([]);
   const rippleIdRef = useRef(0);
