@@ -8,6 +8,31 @@ afterEach(() => {
 });
 
 describe('useTextScramble', () => {
+  it('cancels the pending animation frame on unmount', () => {
+    const requestAnimationFrame = vi
+      .fn<(callback: FrameRequestCallback) => number>()
+      .mockReturnValueOnce(1)
+      .mockReturnValueOnce(2);
+    const cancelAnimationFrame = vi.fn();
+    vi.stubGlobal('requestAnimationFrame', requestAnimationFrame);
+    vi.stubGlobal('cancelAnimationFrame', cancelAnimationFrame);
+    const { result, unmount } = renderHook(() => useTextScramble('Delemangi'));
+
+    act(() => {
+      result.current.start();
+    });
+    act(() => {
+      requestAnimationFrame.mock.calls[0]?.[0](0);
+    });
+
+    expect(requestAnimationFrame).toHaveBeenCalledTimes(2);
+    expect(result.current.isRunning).toBe(true);
+
+    unmount();
+
+    expect(cancelAnimationFrame).toHaveBeenCalledExactlyOnceWith(2);
+  });
+
   it('prevents same-batch reentry and clears running state on completion', () => {
     const requestAnimationFrame = vi.fn<
       (callback: FrameRequestCallback) => number
@@ -89,10 +114,10 @@ describe('useTextScramble', () => {
         mediaQueryEvents.removeEventListener.bind(mediaQueryEvents),
     };
     vi.stubGlobal('matchMedia', () => mediaQueryList);
-    vi.stubGlobal(
-      'requestAnimationFrame',
-      vi.fn(() => 1),
-    );
+    const requestAnimationFrame = vi.fn<
+      (callback: FrameRequestCallback) => number
+    >(() => 1);
+    vi.stubGlobal('requestAnimationFrame', requestAnimationFrame);
     const cancelAnimationFrame = vi.fn();
     vi.stubGlobal('cancelAnimationFrame', cancelAnimationFrame);
     const { result } = renderHook(() => useTextScramble('Delemangi'));
@@ -124,5 +149,17 @@ describe('useTextScramble', () => {
     });
 
     expect(result.current.isRunning).toBe(true);
+    expect(requestAnimationFrame).toHaveBeenCalledTimes(2);
+
+    act(() => {
+      requestAnimationFrame.mock.calls[1]?.[0](0);
+    });
+    act(() => {
+      requestAnimationFrame.mock.calls[2]?.[0](700);
+    });
+
+    expect(result.current.isRunning).toBe(false);
+    expect(result.current.text).toBe('Delemangi');
+    expect(requestAnimationFrame).toHaveBeenCalledTimes(3);
   });
 });
