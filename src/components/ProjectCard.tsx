@@ -17,11 +17,11 @@ type Props = Readonly<Project>;
 
 const emptyTech: readonly string[] = [];
 
-type ProjectCardPointerEvent = Parameters<
-  NonNullable<BoxProps['onPointerMove']>
->[0];
-
 const useHighlightTracking = () => {
+  type ProjectCardPointerEvent = Parameters<
+    NonNullable<BoxProps['onPointerMove']>
+  >[0];
+
   const highlightBoundsRef = useRef<DOMRect>(null);
 
   const clearHighlight = (event: ProjectCardPointerEvent) => {

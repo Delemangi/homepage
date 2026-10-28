@@ -10,13 +10,13 @@ const EXIT_DELAY_MS = 1_400;
 const COMPLETE_DELAY_MS = 1_750;
 const REDUCED_MOTION_DELAY_MS = 180;
 
-type IntroPhase = 'entering' | 'exiting' | 'handoff';
-
 type Props = Readonly<{
   onComplete: () => void;
 }>;
 
 export const IntroSequence = ({ onComplete }: Props) => {
+  type IntroPhase = 'entering' | 'exiting' | 'handoff';
+
   const theme = useTheme();
   const reduceMotion = useReducedMotion();
   const titleRef = useRef<HTMLDivElement>(null);

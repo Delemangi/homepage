@@ -7,15 +7,13 @@ import Background from './Background';
 
 const createMatchMedia =
   (matches: boolean) =>
-  (query: string): MediaQueryList => ({
+  (query: string): Omit<MediaQueryList, 'addListener' | 'removeListener'> => ({
     addEventListener: () => {},
-    addListener: () => {},
     dispatchEvent: () => false,
     matches,
     media: query,
     onchange: null,
     removeEventListener: () => {},
-    removeListener: () => {},
   });
 
 const renderBackground = () =>

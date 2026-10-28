@@ -25,7 +25,7 @@ const SocialMediaButton = ({
   onClick,
   title,
   tooltipSlotProps,
-  tooltipTitle,
+  tooltipTitle = title,
   type,
 }: SocialMediaButtonProps) => {
   const theme = useTheme();
@@ -75,7 +75,7 @@ const SocialMediaButton = ({
       arrow
       placement="bottom"
       slotProps={tooltipSlotProps}
-      title={tooltipTitle ?? title}
+      title={tooltipTitle}
     >
       <MediaButton
         aria-label={title}

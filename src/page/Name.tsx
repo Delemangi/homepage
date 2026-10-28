@@ -4,7 +4,7 @@ import { AURORA_ANIMATION, SITE_TITLE } from '../constants';
 import { useTextScramble } from '../hooks/useScramble';
 
 export default function Name() {
-  const { start, text } = useTextScramble(SITE_TITLE, 700);
+  const { start, text } = useTextScramble(SITE_TITLE);
 
   return (
     <Typography
