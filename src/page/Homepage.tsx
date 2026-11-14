@@ -59,8 +59,14 @@ export default function Homepage() {
             },
             margin: 'auto',
             minHeight: '100svh',
-            paddingBottom: { md: 12, xs: 8 },
-            paddingTop: { md: 12, xs: 10 },
+            paddingBottom: {
+              md: 12,
+              xs: 'calc(4rem + env(safe-area-inset-bottom, 0px))',
+            },
+            paddingTop: {
+              md: 12,
+              xs: 'calc(5rem + env(safe-area-inset-top, 0px))',
+            },
             paddingX: 0,
             scrollBehavior: 'smooth',
           }}

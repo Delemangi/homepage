@@ -25,7 +25,7 @@
   "name": "homepage",
   "private": true,
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && node scripts/check-csp-hashes.mjs",
     "check": "tsc --noEmit",
     "dev": "vite",
     "format": "eslint . --cache --fix",
