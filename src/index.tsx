@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
+import { AppErrorBoundary } from './components/AppErrorBoundary';
 import { ThemeModeProvider } from './context/ThemeModeProvider';
 import App from './page/App';
 
@@ -17,9 +18,11 @@ const root = document.querySelector('#root');
 if (root !== null) {
   createRoot(root).render(
     <StrictMode>
-      <ThemeModeProvider>
-        <App />
-      </ThemeModeProvider>
+      <AppErrorBoundary>
+        <ThemeModeProvider>
+          <App />
+        </ThemeModeProvider>
+      </AppErrorBoundary>
     </StrictMode>,
   );
 }

@@ -1,4 +1,4 @@
-import { Component, type ReactNode } from 'react';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 import { ErrorFallback } from './RouteFallback';
 
@@ -18,6 +18,12 @@ export class AppErrorBoundary extends Component<
 
   static getDerivedStateFromError(): AppErrorBoundaryState {
     return { hasError: true };
+  }
+
+  // eslint-disable-next-line class-methods-use-this -- React lifecycle hook
+  override componentDidCatch(error: Error, info: ErrorInfo) {
+    // eslint-disable-next-line no-console -- Surface render failures for diagnostics
+    console.error('Unhandled render error', error, info.componentStack);
   }
 
   override render() {
