@@ -199,7 +199,6 @@ const SocialMedia = () => {
             title={item.title}
             tooltipSlotProps={getTooltipSlotProps()}
             tooltipTitle={copyFeedback === undefined ? item.title : ''}
-            type="copy"
           />
         ))}
       </Box>
@@ -227,7 +226,6 @@ const SocialMedia = () => {
             key={item.title}
             title={item.title}
             tooltipSlotProps={getTooltipSlotProps()}
-            type="link"
           />
         ))}
       </Box>
