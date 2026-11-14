@@ -1,6 +1,7 @@
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import { IconButton, Tooltip } from '@mui/material';
+import { flushSync } from 'react-dom';
 
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { useThemeMode } from '../hooks/useThemeMode';
@@ -44,7 +45,10 @@ export default function ThemeToggle() {
             `${rect.top + rect.height / 2}px`,
           );
 
-          const transition = document.startViewTransition(toggleMode);
+          const transition = document.startViewTransition(() => {
+            // eslint-disable-next-line @eslint-react/dom-no-flush-sync -- Commit the theme update inside the view-transition snapshot
+            flushSync(toggleMode);
+          });
           const cleanup = () => {
             root.style.removeProperty('--theme-origin-x');
             root.style.removeProperty('--theme-origin-y');

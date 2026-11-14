@@ -57,6 +57,10 @@ const keyFrames = css`
   }
 
   html {
+    background: #f7f5f8;
+  }
+
+  :root[data-theme='dark'] {
     background: #090b10;
   }
 

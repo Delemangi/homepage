@@ -12,7 +12,6 @@ import Profile from './Profile';
 import SiteFooter from './SiteFooter';
 import Timeline from './Timeline';
 
-const PRECISE_AGE_PATTERN = /^24\.\d{9} years old$/u;
 const DECIMAL_AGE_PATTERN = /^\.\d{9}$/u;
 const WHOLE_AGE = '24 years old';
 
@@ -233,7 +232,9 @@ describe('supporting homepage content', () => {
       'https://github.com/Delemangi/homepage',
     );
   });
+});
 
+describe('age precision', () => {
   it('animates live precision for pointer and keyboard input', () => {
     vi.useFakeTimers();
     vi.setSystemTime(1_767_225_600_000);
@@ -245,25 +246,29 @@ describe('supporting homepage content', () => {
 
     expect(precision).toHaveStyle({ maxWidth: '0px' });
     expect(getComputedStyle(precision).transition).toContain('max-width');
+    expect(age).not.toHaveAttribute('aria-label');
 
     fireEvent.pointerEnter(age, { pointerType: 'mouse' });
-    expect(age).toHaveAccessibleName(PRECISE_AGE_PATTERN);
+    expect(age).toHaveAccessibleName(WHOLE_AGE);
     expect(precision.className).not.toBe(collapsedClass);
 
-    const preciseAge = age.getAttribute('aria-label');
+    const preciseText = precision.textContent;
     act(() => {
       vi.advanceTimersByTime(1_000);
     });
-    expect(age).not.toHaveAccessibleName(preciseAge ?? '');
+    expect(age).toHaveAccessibleName(WHOLE_AGE);
+    expect(precision.textContent).not.toBe(preciseText);
 
     fireEvent.pointerLeave(age, { pointerType: 'mouse' });
     expect(age).toHaveAccessibleName(WHOLE_AGE);
     expect(precision.className).toBe(collapsedClass);
 
     fireEvent.focus(age);
-    expect(age).toHaveAccessibleName(PRECISE_AGE_PATTERN);
+    expect(age).toHaveAccessibleName(WHOLE_AGE);
+    expect(precision.className).not.toBe(collapsedClass);
     fireEvent.blur(age);
     expect(age).toHaveAccessibleName(WHOLE_AGE);
+    expect(precision.className).toBe(collapsedClass);
   });
 
   it('keeps the expanded precision dotted-underlined', () => {
@@ -293,7 +298,8 @@ describe('supporting homepage content', () => {
     fireEvent.click(age, { detail: 1 });
     fireEvent.pointerUp(age, { pointerType: 'mouse' });
 
-    expect(age).toHaveAccessibleName(PRECISE_AGE_PATTERN);
+    expect(age).toHaveAccessibleName(WHOLE_AGE);
+    expect(within(age).getByText(DECIMAL_AGE_PATTERN)).toBeVisible();
 
     fireEvent.pointerLeave(age, { pointerType: 'mouse' });
 
@@ -308,7 +314,8 @@ describe('supporting homepage content', () => {
     const age = screen.getByRole('button', { name: WHOLE_AGE });
 
     fireEvent.pointerDown(age, { pointerType: 'touch' });
-    expect(age).toHaveAccessibleName(PRECISE_AGE_PATTERN);
+    expect(age).toHaveAccessibleName(WHOLE_AGE);
+    expect(within(age).getByText(DECIMAL_AGE_PATTERN)).toBeVisible();
 
     fireEvent.pointerUp(age, { pointerType: 'touch' });
     expect(age).toHaveAccessibleName(WHOLE_AGE);
@@ -366,7 +373,10 @@ describe('supporting homepage content', () => {
 
     fireEvent.pointerEnter(age, { pointerType: 'mouse' });
 
-    expect(age).toHaveAccessibleName('24.999999999 years old');
+    expect(age).toHaveAccessibleName(WHOLE_AGE);
+    expect(within(age).getByText(DECIMAL_AGE_PATTERN)).toHaveTextContent(
+      '.999999999',
+    );
   });
 });
 

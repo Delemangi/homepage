@@ -36,7 +36,6 @@ export default function Homepage() {
       <nav aria-label="Site controls">
         <FloatingBar
           sx={{
-            position: { md: 'fixed', xs: 'absolute' },
             top: {
               sm: 12,
               xs: 'max(12px, env(safe-area-inset-top, 0px) + 12px)',
