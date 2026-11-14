@@ -86,7 +86,11 @@ describe('App startup experience', () => {
     ).toBeCloseTo(
       Number.parseFloat(targetStyle.letterSpacing) / targetFontSize,
     );
-    expect(introStyle.lineHeight).toBe(targetStyle.lineHeight);
+    // Compare proportionally: the titles use different fluid font sizes, and
+    // computed unitless line-heights resolve to px against each font size.
+    expect(
+      Number.parseFloat(introStyle.lineHeight) / introFontSize,
+    ).toBeCloseTo(Number.parseFloat(targetStyle.lineHeight) / targetFontSize);
     expect(
       Number.parseFloat(introStyle.paddingBottom) / introFontSize,
     ).toBeCloseTo(
