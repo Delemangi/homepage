@@ -1,21 +1,19 @@
+import { JSDOM } from 'jsdom';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import process from 'node:process';
 
 const htmlPath = 'dist/index.html';
-const html = readFileSync(htmlPath, 'utf8');
-const scriptPattern = /<script\b[^>]*>(?<content>[\s\S]*?)<\/script\s*>/giu;
-const hashes = [];
+const dom = new JSDOM(readFileSync(htmlPath, 'utf8'));
+const scripts = [...dom.window.document.querySelectorAll('script:not([src])')];
+const hashes = scripts.map(
+  (script) =>
+    `sha256-${createHash('sha256')
+      .update(script.textContent ?? '')
+      .digest('base64')}`,
+);
 
-let match;
-while ((match = scriptPattern.exec(html)) !== null) {
-  if (/\bsrc\s*=/u.test(match[0])) continue;
-
-  const content = match.groups?.content ?? '';
-  hashes.push(
-    `sha256-${createHash('sha256').update(content).digest('base64')}`,
-  );
-}
+dom.window.close();
 
 if (hashes.length === 0) {
   process.stderr.write(`No inline scripts found in ${htmlPath}\n`);
