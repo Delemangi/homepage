@@ -54,20 +54,25 @@ const SocialMediaButton = ({
     },
     '&:hover': {
       filter: `drop-shadow(0 0 8px ${accentColor}40)`,
-      scale: 1.15,
     },
     '&:hover::after': {
       opacity: 1,
       transform: 'translateX(-50%) scale(1)',
     },
+    '&:hover svg': {
+      scale: 1.15,
+    },
+    '& svg': {
+      transition: 'scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+    },
     '@media (prefers-reduced-motion: reduce)': {
       '&::after': { transition: 'none' },
-      '&:hover': { scale: 1 },
+      '&:hover svg': { scale: 1 },
+      '& svg': { transition: 'none' },
       transition: 'none',
     },
     position: 'relative',
-    transition:
-      'filter 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+    transition: 'filter 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   };
 
   return (
