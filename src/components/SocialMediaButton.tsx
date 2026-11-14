@@ -37,6 +37,9 @@ const SocialMediaButton = ({
   const accentColor = accentColors[type];
 
   const buttonStyles: SxProps = {
+    '& .MuiSvgIcon-root': {
+      transition: 'scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+    },
     '&::after': {
       backgroundColor: accentColor,
       borderRadius: '50%',
@@ -54,6 +57,8 @@ const SocialMediaButton = ({
     },
     '&:hover': {
       filter: `drop-shadow(0 0 8px ${accentColor}40)`,
+    },
+    '&:hover .MuiSvgIcon-root': {
       scale: 1.15,
     },
     '&:hover::after': {
@@ -61,13 +66,13 @@ const SocialMediaButton = ({
       transform: 'translateX(-50%) scale(1)',
     },
     '@media (prefers-reduced-motion: reduce)': {
+      '& .MuiSvgIcon-root': { transition: 'none' },
       '&::after': { transition: 'none' },
-      '&:hover': { scale: 1 },
+      '&:hover .MuiSvgIcon-root': { scale: 1 },
       transition: 'none',
     },
     position: 'relative',
-    transition:
-      'filter 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+    transition: 'filter 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   };
 
   return (
