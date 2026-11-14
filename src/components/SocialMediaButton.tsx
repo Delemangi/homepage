@@ -1,11 +1,6 @@
 import type { ComponentType, MouseEventHandler } from 'react';
 
-import {
-  type SxProps,
-  Tooltip,
-  type TooltipProps,
-  useTheme,
-} from '@mui/material';
+import { Tooltip, type TooltipProps } from '@mui/material';
 
 import MediaButton from './MediaButton';
 
@@ -16,7 +11,6 @@ type SocialMediaButtonProps = {
   readonly title: string;
   readonly tooltipSlotProps?: TooltipProps['slotProps'];
   readonly tooltipTitle?: string;
-  readonly type: 'copy' | 'link';
 };
 
 const SocialMediaButton = ({
@@ -26,72 +20,21 @@ const SocialMediaButton = ({
   title,
   tooltipSlotProps,
   tooltipTitle = title,
-  type,
-}: SocialMediaButtonProps) => {
-  const theme = useTheme();
-
-  const accentColors = {
-    copy: theme.palette.info.main,
-    link: theme.palette.primary.main,
-  };
-  const accentColor = accentColors[type];
-
-  const buttonStyles: SxProps = {
-    '&::after': {
-      backgroundColor: accentColor,
-      borderRadius: '50%',
-      bottom: -2,
-      boxShadow: `0 0 8px ${accentColor}`,
-      content: '""',
-      height: 4,
-      left: '50%',
-      opacity: 0,
-      position: 'absolute',
-      transform: 'translateX(-50%) scale(0)',
-      transition:
-        'opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
-      width: 4,
-    },
-    '&:hover': {
-      filter: `drop-shadow(0 0 8px ${accentColor}40)`,
-    },
-    '&:hover::after': {
-      opacity: 1,
-      transform: 'translateX(-50%) scale(1)',
-    },
-    '&:hover svg': {
-      scale: 1.15,
-    },
-    '& svg': {
-      transition: 'scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
-    },
-    '@media (prefers-reduced-motion: reduce)': {
-      '&::after': { transition: 'none' },
-      '&:hover svg': { scale: 1 },
-      '& svg': { transition: 'none' },
-      transition: 'none',
-    },
-    position: 'relative',
-    transition: 'filter 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
-  };
-
-  return (
-    <Tooltip
-      arrow
-      placement="bottom"
-      slotProps={tooltipSlotProps}
-      title={tooltipTitle}
+}: SocialMediaButtonProps) => (
+  <Tooltip
+    arrow
+    placement="bottom"
+    slotProps={tooltipSlotProps}
+    title={tooltipTitle}
+  >
+    <MediaButton
+      aria-label={title}
+      href={href}
+      onClick={onClick}
     >
-      <MediaButton
-        aria-label={title}
-        href={href}
-        onClick={onClick}
-        sx={buttonStyles}
-      >
-        <Icon />
-      </MediaButton>
-    </Tooltip>
-  );
-};
+      <Icon />
+    </MediaButton>
+  </Tooltip>
+);
 
 export default SocialMediaButton;
