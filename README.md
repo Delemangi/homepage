@@ -19,9 +19,7 @@ You can either run `npm run dev` to start a development server, or `npm run buil
 
 ## Deployment security
 
-The Cloudflare Pages `_headers` file sets cache and security headers, including a report-only CSP. The inline theme and JSON-LD scripts are hash-allowed, and `npm run build` verifies those hashes against the built HTML.
-
-CSP stays report-only while Cloudflare HTML/JS transforms are enabled. HSTS is configured at the Cloudflare zone/TLS layer; if the Docker image is exposed directly, add HSTS at the terminating proxy.
+The Cloudflare Pages `_headers` file sets cache headers for hashed assets and static media. Security headers are managed at the Cloudflare zone level, including the managed security-header transform. HSTS is configured at the Cloudflare zone/TLS layer; if the Docker image is exposed directly, add HSTS at the terminating proxy.
 
 ## License
 
