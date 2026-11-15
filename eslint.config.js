@@ -8,7 +8,7 @@ import {
 } from 'eslint-config-imperium';
 
 const config = [
-  { ignores: ['dist', 'vite.config.js'] },
+  { ignores: ['dist'] },
   ...base,
   browser,
   react,
