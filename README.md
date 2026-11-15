@@ -17,10 +17,6 @@ This is my personal homepage, which can currently be found [here](https://delema
 
 You can either run `npm run dev` to start a development server, or `npm run build` and `npm run preview` to build and deploy a server running the application, or check the quick setup from above to run it inside Docker painlessly.
 
-## Deployment security
-
-The Cloudflare Pages `_headers` file sets cache headers for hashed assets and static media. Security headers are managed at the Cloudflare zone level, including the managed security-header transform. HSTS is configured at the Cloudflare zone/TLS layer; if the Docker image is exposed directly, add HSTS at the terminating proxy.
-
 ## License
 
 This project is licensed under the terms of the MIT license.
