@@ -6,7 +6,8 @@ const ColumnContainer = styled(Container)({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   maxWidth: '1180px !important',
-  width: 'min(1180px, calc(100% - 32px))',
+  width:
+    'min(1180px, calc(100% - 32px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)))',
 });
 
 export default ColumnContainer;

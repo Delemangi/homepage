@@ -1,20 +1,10 @@
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import { IconButton, Tooltip } from '@mui/material';
+import { startTransition } from 'react';
 
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { useThemeMode } from '../hooks/useThemeMode';
-
-type ViewTransitionDocument = Document & {
-  readonly startViewTransition: (update: () => void) => {
-    readonly finished: Promise<void>;
-  };
-};
-
-const supportsViewTransition = (
-  documentValue: Document,
-): documentValue is ViewTransitionDocument =>
-  'startViewTransition' in documentValue;
 
 export default function ThemeToggle() {
   const { mode, toggleMode } = useThemeMode();
@@ -28,7 +18,7 @@ export default function ThemeToggle() {
       <IconButton
         aria-label={label}
         onClick={(event) => {
-          if (reduceMotion || !supportsViewTransition(document)) {
+          if (reduceMotion) {
             toggleMode();
             return;
           }
@@ -44,21 +34,9 @@ export default function ThemeToggle() {
             `${rect.top + rect.height / 2}px`,
           );
 
-          const transition = document.startViewTransition(toggleMode);
-          const cleanup = () => {
-            root.style.removeProperty('--theme-origin-x');
-            root.style.removeProperty('--theme-origin-y');
-          };
-          const cleanupWhenFinished = async () => {
-            try {
-              await transition.finished;
-            } catch (error) {
-              if (!(error instanceof Error)) throw error;
-            } finally {
-              cleanup();
-            }
-          };
-          void cleanupWhenFinished();
+          startTransition(() => {
+            toggleMode();
+          });
         }}
         size="small"
       >

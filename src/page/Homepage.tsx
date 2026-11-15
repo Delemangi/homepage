@@ -1,4 +1,5 @@
 import { Box, type Theme } from '@mui/material';
+import { ViewTransition } from 'react';
 
 import Background from '../components/Background';
 import ColumnBox from '../components/ColumnBox';
@@ -13,6 +14,11 @@ import Portfolio from './Portfolio';
 import Profile from './Profile';
 import SiteFooter from './SiteFooter';
 import Timeline from './Timeline';
+
+const cleanupThemeOrigin = () => {
+  document.documentElement.style.removeProperty('--theme-origin-x');
+  document.documentElement.style.removeProperty('--theme-origin-y');
+};
 
 const readingSurfaceSx = {
   backdropFilter: 'blur(20px) saturate(125%)',
@@ -32,103 +38,115 @@ const readingSurfaceSx = {
 
 export default function Homepage() {
   return (
-    <Background>
-      <nav aria-label="Site controls">
-        <FloatingBar
-          sx={{
-            position: { md: 'fixed', xs: 'absolute' },
-            top: {
-              sm: 12,
-              xs: 'max(12px, env(safe-area-inset-top, 0px) + 12px)',
-            },
-          }}
+    <ViewTransition
+      default="none"
+      name="theme-reveal"
+      onUpdate={() => cleanupThemeOrigin}
+      update="auto"
+    >
+      <Background>
+        <nav aria-label="Site controls">
+          <FloatingBar
+            sx={{
+              top: {
+                sm: 12,
+                xs: 'max(12px, env(safe-area-inset-top, 0px) + 12px)',
+              },
+            }}
+          >
+            <ThemeToggle />
+            <SourceLinkButton />
+          </FloatingBar>
+        </nav>
+        <GlobalStyle />
+        <Box
+          component="main"
+          sx={{ position: 'relative', zIndex: 1 }}
         >
-          <ThemeToggle />
-          <SourceLinkButton />
-        </FloatingBar>
-      </nav>
-      <GlobalStyle />
-      <Box
-        component="main"
-        sx={{ position: 'relative', zIndex: 1 }}
-      >
-        <ColumnContainer
-          maxWidth={false}
-          sx={{
-            '@media (prefers-reduced-motion: reduce)': {
-              scrollBehavior: 'auto',
-            },
-            margin: 'auto',
-            minHeight: '100svh',
-            paddingBottom: { md: 12, xs: 8 },
-            paddingTop: { md: 12, xs: 10 },
-            paddingX: 0,
-            scrollBehavior: 'smooth',
-          }}
-        >
-          <ColumnBox>
-            <Box component="header">
-              <StaggeredReveal delay={0}>
-                <Introduction />
-              </StaggeredReveal>
-            </Box>
-            <Box
-              component="section"
-              sx={readingSurfaceSx}
-            >
-              <Box
-                sx={{
-                  display: 'grid',
-                  gap: { md: 5, xs: 4 },
-                  gridTemplateColumns: { md: '1.12fr 0.88fr', xs: '1fr' },
-                }}
-              >
-                <StaggeredReveal delay={300}>
-                  <Box
-                    aria-labelledby="about-heading"
-                    component="section"
-                    sx={{ minWidth: 0 }}
-                  >
-                    <Profile />
-                  </Box>
-                </StaggeredReveal>
-                <StaggeredReveal delay={450}>
-                  <Box
-                    aria-labelledby="timeline-heading"
-                    component="section"
-                    sx={(theme) => ({
-                      borderLeft: {
-                        md: `1px solid ${theme.palette.divider}`,
-                        xs: 0,
-                      },
-                      borderTop: {
-                        md: 0,
-                        xs: `1px solid ${theme.palette.divider}`,
-                      },
-                      minWidth: 0,
-                      pl: { md: 5, xs: 0 },
-                      pt: { md: 0, xs: 4 },
-                    })}
-                  >
-                    <Timeline />
-                  </Box>
+          <ColumnContainer
+            maxWidth={false}
+            sx={{
+              '@media (prefers-reduced-motion: reduce)': {
+                scrollBehavior: 'auto',
+              },
+              margin: 'auto',
+              minHeight: '100svh',
+              paddingBottom: {
+                md: 12,
+                xs: 'calc(4rem + env(safe-area-inset-bottom, 0px))',
+              },
+              paddingTop: {
+                md: 12,
+                xs: 'calc(5rem + env(safe-area-inset-top, 0px))',
+              },
+              paddingX: 0,
+              scrollBehavior: 'smooth',
+            }}
+          >
+            <ColumnBox>
+              <Box component="header">
+                <StaggeredReveal delay={0}>
+                  <Introduction />
                 </StaggeredReveal>
               </Box>
-            </Box>
-            <StaggeredReveal delay={600}>
               <Box
-                aria-labelledby="portfolio-heading"
                 component="section"
+                sx={readingSurfaceSx}
               >
-                <Portfolio />
+                <Box
+                  sx={{
+                    display: 'grid',
+                    gap: { md: 5, xs: 4 },
+                    gridTemplateColumns: { md: '1.12fr 0.88fr', xs: '1fr' },
+                  }}
+                >
+                  <StaggeredReveal delay={300}>
+                    <Box
+                      aria-labelledby="about-heading"
+                      component="section"
+                      sx={{ minWidth: 0 }}
+                    >
+                      <Profile />
+                    </Box>
+                  </StaggeredReveal>
+                  <StaggeredReveal delay={450}>
+                    <Box
+                      aria-labelledby="timeline-heading"
+                      component="section"
+                      sx={(theme) => ({
+                        borderLeft: {
+                          md: `1px solid ${theme.palette.divider}`,
+                          xs: 0,
+                        },
+                        borderTop: {
+                          md: 0,
+                          xs: `1px solid ${theme.palette.divider}`,
+                        },
+                        minWidth: 0,
+                        pl: { md: 5, xs: 0 },
+                        pt: { md: 0, xs: 4 },
+                      })}
+                    >
+                      <Timeline />
+                    </Box>
+                  </StaggeredReveal>
+                </Box>
               </Box>
-            </StaggeredReveal>
-            <StaggeredReveal delay={750}>
-              <SiteFooter />
-            </StaggeredReveal>
-          </ColumnBox>
-        </ColumnContainer>
-      </Box>
-    </Background>
+              <StaggeredReveal delay={600}>
+                <Box
+                  aria-labelledby="portfolio-heading"
+                  component="section"
+                >
+                  <Portfolio />
+                </Box>
+              </StaggeredReveal>
+              <StaggeredReveal delay={750}>
+                <SiteFooter />
+              </StaggeredReveal>
+            </ColumnBox>
+          </ColumnContainer>
+        </Box>
+      </Background>
+    </ViewTransition>
   );
 }

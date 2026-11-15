@@ -6,6 +6,7 @@ import { ThemeModeProvider } from '../context/ThemeModeProvider';
 import App from './App';
 import Name from './Name';
 
+const CONTENT_TEST_ID = 'homepage-content';
 const INTRO_OVERLAY_TEST_ID = 'intro-overlay';
 
 afterEach(() => {
@@ -52,6 +53,7 @@ describe('App startup experience', () => {
       'href',
       '/',
     );
+    expect(screen.getByTestId(CONTENT_TEST_ID)).not.toHaveAttribute('inert');
   });
 
   it('keeps proportional metrics on the measured title elements', () => {
@@ -109,8 +111,8 @@ describe('App startup experience', () => {
     );
 
     expect(screen.getByTestId(INTRO_OVERLAY_TEST_ID)).toBeInTheDocument();
-    expect(screen.getByTestId('homepage-content')).not.toHaveAttribute('inert');
-    expect(screen.getByTestId('homepage-content')).not.toHaveAttribute(
+    expect(screen.getByTestId(CONTENT_TEST_ID)).toHaveAttribute('inert');
+    expect(screen.getByTestId(CONTENT_TEST_ID)).not.toHaveAttribute(
       'aria-hidden',
     );
     expect(screen.getByTestId(INTRO_OVERLAY_TEST_ID)).toHaveAttribute(
@@ -144,8 +146,8 @@ describe('App startup experience', () => {
     });
 
     expect(screen.queryByTestId(INTRO_OVERLAY_TEST_ID)).not.toBeInTheDocument();
-    expect(screen.getByTestId('homepage-content')).not.toHaveAttribute('inert');
-    expect(screen.getByTestId('homepage-content')).not.toHaveAttribute(
+    expect(screen.getByTestId(CONTENT_TEST_ID)).not.toHaveAttribute('inert');
+    expect(screen.getByTestId(CONTENT_TEST_ID)).not.toHaveAttribute(
       'aria-hidden',
     );
 
@@ -174,5 +176,23 @@ describe('App startup experience', () => {
     fireEvent.keyDown(document, { key: 'Escape' });
 
     expect(screen.queryByTestId(INTRO_OVERLAY_TEST_ID)).not.toBeInTheDocument();
+  });
+
+  it('lets users click the skip intro control', () => {
+    vi.useFakeTimers();
+
+    render(
+      <ThemeModeProvider>
+        <App />
+      </ThemeModeProvider>,
+    );
+
+    expect(screen.getByTestId(INTRO_OVERLAY_TEST_ID)).toBeInTheDocument();
+    expect(screen.getByTestId(CONTENT_TEST_ID)).toHaveAttribute('inert');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Skip intro' }));
+
+    expect(screen.queryByTestId(INTRO_OVERLAY_TEST_ID)).not.toBeInTheDocument();
+    expect(screen.getByTestId(CONTENT_TEST_ID)).not.toHaveAttribute('inert');
   });
 });

@@ -11,12 +11,18 @@ const keyFrames = css`
     }
   }
 
-  ::view-transition-old(root) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;
   }
 
-  ::view-transition-new(root) {
+  ::view-transition-old(theme-reveal) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-new(theme-reveal) {
     animation: themeReveal 650ms cubic-bezier(0.16, 1, 0.3, 1);
     clip-path: circle(
       150% at var(--theme-origin-x, 100%) var(--theme-origin-y, 0%)
@@ -48,6 +54,13 @@ const keyFrames = css`
       scroll-behavior: auto !important;
       transition-duration: 0.01ms !important;
     }
+
+    ::view-transition-old(root),
+    ::view-transition-new(root),
+    ::view-transition-old(theme-reveal),
+    ::view-transition-new(theme-reveal) {
+      animation: none !important;
+    }
   }
 
   html,
@@ -57,6 +70,10 @@ const keyFrames = css`
   }
 
   html {
+    background: #f7f5f8;
+  }
+
+  :root[data-theme='dark'] {
     background: #090b10;
   }
 

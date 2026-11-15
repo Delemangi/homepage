@@ -45,27 +45,36 @@ export default function Age() {
   const lastPointerTypeRef = useRef('');
   const pointerFocusRef = useRef(false);
 
+  const showPrecision = focused || hovered || pointerPressed;
+
   useEffect(() => {
-    const interval = setInterval(() => {
+    if (showPrecision) {
       setAge(getAge());
+    }
+
+    const interval = setInterval(() => {
+      setAge((previous) => {
+        const next = getAge();
+
+        return showPrecision || Math.floor(next) !== Math.floor(previous)
+          ? next
+          : previous;
+      });
     }, 1_000);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [showPrecision]);
 
-  const showPrecision = focused || hovered || pointerPressed;
   const preciseAge = (
     Math.floor(age * AGE_PRECISION_FACTOR) / AGE_PRECISION_FACTOR
   ).toFixed(9);
   const integerAge = Math.floor(age).toString();
   const decimalAge = preciseAge.slice(preciseAge.indexOf('.'));
-  const accessibleAge = showPrecision ? preciseAge : integerAge;
 
   return (
     <Typography
-      aria-label={`${accessibleAge} years old`}
       component="button"
       onBlur={() => {
         setFocused(false);

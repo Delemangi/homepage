@@ -4,7 +4,6 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -13,11 +12,51 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="color-scheme" content="light dark" />
     <meta name="author" content="Stefan Milev" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#f7f5f8" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#090b10" media="(prefers-color-scheme: dark)" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const key = 'themePreference';
+        let preference = 'system';
+
+        try {
+          const stored = localStorage.getItem(key);
+          if (stored === 'dark' || stored === 'light' || stored === 'system') {
+            preference = stored;
+          }
+        } catch {
+          // Storage can be unavailable; fall back to the system preference.
+        }
+
+        const prefersDark =
+          typeof matchMedia === 'function' &&
+          matchMedia('(prefers-color-scheme: dark)').matches;
+        const mode =
+          preference === 'system'
+            ? prefersDark
+              ? 'dark'
+              : 'light'
+            : preference;
+        const background = mode === 'dark' ? '#090b10' : '#f7f5f8';
+
+        root.dataset.theme = mode;
+        root.dataset.themePreference = preference;
+        root.style.colorScheme = mode;
+        root.style.backgroundColor = background;
+
+        for (const meta of document.querySelectorAll('meta[name="theme-color"]')) {
+          meta.setAttribute('content', background);
+        }
+      })();
+    </script>
     <meta name="title" content="Stefan Milev" />
     <meta name="description"
       content="Stefan Milev is a software engineer in Skopje working across frontend, backend, infrastructure, and AI." />
@@ -25,7 +64,7 @@
     <meta name="twitter:title" content="Stefan Milev" />
     <meta name="twitter:description"
       content="Software engineer working across frontend, backend, infrastructure, and AI." />
-    <meta name="twitter:image" content="https://delemangi.com/og-image.png" />
+    <meta name="twitter:image" content="https://delemangi.com/og-image.jpg" />
     <meta name="twitter:image:alt"
       content="Delemangi — I build software, from web apps to cloud infrastructure." />
 
@@ -36,8 +75,8 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:description"
       content="Software engineer working across frontend, backend, infrastructure, and AI." />
-    <meta property="og:image" content="https://delemangi.com/og-image.png" />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image" content="https://delemangi.com/og-image.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt"
@@ -50,7 +89,7 @@
         "name": "Stefan Milev",
         "alternateName": "Delemangi",
         "url": "https://delemangi.com/",
-        "image": "https://delemangi.com/og-image.png",
+        "image": "https://delemangi.com/og-image.jpg",
         "jobTitle": "Software Engineer",
         "homeLocation": {
           "@type": "Place",
@@ -68,14 +107,16 @@
         ]
       }
     </script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Sora:wght@400..700&display=swap"
+    />
     <title>Stefan Milev</title>
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Sora:wght@400..700&display=swap" as="style"
-      onload="this.onload=null; this.rel='stylesheet'; document.body.classList.add('fontLoaded')" />
   </body>
 
 </html>
